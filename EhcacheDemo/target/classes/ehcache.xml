@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+• timeToIdleSeconds – The maximum number of seconds an element can exist in the cache without being accessed. The element expires at this limit and will no longer be returned from the cache. The default value is 0, which means no TTI eviction takes place (infinite lifetime).
+• timeToLiveSeconds – The maximum number of seconds an element can exist in the cache regardless of use. The element expires at this limit and will no longer be returned from the cache. The default value is 0, which means no TTL eviction takes place (infinite lifetime).
+• maxElementsOnDisk – The maximum sum total number of elements (cache entries) allowed for a distributed cache in all Terracotta clients. If this target is exceeded, eviction occurs to bring the count within the allowed target. The default value is 0, which means no eviction takes place (infinite size is allowed). Note that this value reflects storage allocated on the Terracotta Server Array. A setting of 0 means that no eviction of the cache's entries takes place on Terracotta Server Array, and consequently can cause the servers to run out of disk space.
+• eternal – If the cache–s eternal flag is set, it overrides any finite TTI/TTL values that have been set. 
+-->
+<ehcache>
+  <defaultCache maxElementsInMemory="10" eternal="false"
+    timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false">
+  </defaultCache>
+  <cache name="demo1" maxElementsInMemory="20000" eternal="false"
+    timeToIdleSeconds="3600" timeToLiveSeconds="1800" overflowToDisk="false" />
+
+  <!-- <terracottaConfig url="localhost:9510"/> -->
+  
+</ehcache>
