@@ -16,17 +16,20 @@ import com.demo.ehcache.utils.EhStringUtils;
  */
 public class EhcacheFactory {
 
-	/*ehcache.xml
-	 * 
+	/*-----------------  ehcache.xml  ----------------------------------------------------
+	 * <ehcache>
 	 *  <diskStore path="java.io.tmpdir/ehcache"/>  
-	 * <defaultCache maxElementsInMemory="10" eternal="false"
-		    timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false">
-	   </defaultCache>
-	   <cache name="demo1" maxElementsInMemory="20000" eternal="false"
-		    timeToIdleSeconds="3600" timeToLiveSeconds="1800" overflowToDisk="false" />
-	*/
+	 *  
+	 *  <defaultCache maxElementsInMemory="10" eternal="false" timeToIdleSeconds="120" 
+	 *                                      timeToLiveSeconds="120" overflowToDisk="false"/>
+	 *                                      
+	 * <cache name="demo1" maxElementsInMemory="20000" eternal="false" timeToIdleSeconds="3600"
+	 *                                      timeToLiveSeconds="1800" overflowToDisk="false" />
+	 *  
+	 * </ehcache>
+	 */
 
-	/**
+	/*
 	 * 默认的cache config
 	 */
 	private static CacheConfiguration defaultCacheConfig() {
@@ -39,9 +42,8 @@ public class EhcacheFactory {
 		return defaultconf;
 	}
 
-	/**
-	 * 配置文件
-	 * @return
+	/*
+	 * master config
 	 */
 	public static Configuration configuration() {
 		Configuration conf = new Configuration();
@@ -49,44 +51,96 @@ public class EhcacheFactory {
 		return conf;
 	}
 
-	/**
+	/*
 	 * cache manager
-	 * @return
 	 */
 	private static CacheManager getInstance() {
-		//return CacheManager.create(configuration());
-		//return CacheManager.create("src/main/resources/ehcache.xml");
+
+		/* CacheManager.create(configuration())
+		 * CacheManager.create("src/main/resources/ehcache.xml")
+		 */
 		return CacheManager.create("src/main/resources/ehcache2.xml");
 	}
 
-	/**
+	/*
+	 * shutdown manager
+	 */
+	private static void shutdownManager() {
+		getInstance().shutdown();
+	}
+
+	/*
 	 * add cache
-	 * @param name cache名
 	 */
 	public static void addCache(String name) {
 		CacheManager manager = getInstance();
 		manager.addCache(name);
 	}
 
-	/**
-	 * add a element for  cache
-	 * @param name -> cache's name
-	 * @param element -> a element 
+	/*
+	 * add one cache
 	 */
-	public static void addCache(String name, Element element) {
-		if (!EhStringUtils.hasText(name) || EhStringUtils.isNull(element)) {
+	public static void addCache(Cache cache) {
+		if (EhStringUtils.isNull(cache)) {
+			throw new NullPointerException("The cache is null !");
+		}
+		CacheManager manager = getInstance();
+		manager.addCache(cache);
+	}
+
+	/*
+	 * add a element for  cache
+	 */
+	public static void addElement(String cacheName, Element element) {
+		if (!EhStringUtils.hasText(cacheName) || EhStringUtils.isNull(element)) {
 			throw new IllegalArgumentException(" Argument have some errors !");
 		}
 		CacheManager manager = getInstance();
-		if (manager.cacheExists(name)) {
-			Cache cache = manager.getCache(name);
+		if (manager.cacheExists(cacheName)) {
+			Cache cache = manager.getCache(cacheName);
 			cache.put(element);
 		} else {
-			throw new NullPointerException("the " + name + " cache is not exist !");
+			throw new NullPointerException("The " + cacheName + " cache is not exist !");
 		}
 	}
 
-	/**
+	public static void removeCache(String cacheName) {
+		if (!EhStringUtils.hasText(cacheName)) {
+			throw new IllegalArgumentException("The cacheName is null !");
+		}
+		CacheManager manager = getInstance();
+		manager.removeCache(cacheName);
+	}
+
+	/*
+	 * remove all caches
+	 */
+	public static void removeAllCaches() {
+		CacheManager manager = getInstance();
+		manager.removeAllCaches();
+	}
+
+	public static void updateElement(String cacheName, Element element) {
+		if (EhStringUtils.isNull(element)) {
+			throw new NullPointerException("The element is null !");
+		}
+
+		CacheManager manager = getInstance();
+		if (!manager.cacheExists(cacheName)) {
+			throw new NullPointerException("The " + cacheName + " cache is not exists!");
+		}
+
+		Cache cache = manager.getCache(cacheName);
+
+		if (!cache.isElementInMemory(element.getObjectKey())) {
+			throw new NullPointerException("The " + element.getObjectKey().toString() + " element is not in "
+					+ cacheName + " cache !");
+		}
+		cache.put(element);
+
+	}
+
+	/*
 	 * get all cache names
 	 */
 	public static String[] getCacheNames() {
@@ -94,25 +148,50 @@ public class EhcacheFactory {
 	}
 
 	public static void main(String args[]) {
-		/*1.遍历 cache names
-		 * addCache("demo");
+		CacheManager manager = getInstance();
+
+		System.out.println("-----------------Ehcache 操作开始-------------------");
+
+		/*-------------------1. iterator cache names-----------------------------------------------------*/
+		System.out.println("<1>");
+		addCache("demo");
 		String names[] = getCacheNames();
 		if (names != null) {
 			for (String name : names) {
 				System.out.println(name);
 			}
-		}*/
+		}
 
-		addCache("app");
-
+		/*------------------2. add and get  one Element to cache----------------------------------------*/
+		System.out.println("<2>");
+		String cacheName_1 = "app";
+		addCache(cacheName_1);
 		long date = System.currentTimeMillis();
 		Element el1 = new Element("key_1", "value_1");
 		Element el2 = new Element("key_2", "value_2", date);
 		Element el3 = new Element("key_3", "alue_3", date, date, date, 0, true, 3600, 0, date);
 
-		addCache("app", el1);
-		addCache("app", el2);
-		addCache("app", el3);
+		addElement(cacheName_1, el1);
+		addElement(cacheName_1, el2);
+		addElement(cacheName_1, el3);
+		System.out.println("The number of cache in manager :" + getCacheNames().length);
+		System.out.println("The number of elements in " + cacheName_1 + " cache :" + manager.getCache("app").getSize());
+		Element element = manager.getCache("app").get("key_1");
+		System.out.println("The " + element.getObjectKey().toString() + " element value is :"
+				+ element.getObjectValue().toString());
 
+		/*-----------------3. add and remove cache-----------------------------------------------------*/
+		System.out.println("<3>");
+
+		String cacheName = "cache_1";
+		Cache cache = new Cache(cacheName, 100, null, false, null, false, 3600, 36000, false, 360, null);
+		addCache(cache);
+		System.out.println("cache_1 is exists :" + manager.cacheExists(cacheName));
+		removeCache("cache_1");
+		System.out.println("cache_1 is exists :" + manager.cacheExists(cacheName));
+		removeAllCaches();
+		//shutdown manager
+		shutdownManager();
+		System.out.println("--------------------ehcache 操作结束--------------------");
 	}
 }
