@@ -1,0 +1,41 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>demo2_3</title>
+<!-----------------------------------------------------
+			
+ 	:contains('key')过滤选择器,获取多个元素中text包含key的那个元素
+
+ ------------------------------------------------------>
+		<meta charset="utf-8" >
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="create by Kyrin">
+		<script src="../js/jquery-2.1.3.js"></script>
+
+		<script>
+		$(document).ready(function(){
+			$("#btn1").click(function(){
+				$("li:contains('豪')").css("color","red");
+  			});
+			 
+		});
+		</script>
+ 
+
+	</head>
+	<body>
+		<div >
+			<div>想吃banana</div>
+			<ul>
+				<li>我是高富帅！</li>
+				<li>我是土豪熊</li>
+				<li>iPone 6 Plus 土豪金</li>
+				<li>小米手机纯金版</li>
+			</ul>
+		</div>
+		<button id="btn1">谁是土豪？</button>
+ 	</body>
+
+</html>

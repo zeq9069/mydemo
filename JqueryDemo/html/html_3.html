@@ -1,0 +1,40 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>demo3</title>
+<!-----------------------------------------------------
+			
+			$("").csss()  and $("").attr() 的练习
+
+------------------------------------------------------>
+		<meta charset="utf-8" >
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="create by Kyrin">
+		<script src="../js/jquery-2.1.3.js"></script>
+ 
+		<script>
+
+		$(document).ready(function(){
+			$("#btn1").click(function(){
+				$("#test").css("color","red").css("height","200px").css("width","500px").css("background-color","#009966");
+			});
+
+			$("#btn2").click(function(){
+				$("#test").attr("id","test2");
+			});
+			 
+		});
+		</script>
+
+	</head>
+	<body>
+		<div id="test">
+			Hello world!
+		</div>
+		<button id="btn1" >changeStyle!</button>
+		<button id="btn2" >status</button>
+ 	</body>
+
+</html>
