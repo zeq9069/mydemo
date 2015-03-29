@@ -10,6 +10,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 /**
@@ -42,8 +43,11 @@ public class EchoServer {
 
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {
-				ByteBuf delimiter=Unpooled.copiedBuffer("$_".getBytes());
-				ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, delimiter));
+				/*  分隔符
+				 ByteBuf delimiter=Unpooled.copiedBuffer("$_".getBytes());
+				 ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, delimiter));
+				*/
+				ch.pipeline().addLast(new FixedLengthFrameDecoder(5));//每次只读取5字节,如果读的是半包关系，会等待下一次请求拼接成一个完整包
 				ch.pipeline().addLast(new StringDecoder());
 				ch.pipeline().addLast(new EchoServerHandler());
 			}

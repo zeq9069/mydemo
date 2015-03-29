@@ -35,9 +35,13 @@ public class EchoServerHandler extends ChannelHandlerAdapter{
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
 		String body=(String)msg;
+		
 		System.out.println("服务端接收到来自客户端的消息："+body);
+		/*分隔符
 		ByteBuf response=Unpooled.copiedBuffer((body+"$_").getBytes());
 		ctx.write(response);
+		*/
+		ctx.write(Unpooled.copiedBuffer(body.getBytes()));
 	}
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {

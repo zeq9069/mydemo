@@ -26,8 +26,11 @@ public class EchoClienHandler extends ChannelHandlerAdapter{
 	private ByteBuf buf;
 	
 	public  EchoClienHandler(String message,String delimiter) {
-		ByteBuf b=Unpooled.copiedBuffer((message+delimiter).getBytes());
+		/*分隔符
+		 * ByteBuf b=Unpooled.copiedBuffer((message+delimiter).getBytes());
 		this.buf=b;
+		*/
+		this.buf=Unpooled.copiedBuffer(message.getBytes());
 	}
 
 	@Override
