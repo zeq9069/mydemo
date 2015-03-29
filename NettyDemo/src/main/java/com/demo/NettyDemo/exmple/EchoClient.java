@@ -35,7 +35,7 @@ public class EchoClient {
 				}
 			});
 
-			ChannelFuture f = b.connect("localhost", 9090).sync();
+			ChannelFuture f = b.connect("127.0.0.1", 9090).sync();
 			f.channel().closeFuture().sync();
 
 		} finally {
@@ -44,7 +44,12 @@ public class EchoClient {
 	}
 
 	public static void main(String s[]) {
-		new EchoClient(256);
+		try {
+			new EchoClient(256).run();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

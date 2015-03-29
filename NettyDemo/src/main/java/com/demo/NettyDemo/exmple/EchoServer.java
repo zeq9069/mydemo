@@ -38,7 +38,7 @@ public class EchoServer {
 				}
 			});
 			ChannelFuture cf = b.bind(9090).sync();
-			cf.channel().close();
+			cf.channel().closeFuture().sync();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
