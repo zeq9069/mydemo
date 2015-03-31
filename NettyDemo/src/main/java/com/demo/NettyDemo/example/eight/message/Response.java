@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Response implements Serializable{
 
 	private static final long serialVersionUID = -294275884091334945L;
-	
+	private  int id;
 	private Object result;
 
 	public Object getResult() {
@@ -27,6 +27,14 @@ public class Response implements Serializable{
 
 	public void setResult(Object result) {
 		this.result = result;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

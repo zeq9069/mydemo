@@ -2,6 +2,7 @@ package com.demo.NettyDemo.example.eight.message;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicInteger;
 /**
  * ********************************
  *    netty 练习
@@ -18,6 +19,7 @@ import java.lang.reflect.Method;
 public class Request implements Serializable{
 	
 	private static final long serialVersionUID = -2924926999454830215L;
+	private  final int id=getAtomic();
 	private String interfaceName;
 	private Method method;
 	private Object[] args;
@@ -39,4 +41,11 @@ public class Request implements Serializable{
 	public void setArgs(Object[] args) {
 		this.args = args;
 	}
+	public int getId() {
+		return id;
+	}
+	private int getAtomic(){
+		return new AtomicInteger(1).incrementAndGet();
+	}
+	
 }

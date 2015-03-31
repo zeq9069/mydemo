@@ -1,20 +1,7 @@
 package com.demo.NettyDemo.example.eight;
 
+import com.demo.NettyDemo.example.eight.factory.ClientFactory;
 import com.demo.NettyDemo.example.eight.message.Request;
-import com.demo.NettyDemo.example.eight.message.Response;
-import com.demo.NettyDemo.example.eight.service.UserService;
-
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 
 /**
  * ********************************
@@ -30,61 +17,18 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
  *
  */
 public class ServiceClient {
-	ChannelFuture future;
-	private static NioEventLoopGroup boss=new NioEventLoopGroup();
-	public void connet(String host,int port){
-		Bootstrap client=new Bootstrap();
-		client.group(boss);
-		client.channel(NioSocketChannel.class);
-		client.option(ChannelOption.SO_KEEPALIVE, false);
-		client.option(ChannelOption.SO_RCVBUF, 1024);
-		client.option(ChannelOption.SO_SNDBUF, 1024);
-		client.option(ChannelOption.TCP_NODELAY, true);
-		client.handler(new ChannelInitializer<SocketChannel>() {
-			@Override
-			protected void initChannel(SocketChannel ch) throws Exception {
-				ch.pipeline().addLast(new ObjectDecoder(1024*1024,ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())));
-				ch.pipeline().addLast(new ObjectEncoder());
-				ch.pipeline().addLast(new ServiceClientHandler());
-			}
-		});
-		
-		try {
-			future=client.connect(host, port).sync();
-			//future.channel().closeFuture().sync();
-		} catch (InterruptedException e) {
-			boss.shutdownGracefully();
-		}
-	}
-	
-	public void stop(){
-		boss.shutdownGracefully();
-	}
-	
-	public Response sendRequest(Request req){
-		final Response res=null;
-		ChannelFuture f=future.channel().writeAndFlush(req);
-		f.addListener(new ChannelFutureListener() {
-			public void operationComplete(ChannelFuture fu) throws Exception {
-				if(fu.isSuccess()){
-					System.out.println("-----");
-				}
-			}
-		});
-		
-		return res;
-	}
-	
-	
-	
+	private static final String host="127.0.0.1";
+	private static final int port=9090;
 	public static void main(String a[]){
-		ServiceClient client=new ServiceClient();
-		client.connet("127.0.0.1", 9090);
-		Request req=new Request();
-		req.setArgs(null);
-		req.setInterfaceName(null);
-		req.setMethod(null);
-		client.sendRequest(req);
-		client.stop();
+		ClientFactory factory=ClientFactory.getInstance();
+		factory.connect(host, port);
+		for(int i=0;i<10;i++){
+			Request request=new Request();
+			request.setArgs(null);
+			request.setInterfaceName(null);
+			request.setMethod(null);
+			factory.sendRequest(request);
+		}
+		factory.stop();
 	}
 }

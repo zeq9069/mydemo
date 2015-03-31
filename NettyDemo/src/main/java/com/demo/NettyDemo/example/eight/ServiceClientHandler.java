@@ -1,5 +1,7 @@
 package com.demo.NettyDemo.example.eight;
 
+import com.demo.NettyDemo.example.eight.handler.AbstractClientHandler;
+
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -16,30 +18,6 @@ import io.netty.channel.ChannelHandlerContext;
  * @date [2015年3月31日]
  *
  */
-public class ServiceClientHandler extends ChannelHandlerAdapter{
-
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-			throws Exception {
-		ctx.close();
-	}
-
-	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		
-	}
-
-	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg)
-			throws Exception {
-		
-	}
-
-	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		
-	}
-	
-	
+public class ServiceClientHandler extends AbstractClientHandler{
 
 }

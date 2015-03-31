@@ -1,7 +1,4 @@
-package com.demo.NettyDemo.example.eight;
-
-import com.demo.NettyDemo.example.eight.factory.ServerFactory;
-
+package com.demo.NettyDemo.example.eight.factory;
 /**
  * ********************************
  *    netty 练习
@@ -15,10 +12,9 @@ import com.demo.NettyDemo.example.eight.factory.ServerFactory;
  * @date [2015年3月31日]
  *
  */
-public class ServiceServer {
+public interface Server {
 	
-	public static void main(String a[]){
-		ServerFactory server=ServerFactory.getInstance();
-		server.start(9090);
-	}
+	public void start(int port);
+	public void stop();
+
 }
