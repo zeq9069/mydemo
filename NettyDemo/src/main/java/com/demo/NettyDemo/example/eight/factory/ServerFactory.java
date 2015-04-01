@@ -1,4 +1,6 @@
 package com.demo.NettyDemo.example.eight.factory;
+
+
 /**
  * ********************************
  *    netty 练习
@@ -14,11 +16,11 @@ package com.demo.NettyDemo.example.eight.factory;
  */
 public class ServerFactory extends AbstractServerFactory{
 
-	private static  ServerFactory factory=null;
-	public static ServerFactory getInstance(){
-		if(factory==null){
-			return new ServerFactory();
-		}
-		return factory;
+	private static class SingletonHolder {
+		static final ServerFactory instance = new ServerFactory();
+	}
+
+	public static ServerFactory getInstance() {
+		return SingletonHolder.instance;
 	}
 }

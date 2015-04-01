@@ -29,6 +29,6 @@ public class ServiceClient {
 			request.setMethod(null);
 			factory.sendRequest(request);
 		}
-		factory.stop();
+		//factory.stop();
 	}
 }

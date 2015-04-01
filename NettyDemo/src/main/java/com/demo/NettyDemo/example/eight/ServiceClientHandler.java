@@ -2,8 +2,6 @@ package com.demo.NettyDemo.example.eight;
 
 import com.demo.NettyDemo.example.eight.handler.AbstractClientHandler;
 
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
 
 /**
  * ********************************

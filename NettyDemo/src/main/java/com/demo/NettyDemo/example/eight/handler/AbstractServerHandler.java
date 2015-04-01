@@ -1,7 +1,6 @@
 package com.demo.NettyDemo.example.eight.handler;
 
 import com.demo.NettyDemo.example.eight.message.Request;
-
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -23,17 +22,22 @@ public class AbstractServerHandler extends ChannelHandlerAdapter{
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
 		ctx.close();
+		System.out.println("[服务端异常退出]");
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		super.channelActive(ctx);
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
 		System.out.println("服务端接收到消息ID："+((Request)msg).getId());
+		handlerRequest(ctx,(Request)msg);
+	}
+	
+	private void handlerRequest(ChannelHandlerContext ctx, Request request){
+		//TODO 启动线程池中的县城去处理逻辑[处理request---->封装response------>ctx发送response]
 	}
 
 	@Override

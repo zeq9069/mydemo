@@ -1,6 +1,7 @@
 package com.demo.NettyDemo.example.eight.handler;
 
 import com.demo.NettyDemo.example.eight.factory.ClientFactory;
+import com.demo.NettyDemo.example.eight.message.Request;
 import com.demo.NettyDemo.example.eight.message.Response;
 
 import io.netty.channel.ChannelHandlerAdapter;
@@ -25,12 +26,11 @@ public abstract class AbstractClientHandler extends ChannelHandlerAdapter{
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
 		System.out.println("[客户端异常退出]");
-		ctx.close();
+		ctx.channel().close();
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		super.channelActive(ctx);
 	}
 
 	@Override
@@ -39,10 +39,9 @@ public abstract class AbstractClientHandler extends ChannelHandlerAdapter{
 		if(!(msg instanceof Response)){
 			System.out.println("客户端接收消息异常");
 		}
-		Response response=(Response)msg;
-		ClientFactory.getInstance().receiveResponse(response);
+		System.out.println("[客户端接收到服务端的消息]："+msg.toString());
 	}
-
+	
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.flush();

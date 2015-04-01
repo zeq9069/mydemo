@@ -1,11 +1,6 @@
 package com.demo.NettyDemo.example.eight;
 
 import com.demo.NettyDemo.example.eight.handler.AbstractServerHandler;
-import com.demo.NettyDemo.example.eight.message.Request;
-import com.demo.NettyDemo.example.eight.message.Response;
-
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
 
 /**
  * ********************************

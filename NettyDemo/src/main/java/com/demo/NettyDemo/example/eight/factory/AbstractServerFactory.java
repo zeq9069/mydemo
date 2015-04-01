@@ -9,6 +9,7 @@ import com.demo.NettyDemo.example.eight.message.Response;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -36,7 +37,7 @@ public abstract class AbstractServerFactory implements Server{
 	private final NioEventLoopGroup bossGroup=new NioEventLoopGroup();
 	private final NioEventLoopGroup workGroup=new NioEventLoopGroup();
 	private ChannelFuture future=null;
-	private Map<Integer,Request> requestMap=new HashMap<Integer, Request>();
+	private static Map<Integer,Request> requestMap=new HashMap<Integer, Request>();
 	private static Map<String,String> classMap=new HashMap<String, String>();
 	static{
 		classMap.put("com.demo.NettyDemo.example.eight.service.UserService","com.demo.NettyDemo.example.eight.UserServiceImpl");
@@ -74,7 +75,15 @@ public abstract class AbstractServerFactory implements Server{
 		workGroup.shutdownGracefully();
 	}
 	public void sendResponse(Response response){
-		future.channel().writeAndFlush(response);
+		ChannelFuture f=future.channel().writeAndFlush(response);
+		f.addListener(new ChannelFutureListener() {
+			public void operationComplete(ChannelFuture future) throws Exception {
+				System.out.println("[---->]");
+				if(future.isSuccess()){
+					System.out.println("[---->]");
+				}
+			}
+		});
 	}
 	public void receiveRequest(Request request){
 		requestMap.put(request.getId(), request);
@@ -85,4 +94,8 @@ public abstract class AbstractServerFactory implements Server{
 	public void removeRequest(Request request){
 		requestMap.remove(request);
 	}
+	public boolean isEmpty(){
+		return requestMap.isEmpty();
+	}
+	
 }
