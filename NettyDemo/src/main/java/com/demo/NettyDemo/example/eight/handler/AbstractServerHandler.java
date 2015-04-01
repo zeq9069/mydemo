@@ -1,6 +1,14 @@
 package com.demo.NettyDemo.example.eight.handler;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+
 import com.demo.NettyDemo.example.eight.message.Request;
+import com.demo.NettyDemo.example.eight.message.Response;
+import com.demo.NettyDemo.example.eight.thread.HandlerRequestTask;
+import com.demo.NettyDemo.example.eight.thread.ThreadFactory;
+
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -38,6 +46,19 @@ public class AbstractServerHandler extends ChannelHandlerAdapter{
 	
 	private void handlerRequest(ChannelHandlerContext ctx, Request request){
 		//TODO 启动线程池中的县城去处理逻辑[处理request---->封装response------>ctx发送response]
+		ExecutorService service=ThreadFactory.getInstance().getExecutor();
+		Future<Response> future=service.submit(new HandlerRequestTask(request));
+		Response response=null;
+		try {
+			response = future.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ctx.writeAndFlush(response);
 	}
 
 	@Override

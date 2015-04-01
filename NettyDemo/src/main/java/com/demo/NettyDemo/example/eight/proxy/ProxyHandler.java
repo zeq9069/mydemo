@@ -3,7 +3,6 @@ package com.demo.NettyDemo.example.eight.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-import com.demo.NettyDemo.example.eight.message.Request;
 
 /**
  * ********************************
