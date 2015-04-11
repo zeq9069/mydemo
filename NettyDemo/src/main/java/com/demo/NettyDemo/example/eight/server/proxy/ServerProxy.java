@@ -1,8 +1,4 @@
-package com.demo.NettyDemo.example.eight;
-
-import com.demo.NettyDemo.example.eight.handler.AbstractClientHandler;
-
-
+package com.demo.NettyDemo.example.eight.server.proxy;
 /**
  * ********************************
  *    netty 练习
@@ -13,9 +9,9 @@ import com.demo.NettyDemo.example.eight.handler.AbstractClientHandler;
  * ********************************
  * @author kyrin kyrincloud@qq.com 
  *
- * @date [2015年3月31日]
+ * @date [2015年4月8日]
  *
  */
-public class ServiceClientHandler extends AbstractClientHandler{
+public class ServerProxy {
 
 }

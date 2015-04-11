@@ -1,7 +1,6 @@
 package com.demo.NettyDemo.example.eight.message;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicInteger;
 /**
  * ********************************
@@ -9,6 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *    
  *   RPC：利用JDK和cglib实现远程服务调用
  *   编码：java序列化编码
+ *   
+ *   不单单Request要序列化，类中的属性也需要是序列化的
  *
  * ********************************
  * @author kyrin kyrincloud@qq.com 
@@ -18,22 +19,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Request implements Serializable{
 	
+	
 	private static final long serialVersionUID = -2924926999454830215L;
 	private  final int id=getAtomic();
 	private String interfaceName;
-	private Method method;
 	private Object[] args;
 	public String getInterfaceName() {
 		return interfaceName;
 	}
 	public void setInterfaceName(String interfaceName) {
 		this.interfaceName = interfaceName;
-	}
-	public Method getMethod() {
-		return method;
-	}
-	public void setMethod(Method method) {
-		this.method = method;
 	}
 	public Object[] getArgs() {
 		return args;

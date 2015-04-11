@@ -1,11 +1,4 @@
-package com.demo.NettyDemo.example.eight.factory;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import com.demo.NettyDemo.example.eight.ServiceServerHandler;
-import com.demo.NettyDemo.example.eight.message.Request;
-import com.demo.NettyDemo.example.eight.message.Response;
+package com.demo.NettyDemo.example.eight.server.factory;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,6 +11,13 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.demo.NettyDemo.example.eight.message.Response;
+import com.demo.NettyDemo.example.eight.server.handler.ServiceServerHandler;
+
 
 /**
  * ********************************
@@ -32,12 +32,13 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
  * @date [2015年3月31日]
  *
  */
-public abstract class AbstractServerFactory implements Server{
-
+public class ServerFactory extends AbstractServerFactory{
+	
+	
+	
 	private final NioEventLoopGroup bossGroup=new NioEventLoopGroup();
 	private final NioEventLoopGroup workGroup=new NioEventLoopGroup();
 	private ChannelFuture future=null;
-	private static Map<Integer,Request> requestMap=new HashMap<Integer, Request>();
 	private static Map<String,String> classMap=new HashMap<String, String>();
 	static{
 		classMap.put("com.demo.NettyDemo.example.eight.service.UserService","com.demo.NettyDemo.example.eight.UserServiceImpl");
@@ -60,12 +61,12 @@ public abstract class AbstractServerFactory implements Server{
 			}
 		});
 		try {
-			System.out.println("--------------服务端启动--------------------");
+			System.out.println("--------------服务端启动---------------------");
 			future=server.bind(port).sync();
 			System.out.println("create by: kyrin(云中鹤) kyrincloud@qq.com");
 			System.out.println("--------------服务端启动完毕------------------");
 		} catch (InterruptedException e) {
-			System.out.println("--------------服务端启动失败-----------------");
+			System.out.println("--------------服务端启动失败------------------");
 			bossGroup.shutdownGracefully();
 			workGroup.shutdownGracefully();
 		}
@@ -78,24 +79,21 @@ public abstract class AbstractServerFactory implements Server{
 		ChannelFuture f=future.channel().writeAndFlush(response);
 		f.addListener(new ChannelFutureListener() {
 			public void operationComplete(ChannelFuture future) throws Exception {
-				System.out.println("[---->]");
 				if(future.isSuccess()){
-					System.out.println("[---->]");
+					System.out.println("[服务端发送response成功]");
+				}else{
+					System.out.println("[服务端发送response失败]");
+					future.cause().printStackTrace();
 				}
 			}
 		});
 	}
-	public void receiveRequest(Request request){
-		requestMap.put(request.getId(), request);
+
+	private static class SingletonHolder {
+		static final ServerFactory instance = new ServerFactory();
 	}
-	public Request getRequest(int id){
-		return requestMap.remove(id);
+
+	public static ServerFactory getInstance() {
+		return SingletonHolder.instance;
 	}
-	public void removeRequest(Request request){
-		requestMap.remove(request);
-	}
-	public boolean isEmpty(){
-		return requestMap.isEmpty();
-	}
-	
 }

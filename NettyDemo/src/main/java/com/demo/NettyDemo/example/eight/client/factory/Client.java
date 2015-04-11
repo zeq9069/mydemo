@@ -1,6 +1,4 @@
-package com.demo.NettyDemo.example.eight;
-
-import com.demo.NettyDemo.example.eight.handler.AbstractServerHandler;
+package com.demo.NettyDemo.example.eight.client.factory;
 
 /**
  * ********************************
@@ -15,6 +13,9 @@ import com.demo.NettyDemo.example.eight.handler.AbstractServerHandler;
  * @date [2015年3月31日]
  *
  */
-public class ServiceServerHandler extends AbstractServerHandler{
+public interface Client {
+	
+	public void connect(String host,int port);
+	public void stop();
 
 }

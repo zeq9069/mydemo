@@ -1,4 +1,6 @@
-package com.demo.NettyDemo.example.eight.factory;
+package com.demo.NettyDemo.example.eight.server;
+
+import com.demo.NettyDemo.example.eight.server.factory.ServerFactory;
 
 /**
  * ********************************
@@ -13,9 +15,10 @@ package com.demo.NettyDemo.example.eight.factory;
  * @date [2015年3月31日]
  *
  */
-public interface Client {
+public class ServiceServer {
 	
-	public void connect(String host,int port);
-	public void stop();
-
+	public static void main(String a[]){
+		ServerFactory server=ServerFactory.getInstance();
+		server.start(9090);
+	}
 }

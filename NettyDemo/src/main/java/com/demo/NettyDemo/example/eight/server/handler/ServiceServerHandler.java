@@ -1,4 +1,7 @@
-package com.demo.NettyDemo.example.eight.handler;
+  package com.demo.NettyDemo.example.eight.server.handler;
+
+import io.netty.channel.ChannelHandlerAdapter;
+import io.netty.channel.ChannelHandlerContext;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -8,9 +11,6 @@ import com.demo.NettyDemo.example.eight.message.Request;
 import com.demo.NettyDemo.example.eight.message.Response;
 import com.demo.NettyDemo.example.eight.thread.HandlerRequestTask;
 import com.demo.NettyDemo.example.eight.thread.ThreadFactory;
-
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
 
 /**
  * ********************************
@@ -25,16 +25,17 @@ import io.netty.channel.ChannelHandlerContext;
  * @date [2015年3月31日]
  *
  */
-public class AbstractServerHandler extends ChannelHandlerAdapter{
+public class ServiceServerHandler extends ChannelHandlerAdapter{
+	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
 		ctx.close();
-		System.out.println("[服务端异常退出]");
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		System.out.println("[服务端接收到新的请求]");
 	}
 
 	@Override
@@ -52,10 +53,8 @@ public class AbstractServerHandler extends ChannelHandlerAdapter{
 		try {
 			response = future.get();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ctx.writeAndFlush(response);
@@ -65,4 +64,5 @@ public class AbstractServerHandler extends ChannelHandlerAdapter{
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.flush();
 	}
+
 }
