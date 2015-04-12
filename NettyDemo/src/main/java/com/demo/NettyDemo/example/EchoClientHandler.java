@@ -12,12 +12,12 @@ import java.util.logging.Logger;
  * @author lenovo
  *
  */
+@SuppressWarnings("unused")
 public class EchoClientHandler extends ChannelHandlerAdapter {
 	private static final Logger logger = Logger.getLogger(EchoClientHandler.class.getName());
 	private final ByteBuf firstMessage;
 
 	public EchoClientHandler(int firstMessageSize) {
-		// TODO Auto-generated constructor stub
 		if (firstMessageSize <= 0) {
 			throw new IllegalArgumentException("firstMessageSize: " + firstMessageSize);
 		}
@@ -29,25 +29,21 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		// TODO Auto-generated method stub
 		super.exceptionCaught(ctx, cause);
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		// TODO Auto-generated method stub
 		super.channelActive(ctx);
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		// TODO Auto-generated method stub
 		super.channelRead(ctx, msg);
 	}
 
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		// TODO Auto-generated method stub
 		super.channelReadComplete(ctx);
 	}
 
