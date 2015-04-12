@@ -1,4 +1,4 @@
-package com.demo.NettyDemo.exmple.four;
+package com.demo.NettyDemo.example.five;
 
 
 import io.netty.bootstrap.Bootstrap;
@@ -9,13 +9,16 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 
 /**
- * ***********************
+ * ***********************************
  *   netty 练习
  *
- *
- * ***********************
+ *  利用LineBaseFrameDecoder解决 TCP粘包
+ *  
+ * **********************************
  * @author kyrin kyrincloud@qq.com 
  *
  * @date [2015年3月29日]
@@ -33,6 +36,8 @@ public class TimeClient {
 		client.handler(new ChannelInitializer<SocketChannel>() {
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {
+				ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
+				ch.pipeline().addLast(new StringDecoder());
 				ch.pipeline().addLast(new TimeClientHandler("time"));
 			}
 		});

@@ -1,4 +1,4 @@
-package com.demo.NettyDemo.exmple;
+package com.demo.NettyDemo.example;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
