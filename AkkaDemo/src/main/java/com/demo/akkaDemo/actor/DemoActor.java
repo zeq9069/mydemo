@@ -1,5 +1,6 @@
 package com.demo.akkaDemo.actor;
 
+import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
@@ -11,12 +12,12 @@ import akka.event.LoggingAdapter;
  */
 public class DemoActor extends UntypedActor {
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-
 	@Override
 	public void onReceive(Object message) throws Exception {
 		// TODO Auto-generated method stub
 		if (message instanceof String) {
-			log.info("Received String message : {}", message);
+			log.info("Received String message : {},{}", message,Thread.currentThread().getName());
+			getSender().tell("Hello", ActorRef.noSender());
 		} else {
 			unhandled(message);
 		}
