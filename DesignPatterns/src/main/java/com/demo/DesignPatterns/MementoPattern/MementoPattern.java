@@ -22,16 +22,16 @@ public class MementoPattern {
 		or.setValue("Kyrin");
 		Storage st=new Storage(or.createMemento());
 		
-		System.out.println(String.format("The value is %s", or.getValue()));
+		System.out.println(String.format("初始化状态：The value is %s", or.getValue()));
 		
 		or.setValue("Jack");
 		
-		System.out.println(String.format("The value is %s", or.getValue()));
+		System.out.println(String.format("修改后的状态：The value is %s", or.getValue()));
 
 		
 		or.restoreMemento(st.getMemento());
 		
-		System.out.println(String.format("The value is %s", or.getValue()));
+		System.out.println(String.format("回复后的状态：The value is %s", or.getValue()));
 
 		
 		
