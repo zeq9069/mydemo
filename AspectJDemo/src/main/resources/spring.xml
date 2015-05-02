@@ -13,7 +13,7 @@
 	
 	<!-- <bean id="dataSourceAspect" class="com.demo.AspectJDemo.DataSourceAspect"></bean> -->
 	
-	<!-- 只用cglib代理，替换掉默认的JDK动态代理 -->
+	<!-- 只用cglib代理，替换掉默认的JDK动态代理-->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
 </beans>

@@ -10,12 +10,13 @@ import com.demo.AspectJDemo.service.UserService;
 public class UserServiceImpl implements UserService{
 
 	@ChangeFor(value="master")
-	public void create() {
+	public String create() {
 		System.out.println("Starting create a new User !");
+		return "success";
 	}
 	
 	@ChangeFor(value="master")
-	public void delete() {
+	public void delete(String id) {
 		System.out.println("Starting dalete a new User !");
 	}
 
