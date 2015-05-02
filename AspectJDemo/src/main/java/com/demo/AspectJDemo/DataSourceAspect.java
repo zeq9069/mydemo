@@ -1,12 +1,20 @@
 package com.demo.AspectJDemo;
 
+import java.lang.reflect.Method;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+
+import com.demo.AspectJDemo.annotation.ChangeFor;
 
 /**
  * ***********************
@@ -28,7 +36,7 @@ public class DataSourceAspect {
 	public void pointcut(){
 	}
 	
-	@Before(value="pointcut()")
+	/*@Before(value="pointcut()")
 	public void before(){
 		System.out.println("Aspect before is running !");
 	}
@@ -54,7 +62,22 @@ public class DataSourceAspect {
 	public void afterThrowing(Exception ex){
 		System.out.println("The target method return exception : "+ex.getMessage());
 	}
+	*/
 	
+	@Around(value="pointcut()")
+	public void around(ProceedingJoinPoint pj) throws Throwable{
+		System.out.println("The Around has been start !");
+		MethodSignature sig=(MethodSignature) pj.getSignature();
+		//获取被拦截的方法
+		Method method=sig.getMethod();
+		
+		//获取被拦截方法的参数
+		Object[] args= pj.getArgs();
+		ChangeFor changeFor=method.getAnnotation(ChangeFor.class);
+		System.out.println("切换到数据源："+changeFor.value());
+		pj.proceed();
+		System.out.println("The Around has been stop !");
+	}
 	
 	
 }

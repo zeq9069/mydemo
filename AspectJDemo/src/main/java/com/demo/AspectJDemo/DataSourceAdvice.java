@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * ***********************
  * 
- *   spring aop
+ *   spring aop（暂时没有用到）
  *   
  *   实现数据源切换，这个与@aspect性质是一样的，两者是一个级别
  *
