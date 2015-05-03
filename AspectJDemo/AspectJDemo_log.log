@@ -1,0 +1,355 @@
+2015-05-03 10:12:29  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 10:12:29 CST 2015]; root of context hierarchy
+2015-05-03 10:12:29  [ main:35 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 10:12:29  [ main:219 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 10:12:29  [ main:570 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 10:12:29  [ main:643 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 10:12:30  [ main:876 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 10:12:30  [ main:882 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 10:12:30  [ main:883 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 10:12:30  [ main:885 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 10:12:30  [ main:977 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996j732gu6m9nz|48974e45, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996j732gu6m9nz|48974e45, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 10:12:30  [ main:1297 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 10:12:30  [ main:1303 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 10:12:30  [ main:1372 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 10:12:30  [ main:1375 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 10:12:30  [ main:1541 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 10:12:30  [ main:1541 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 10:12:30  [ main:1545 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 10:12:30  [ main:1560 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 10:12:30  [ main:1560 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 10:12:30  [ main:1560 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 10:12:30  [ main:1560 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 10:12:30  [ main:1561 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 10:12:31  [ main:1767 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:12:31  [ main:1768 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:12:31  [ main:1836 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:12:31  [ main:1848 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996j732gu6m9nz|25df00a0, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996j732gu6m9nz|25df00a0, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo2?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 10:12:31  [ main:1853 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:12:31  [ main:1853 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:12:31  [ main:1855 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:12:31  [ main:1856 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:12:31  [ main:1857 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:12:31  [ main:1858 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:14:30  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 10:14:30 CST 2015]; root of context hierarchy
+2015-05-03 10:14:30  [ main:35 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 10:14:30  [ main:210 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 10:14:30  [ main:561 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 10:14:30  [ main:635 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 10:14:31  [ main:867 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 10:14:31  [ main:872 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 10:14:31  [ main:874 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 10:14:31  [ main:875 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 10:14:31  [ main:966 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996j9of5qt31x3|48974e45, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996j9of5qt31x3|48974e45, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 10:14:31  [ main:1287 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 10:14:31  [ main:1293 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 10:14:31  [ main:1361 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 10:14:31  [ main:1364 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 10:14:31  [ main:1532 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 10:14:31  [ main:1533 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 10:14:31  [ main:1536 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 10:14:31  [ main:1551 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 10:14:31  [ main:1551 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 10:14:31  [ main:1551 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 10:14:31  [ main:1552 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 10:14:31  [ main:1552 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 10:14:32  [ main:1761 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:14:32  [ main:1762 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:14:32  [ main:1830 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:14:32  [ main:1885 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:14:32  [ main:1885 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:14:32  [ main:1887 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:14:32  [ main:1889 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:14:32  [ main:1889 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:14:32  [ main:1891 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:16:20  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 10:16:20 CST 2015]; root of context hierarchy
+2015-05-03 10:16:20  [ main:35 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 10:16:20  [ main:216 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 10:16:20  [ main:584 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 10:16:20  [ main:661 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 10:16:21  [ main:894 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 10:16:21  [ main:900 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 10:16:21  [ main:901 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 10:16:21  [ main:902 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 10:16:21  [ main:998 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996jc1bk8t0vsk|48974e45, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996jc1bk8t0vsk|48974e45, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 10:16:21  [ main:1313 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 10:16:21  [ main:1318 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 10:16:21  [ main:1387 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 10:16:21  [ main:1390 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 10:16:21  [ main:1569 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 10:16:21  [ main:1569 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 10:16:21  [ main:1573 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 10:16:21  [ main:1588 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 10:16:21  [ main:1588 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 10:16:21  [ main:1588 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 10:16:21  [ main:1588 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 10:16:21  [ main:1589 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 10:16:22  [ main:1797 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:16:22  [ main:1798 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:16:22  [ main:1867 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:16:22  [ main:1867 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:16:22  [ main:1875 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:16:22  [ main:1875 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:16:22  [ main:1877 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:16:22  [ main:1877 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:16:22  [ main:1878 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:16:22  [ main:1879 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:16:22  [ main:1880 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:16:22  [ main:1880 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:16:22  [ main:1882 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:16:22  [ main:1882 ] - [ INFO ]  成功切换到数据源：slave
+2015-05-03 10:16:22  [ main:1882 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:16:22  [ main:1882 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:22:30  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 10:22:30 CST 2015]; root of context hierarchy
+2015-05-03 10:22:31  [ main:35 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 10:22:31  [ main:215 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 10:22:31  [ main:565 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 10:22:31  [ main:642 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 10:22:31  [ main:871 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 10:22:31  [ main:877 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 10:22:31  [ main:878 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 10:22:31  [ main:879 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 10:27:55  [ main:1 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 10:27:55 CST 2015]; root of context hierarchy
+2015-05-03 10:27:55  [ main:35 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 10:27:56  [ main:217 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 10:27:56  [ main:570 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 10:27:56  [ main:644 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 10:27:56  [ main:875 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 10:27:56  [ main:881 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 10:27:56  [ main:882 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 10:27:56  [ main:883 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 10:27:56  [ main:976 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996jqy2d127fr5h|5f9b2141, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996jqy2d127fr5h|5f9b2141, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 10:27:57  [ main:1283 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 10:27:57  [ main:1289 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 10:27:57  [ main:1359 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 10:27:57  [ main:1362 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 10:27:57  [ main:1536 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 10:27:57  [ main:1536 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 10:27:57  [ main:1540 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 10:27:57  [ main:1554 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 10:27:57  [ main:1555 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 10:27:57  [ main:1555 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 10:27:57  [ main:1555 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 10:27:57  [ main:1556 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 10:27:57  [ main:1766 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:27:57  [ main:1767 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 10:27:57  [ main:1767 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 10:27:57  [ main:1780 ] - [ INFO ]  Starting create a new User !
+2015-05-03 10:27:57  [ main:1837 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:27:57  [ main:1838 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:27:57  [ main:1846 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:27:57  [ main:1846 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 10:27:57  [ main:1846 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 10:27:57  [ main:1846 ] - [ INFO ]  Starting create a new User !
+2015-05-03 10:27:57  [ main:1848 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:27:57  [ main:1848 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:27:57  [ main:1850 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:27:57  [ main:1850 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 10:27:57  [ main:1850 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 10:27:57  [ main:1850 ] - [ INFO ]  Starting create a new User !
+2015-05-03 10:27:57  [ main:1852 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:27:57  [ main:1852 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:27:57  [ main:1853 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 10:27:57  [ main:1853 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 10:27:57  [ main:1853 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:28:03  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6e1567f1: startup date [Sun May 03 10:28:03 CST 2015]; root of context hierarchy
+2015-05-03 10:28:03  [ main:40 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 10:28:03  [ main:236 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 10:28:04  [ main:650 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 10:28:04  [ main:722 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 10:28:04  [ main:998 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 10:28:04  [ main:1005 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 10:28:04  [ main:1006 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 10:28:04  [ main:1007 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 10:28:04  [ main:1130 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996jr3y2zpcy0l|27305e6, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996jr3y2zpcy0l|27305e6, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 10:28:04  [ main:1482 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 10:28:04  [ main:1489 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 10:28:05  [ main:1575 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 10:28:05  [ main:1578 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 10:28:05  [ main:1783 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 10:28:05  [ main:1784 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 10:28:05  [ main:1788 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 10:28:05  [ main:1804 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 10:28:05  [ main:1804 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 10:28:05  [ main:1804 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 10:28:05  [ main:1805 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 10:28:05  [ main:1805 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 10:28:05  [ main:2046 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:28:05  [ main:2047 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 10:28:05  [ main:2047 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 10:28:05  [ main:2060 ] - [ INFO ]  Starting create a new User !
+2015-05-03 10:28:33  [ main:29852 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:28:55  [ main:51944 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:28:55  [ main:51963 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:28:55  [ main:51963 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 10:28:55  [ main:51963 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 10:28:55  [ main:51963 ] - [ INFO ]  Starting create a new User !
+2015-05-03 10:29:01  [ main:58050 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:29:07  [ main:64029 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:29:07  [ main:64033 ] - [ INFO ]  The Around has been start !
+2015-05-03 10:29:07  [ main:64033 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 10:29:07  [ main:64033 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 10:29:07  [ main:64034 ] - [ INFO ]  Starting create a new User !
+2015-05-03 10:29:56  [ main:113055 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 10:30:01  [ main:117735 ] - [ INFO ]  The Around has been stop !
+2015-05-03 10:30:01  [ main:117739 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 10:30:01  [ main:117739 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 10:30:34  [ main:151161 ] - [ INFO ]  The current dataSource has been recovered
+2015-05-03 11:17:36  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 11:17:36 CST 2015]; root of context hierarchy
+2015-05-03 11:17:36  [ main:53 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 11:17:36  [ main:263 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 11:17:36  [ main:717 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 11:17:36  [ main:804 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 11:17:37  [ main:1084 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 11:17:37  [ main:1092 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 11:17:37  [ main:1094 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 11:17:37  [ main:1096 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 11:17:37  [ main:1234 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996litmx1m512by|5f9b2141, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996litmx1m512by|5f9b2141, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 11:17:37  [ main:1585 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 11:17:37  [ main:1593 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 11:17:37  [ main:1688 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 11:17:37  [ main:1695 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 11:17:37  [ main:1923 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 11:17:37  [ main:1924 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 11:17:37  [ main:1928 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 11:17:37  [ main:1944 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 11:17:37  [ main:1944 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 11:17:37  [ main:1944 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 11:17:37  [ main:1944 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 11:17:37  [ main:1945 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 11:17:38  [ main:2174 ] - [ INFO ]  The Around has been start !
+2015-05-03 11:17:38  [ main:2175 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 11:17:38  [ main:2176 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 11:17:38  [ main:2190 ] - [ INFO ]  Starting create a new User !
+2015-05-03 11:17:38  [ main:2253 ] - [ INFO ]  The Around has been stop !
+2015-05-03 11:17:38  [ main:2263 ] - [ INFO ]  The Around has been start !
+2015-05-03 11:17:38  [ main:2263 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 11:17:38  [ main:2263 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 11:17:38  [ main:2264 ] - [ INFO ]  Starting create a new User !
+2015-05-03 11:17:38  [ main:2265 ] - [ INFO ]  The Around has been stop !
+2015-05-03 11:17:38  [ main:2267 ] - [ INFO ]  The Around has been start !
+2015-05-03 11:17:38  [ main:2267 ] - [ INFO ]  Change current dataSource to defaultTargetDataSource
+2015-05-03 11:17:38  [ main:2267 ] - [ INFO ]  成功切换到数据源：defaultTargetDataSource
+2015-05-03 11:17:38  [ main:2267 ] - [ INFO ]  Starting create a new User !
+2015-05-03 11:17:38  [ main:2268 ] - [ INFO ]  The Around has been stop !
+2015-05-03 11:17:38  [ main:2270 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 11:17:38  [ main:2270 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 12:30:41  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 12:30:41 CST 2015]; root of context hierarchy
+2015-05-03 12:30:41  [ main:51 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 12:30:42  [ main:262 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 12:30:42  [ main:714 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 12:30:42  [ main:799 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 12:30:42  [ main:1056 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 12:30:42  [ main:1066 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 12:30:42  [ main:1068 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 12:30:42  [ main:1069 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 12:30:43  [ main:1204 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996o4trs1b0j8r7|5f9b2141, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996o4trs1b0j8r7|5f9b2141, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 12:30:43  [ main:1563 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 12:30:43  [ main:1571 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 12:30:43  [ main:1660 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 12:30:43  [ main:1667 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 12:30:43  [ main:1889 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 12:30:43  [ main:1889 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 12:30:43  [ main:1893 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 12:30:43  [ main:1909 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 12:30:43  [ main:1909 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 12:30:43  [ main:1909 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 12:30:43  [ main:1909 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 12:30:43  [ main:1910 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 12:30:43  [ main:2083 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 12:30:43  [ main:2083 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 12:31:28  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 12:31:28 CST 2015]; root of context hierarchy
+2015-05-03 12:31:28  [ main:35 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 12:31:28  [ main:207 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 12:31:28  [ main:551 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 12:31:28  [ main:616 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 12:31:29  [ main:840 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 12:31:29  [ main:846 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 12:31:29  [ main:847 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 12:31:29  [ main:848 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 12:31:29  [ main:940 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996o5th11qjhpox|48974e45, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996o5th11qjhpox|48974e45, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 12:31:29  [ main:1244 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 12:31:29  [ main:1249 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 12:31:29  [ main:1316 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 12:31:29  [ main:1320 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 12:31:29  [ main:1485 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 12:31:29  [ main:1485 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 12:31:29  [ main:1488 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 12:31:29  [ main:1502 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 12:31:29  [ main:1502 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 12:31:29  [ main:1503 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 12:31:29  [ main:1503 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 12:31:29  [ main:1503 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 12:31:30  [ main:1721 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 12:31:30  [ main:1721 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 12:32:07  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 12:32:07 CST 2015]; root of context hierarchy
+2015-05-03 12:32:07  [ main:33 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 12:32:07  [ main:211 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 12:32:08  [ main:574 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 12:32:08  [ main:643 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 12:32:08  [ main:880 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 12:32:08  [ main:886 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 12:32:08  [ main:888 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 12:32:08  [ main:889 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 12:32:08  [ main:985 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996o6nt01jf7ax1|48974e45, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996o6nt01jf7ax1|48974e45, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 12:32:08  [ main:1294 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 12:32:08  [ main:1300 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 12:32:08  [ main:1368 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 12:32:08  [ main:1371 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 12:32:09  [ main:1536 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 12:32:09  [ main:1536 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 12:32:09  [ main:1540 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 12:32:09  [ main:1554 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 12:32:09  [ main:1555 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 12:32:09  [ main:1555 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 12:32:09  [ main:1555 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 12:32:09  [ main:1555 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 12:32:09  [ main:1764 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 12:32:09  [ main:1765 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 13:04:42  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c2e1f26: startup date [Sun May 03 13:04:42 CST 2015]; root of context hierarchy
+2015-05-03 13:04:42  [ main:52 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 13:04:42  [ main:259 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 13:04:42  [ main:723 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 13:04:42  [ main:799 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 13:04:43  [ main:1073 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 13:04:43  [ main:1086 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 13:04:43  [ main:1088 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 13:04:43  [ main:1090 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 13:04:43  [ main:1226 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996pcjzl1agnmle|48974e45, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996pcjzl1agnmle|48974e45, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 13:04:43  [ main:1572 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 13:04:43  [ main:1580 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 13:04:43  [ main:1670 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 13:04:43  [ main:1675 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 13:04:43  [ main:1903 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 13:04:43  [ main:1904 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 13:04:43  [ main:1907 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 13:04:43  [ main:1922 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 13:04:43  [ main:1923 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 13:04:43  [ main:1923 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 13:04:43  [ main:1923 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 13:04:43  [ main:1924 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 13:04:44  [ main:2161 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 13:04:44  [ main:2161 ] - [ INFO ]  Starting dalete a new User !
+2015-05-03 13:09:48  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6e1567f1: startup date [Sun May 03 13:09:48 CST 2015]; root of context hierarchy
+2015-05-03 13:09:48  [ main:40 ] - [ INFO ]  Loading XML bean definitions from class path resource [spring.xml]
+2015-05-03 13:09:49  [ main:234 ] - [ INFO ]  Loading XML bean definitions from class path resource [db.xml]
+2015-05-03 13:09:49  [ main:646 ] - [ INFO ]  MLog clients using log4j logging.
+2015-05-03 13:09:49  [ main:719 ] - [ INFO ]  Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-03 13:09:49  [ main:973 ] - [ INFO ]  HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-05-03 13:09:49  [ main:979 ] - [ INFO ]  HHH000412: Hibernate Core {4.3.9.Final}
+2015-05-03 13:09:49  [ main:981 ] - [ INFO ]  HHH000206: hibernate.properties not found
+2015-05-03 13:09:49  [ main:982 ] - [ INFO ]  HHH000021: Bytecode provider name : javassist
+2015-05-03 13:10:16  [ main:27507 ] - [ INFO ]  Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge16h996pj4nwdb90si|27305e6, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge16h996pj4nwdb90si|27305e6, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 6000, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 3, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2015-05-03 13:10:23  [ main:34392 ] - [ INFO ]  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2015-05-03 13:10:23  [ main:34400 ] - [ INFO ]  HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2015-05-03 13:10:23  [ main:34490 ] - [ INFO ]  HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-05-03 13:10:23  [ main:34495 ] - [ INFO ]  HHH000397: Using ASTQueryTranslatorFactory
+2015-05-03 13:10:23  [ main:34723 ] - [ INFO ]  HHH000228: Running hbm2ddl schema update
+2015-05-03 13:10:23  [ main:34723 ] - [ INFO ]  HHH000102: Fetching database metadata
+2015-05-03 13:10:28  [ main:39837 ] - [ INFO ]  HHH000396: Updating schema
+2015-05-03 13:10:28  [ main:39854 ] - [ INFO ]  HHH000261: Table found: demo.demo_user
+2015-05-03 13:10:28  [ main:39855 ] - [ INFO ]  HHH000037: Columns: [password, name, id]
+2015-05-03 13:10:28  [ main:39855 ] - [ INFO ]  HHH000108: Foreign keys: []
+2015-05-03 13:10:28  [ main:39855 ] - [ INFO ]  HHH000126: Indexes: [primary]
+2015-05-03 13:10:28  [ main:39856 ] - [ INFO ]  HHH000232: Schema update complete
+2015-05-03 13:10:30  [ main:42067 ] - [ INFO ]  Change current dataSource to slave
+2015-05-03 13:10:30  [ main:42067 ] - [ INFO ]  Starting dalete a new User !
