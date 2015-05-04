@@ -4,7 +4,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.demo.AspectJDemo.service.UserService;
-
+/**
+ * ***********************
+ * 
+ *  测试类
+ *
+ * ***********************
+ * @author kyrin kyrincloud@qq.com 
+ *
+ * @date [2015年5月4日]
+ *
+ */
 public class TestDemo1{
 	
 	private static ApplicationContext application;
