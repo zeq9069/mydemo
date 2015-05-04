@@ -16,18 +16,22 @@
  
 （2）功能目标：
 	
-		该项目还在初始测试阶段，还没有用到项目中，不过该项目基本上确定了所拥有的功能：
+		该项目基本上确定了所拥有的功能：
+		
 	<1>通过注解项目中自定义的@ChangeFor注解来实现，将该注解放到service层的方法的前即可,
-	   该出借拥有默认的数据源
+	   该注解拥有默认的数据源
 	
-	<2>还可以手动切换，利用DynamicDataSource.changeFor()方法来实现，通过DynamicDataSource.recover()
-	   来实现将数据源恢复到切换前的数据源。（这种情况不适合将事务托管于@Transaction的时候，你必须在事务开启前切
-	   换掉数据源,这个问题后期会利用其它方式来替代，实现手动的切换）
+	<2>还可以手动切换，利用DynamicDataSource.changeFor()方法来实现。手动切换只能用在
+	   一种情况下，那就是事务必须在数据持久层进行管理，在@Transaction下失效。
+	 
 	   
-	<3>自定义schame，来实现对所有service层方法的拦截，真多配置的不同的名称来实现特定的数据源切换，比如说，所有以
-	   get开头的方法统一使用slave数据源，其他的方法统一使用master数据源，这一切都是你在xml中配置来实现的。
+	<3>可以通过注解@DataSourceDistribute注解，对service层的实现类进行类级别的注解，
+	   然后可通过正则表达式来实现针对不同的方法使用指定的注解。
 	   
-	<4>负载均衡。在配置了多主多从的数据源的情况下，可以根据主库或者从库的负载和切换算法来实现简单的负载均衡。
+	  
+	 后期添加功能：
+	   
+	<1>负载均衡。在配置了多主多从的数据源的情况下，可以根据主库或者从库的负载和切换算法来实现简单的负载均衡。
 	   (不知道这在真正的项目使用中是否有意义，不过，我还是决定实现一下)
 	
 	   
@@ -88,7 +92,10 @@
 
 	spring.xml中的配置：
 	
-	<!-- 只用cglib代理，替换掉默认的JDK动态代理-->
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- 只用cglib代理，替换掉默认的JDK动态代理,order必须大于@Aspect的order，也就是必须大于0-->
+	<aop:aspectj-autoproxy proxy-target-class="true" order="6000"/>
 
+（4）遇到的问题：
 
+    <1>遇到的最大的问题，就是当使用@Transaction注解时，@ChangeFor和@DataSourceDistribute注解
+       切换数据源失败！这是因为@Transaction注解先于自定义的注解运行了！最后通过加Order来实现了顺序的颠倒。
