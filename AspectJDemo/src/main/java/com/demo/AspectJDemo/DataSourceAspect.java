@@ -12,9 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import com.demo.AspectJDemo.annotation.ChangeFor;
 import com.demo.AspectJDemo.annotation.DataSourceDistribute;
@@ -39,7 +37,6 @@ import com.demo.AspectJDemo.datasource.DynamicDataSource;
  * @date [2015年5月1日]
  *
  */
-@Component
 @Aspect
 @Order(value=0)
 public class DataSourceAspect {
