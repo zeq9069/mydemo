@@ -34,7 +34,7 @@ public class UserReponsitoyImpl implements UserReponsitory{
 		User user=new User();
 		user.setName("kyrin");
 		user.setPassword("123456");
-		int id=(int) this.getSession().save(user);
+		int id=(int)this.getSession().save(user);
 		return ""+id;
 	}
 

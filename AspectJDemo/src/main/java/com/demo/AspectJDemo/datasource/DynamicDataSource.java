@@ -2,6 +2,7 @@ package com.demo.AspectJDemo.datasource;
 
 import java.util.Map;
 import java.util.Stack;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
@@ -45,7 +46,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource{
 	}
 	
 	/**
-	 * 目前暂时不能使用手动切换，只能使用注解的方式。
+	 * 当使用@Transaction注解时，只能使用注解的方式。
 	 * 手动切换的方式有几个问题:
 	 * <1>当你使用@Transaction 注解来托管事务的时候，在service方法内使用手动切换数据源时，是失败的！
 	 * 	  必须在事务之前切换数据源！这时候必须使用注解的方式
@@ -57,14 +58,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource{
 		current.push(target);
 	}
 	
-	public static void recover(){
-		Stack<String> current=threadLocal.get();
-		if(!current.isEmpty()){
-			current.pop();
-			logger.info("The current dataSource has been recovered");
-		}
-	}
-
 	@Override
 	protected Object determineCurrentLookupKey() {
 		Stack<String> current=threadLocal.get();

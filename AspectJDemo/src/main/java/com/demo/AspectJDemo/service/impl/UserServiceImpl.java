@@ -6,15 +6,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.AspectJDemo.annotation.ChangeFor;
-import com.demo.AspectJDemo.datasource.DynamicDataSource;
+import com.demo.AspectJDemo.annotation.DataSourceDistribute;
+import com.demo.AspectJDemo.annotation.DataSourceEntity;
 import com.demo.AspectJDemo.repository.UserReponsitory;
 import com.demo.AspectJDemo.service.UserService;
 
+//@DataSourceDistribute和@changeFor同时使用时，符合“就近原则”，
+//@changeFor会覆盖@DataSourceDistribute
 
 @Service("userService")
+@DataSourceDistribute(value={@DataSourceEntity(method="create*|delete*|update*"),
+		@DataSourceEntity(dataSource="slave",method="find*")})
+
 public class UserServiceImpl implements UserService{
 
 	private static Logger logger=Logger.getLogger(UserServiceImpl.class);
+	
 	
 	@Autowired
 	private UserReponsitory userReponsitory;
@@ -22,25 +29,15 @@ public class UserServiceImpl implements UserService{
 	@ChangeFor
 	@Transactional(readOnly=false)
 	public String create() {
-		
 		logger.info("Starting create a new User !");
-		try{
 		userReponsitory.create();
 		return "success";
-		}finally{
-			DynamicDataSource.recover();
-		}
 	}
-	
+
 	@Transactional(readOnly=false)
 	public void delete(String id) {
-		try{
-			DynamicDataSource.changeFor("slave");
 		logger.info("Starting dalete a new User !");
 		userReponsitory.create();
-		}finally{
-			DynamicDataSource.recover();
-		}
 	}
 
 	@ChangeFor(value="slave")

@@ -12,10 +12,9 @@ public class TestDemo {
 		application = new ClassPathXmlApplicationContext("spring.xml");
 		UserService userService=(UserService) application.getBean("userService");
 		
-//		userService.create();
-//		userService.create();
-//		userService.create();
+		//userService.create();
+		//userService.create();
+		//userService.create();
 		userService.delete("1");
 	}
-
 }
