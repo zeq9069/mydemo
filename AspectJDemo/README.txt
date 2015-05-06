@@ -50,9 +50,39 @@
 		<property name="maxPoolSize" value="3" />
 		<property name="minPoolSize" value="1" />
 	</bean>
+	
 	<bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo1?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxIdleTime" value="6000"/>
+		<property name="maxPoolSize" value="3" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	
+	<bean id="dataSource3" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo2?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxIdleTime" value="6000"/>
+		<property name="maxPoolSize" value="3" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	
+	<bean id="dataSource4" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo3?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxIdleTime" value="6000"/>
+		<property name="maxPoolSize" value="3" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	<bean id="dataSource5" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo5?useUnicode=true&amp;characterEncoding=UTF-8"/>
 		<property name="user" value="root"/>
 		<property name="password" value="root"/>
 		<property name="maxIdleTime" value="6000"/>
@@ -63,7 +93,27 @@
 		<property name="targetDataSources">
 			<map>
 				<entry key="defaultTargetDataSource" value-ref="dataSource1" />
-				<entry key="slave" value-ref="dataSource2" />
+				<entry key="master" value-ref="dataSource5" />
+				<entry key="slave1" value-ref="dataSource2" />
+				<entry key="slave2" value-ref="dataSource3" />
+				<entry key="slave3" value-ref="dataSource4" />
+			</map>
+		</property>
+		<property name="dataSourceKeysGroup">
+			<map>
+				<entry key="master-group">
+					<list>
+						<value>defaultTargetDataSource</value>
+						<value>master</value>
+					</list>
+				</entry>
+				<entry key="slave-group">
+					<list>
+						<value>slave1</value>
+						<value>slave2</value>
+						<value>slave3</value>
+					</list>
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -83,6 +133,7 @@
             </list>
         </property>
 	</bean>
+	
  	<bean id="transactionManager"
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
