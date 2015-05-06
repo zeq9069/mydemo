@@ -2,12 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:koala="http://www.kyrin.org/schema/koala"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.kyrin.org/schema/koala  http://www.kyrin.org/schema/koala.xsd "
 	default-autowire="byName" default-lazy-init="true">
 
-
+	
 
 	<bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
@@ -21,6 +23,16 @@
 	
 	<bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo1?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxIdleTime" value="6000"/>
+		<property name="maxPoolSize" value="3" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	
+	<bean id="dataSource3" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo2?useUnicode=true&amp;characterEncoding=UTF-8"/>
 		<property name="user" value="root"/>
 		<property name="password" value="root"/>
@@ -29,14 +41,56 @@
 		<property name="minPoolSize" value="1" />
 	</bean>
 	
+	<bean id="dataSource4" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo3?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxIdleTime" value="6000"/>
+		<property name="maxPoolSize" value="3" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	<bean id="dataSource5" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo5?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxIdleTime" value="6000"/>
+		<property name="maxPoolSize" value="3" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	
+	
 	<bean id="dataSource" class="com.demo.AspectJDemo.datasource.DynamicDataSource">
 		<property name="targetDataSources">
 			<map>
 				<entry key="defaultTargetDataSource" value-ref="dataSource1" />
-				<entry key="slave" value-ref="dataSource2" />
+				<entry key="master" value-ref="dataSource5" />
+				<entry key="slave1" value-ref="dataSource2" />
+				<entry key="slave2" value-ref="dataSource3" />
+				<entry key="slave3" value-ref="dataSource4" />
+			</map>
+		</property>
+		<property name="dataSourceKeysGroup">
+			<map>
+				<entry key="master-group">
+					<list>
+						<value>defaultTargetDataSource</value>
+						<value>master</value>
+					</list>
+				</entry>
+				<entry key="slave-group">
+					<list>
+						<value>slave1</value>
+						<value>slave2</value>
+						<value>slave3</value>
+					</list>
+				</entry>
 			</map>
 		</property>
 	</bean>
+	
+	
 	
 	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

@@ -17,6 +17,8 @@ import org.springframework.core.annotation.Order;
 import com.demo.AspectJDemo.annotation.ChangeFor;
 import com.demo.AspectJDemo.annotation.DataSourceDistribute;
 import com.demo.AspectJDemo.annotation.DataSourceEntity;
+import com.demo.AspectJDemo.annotation.DataSourceGroup;
+import com.demo.AspectJDemo.annotation.Group;
 import com.demo.AspectJDemo.datasource.DynamicDataSource;
 
 /**
@@ -50,8 +52,15 @@ public class DataSourceAspect {
 	@Pointcut(value="@within(com.demo.AspectJDemo.annotation.DataSourceDistribute)")
 	public void inWebServiceClass(){}
 	
-	@Before(value="inWebServiceClass()")
-	public void classBefore(JoinPoint jp){
+	@Pointcut(value="@within(com.demo.AspectJDemo.annotation.DataSourceGroup)")
+	public void inWebServiceClass2(){}
+	
+	@Pointcut(value="inWebServiceClass() || inWebServiceClass2()")
+	public void all(){}
+	
+	//添加synchronized关键字，避免在同一个group下的数据源轮训不均匀
+	@Before(value="all()")
+	public  synchronized void classBefore(JoinPoint jp){
 		MethodSignature sig=(MethodSignature) jp.getSignature();
 		Method method=sig.getMethod();
 		String name=method.getName();
@@ -59,30 +68,52 @@ public class DataSourceAspect {
 		if(annotation!=null){
 			return;
 		}
-		Object an=jp.getTarget();
-		Annotation[] hh=an.getClass().getAnnotations();
-		DataSourceEntity [] entity=null;
-		for(Annotation a:hh){
-			if(a instanceof DataSourceDistribute){
-				DataSourceDistribute dsd=(DataSourceDistribute)a;
-				entity=dsd.value();
-				break;
+		Object obj=jp.getTarget();
+		DataSourceDistribute dataSourceDistribute=obj.getClass().getAnnotation(DataSourceDistribute.class);
+		DataSourceGroup dataSourceGroup=obj.getClass().getAnnotation(DataSourceGroup.class);
+		if(dataSourceDistribute!=null){
+			if(dealDataSourceDistribute(dataSourceDistribute,name)){
+				return;
 			}
+			
 		}
-		
-		if(entity!=null){
-			for(DataSourceEntity dsd:entity){
-				if(Pattern.matches(dsd.method(), name)){
-					DynamicDataSource.changeFor(dsd.dataSource());
-					return;
-				}
-			}
+		if(dataSourceGroup!=null){
+			dealDataSourceGroup(dataSourceGroup,name);
 		}
 	}
 	
 	
+	private  boolean dealDataSourceDistribute(DataSourceDistribute dataSourceDistribute,String methodName){
+		DataSourceEntity [] entity=dataSourceDistribute.value();
+		if(entity!=null){
+			for(DataSourceEntity en:entity){
+				if(Pattern.matches(en.methodPattern(), methodName)){
+					DynamicDataSource.changeFor(en.dataSource());
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private  boolean dealDataSourceGroup(DataSourceGroup dataSourceGroup,String methodName){
+		Group[] groups=dataSourceGroup.groups();
+		if(groups!=null){
+			for(Group group:groups){
+				if(Pattern.matches(group.methodPattern(), methodName)){
+					DynamicDataSource.getInstance().changeToByGroup(group.groupName());
+					return true;
+				}
+			}
+		}	
+		
+		return false;
+	}
+	
+	
 	@Around(value="inWebSevice()")
-	public Object around(ProceedingJoinPoint pj) throws Throwable{
+	public   Object around(ProceedingJoinPoint pj) throws Throwable{
 		logger.info("The Around has been start !");
 		Object obj=null;
 		MethodSignature sig=(MethodSignature) pj.getSignature();

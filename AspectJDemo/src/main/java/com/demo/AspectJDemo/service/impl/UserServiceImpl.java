@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.demo.AspectJDemo.annotation.ChangeFor;
 import com.demo.AspectJDemo.annotation.DataSourceDistribute;
 import com.demo.AspectJDemo.annotation.DataSourceEntity;
+import com.demo.AspectJDemo.annotation.DataSourceGroup;
+import com.demo.AspectJDemo.annotation.Group;
 import com.demo.AspectJDemo.repository.UserReponsitory;
 import com.demo.AspectJDemo.service.UserService;
 
@@ -15,9 +17,10 @@ import com.demo.AspectJDemo.service.UserService;
 //@changeFor会覆盖@DataSourceDistribute
 
 @Service("userService")
-@DataSourceDistribute(value={@DataSourceEntity(method="create*|delete*|update*"),
-		@DataSourceEntity(dataSource="slave",method="find*")})
+//@DataSourceDistribute(value={@DataSourceEntity(methodPattern="delete*|update*"),
+//		@DataSourceEntity(dataSource="slave",methodPattern="find*")})
 
+@DataSourceGroup(groups={@Group(groupName="slave-group",methodPattern="delete*"),@Group(groupName="master-group",methodPattern="create*")})
 public class UserServiceImpl implements UserService{
 
 	private static Logger logger=Logger.getLogger(UserServiceImpl.class);
@@ -26,7 +29,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserReponsitory userReponsitory;
 	
-	@ChangeFor
+	//@ChangeFor
 	@Transactional(readOnly=false)
 	public String create() {
 		logger.info("Starting create a new User !");
