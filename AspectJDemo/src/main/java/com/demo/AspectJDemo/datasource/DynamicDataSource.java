@@ -79,13 +79,16 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Appl
 			throw new IllegalArgumentException("Not set the property 'dataSourceKeysGroup'");
 		}
 		
-		
 		List<String> dataSourceKeys=dataSourceKeysGroup.get(groupName);
 		if(dataSourceKeys==null || dataSourceKeys.size()==0){
 			throw new IllegalArgumentException("Not set the groupName "+groupName);
 		}
 		Stack<String> current=threadLocal.get();
 		String key=dataSourceKeys.get(0);
+		if(!targetDataSources.containsKey(key)){
+			logger.error(" The dataSource key "+key+" is wrong");
+			throw new IllegalArgumentException("Error dataSource key "+key);
+		}
 		current.push(key);
 		logger.info("Change current dataSource to "+key+" by dataSourceKeyGroup");
 		reordering(dataSourceKeys);
@@ -102,7 +105,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Appl
 	@Override
 	protected   Object determineCurrentLookupKey() {
 			Stack<String> current=threadLocal.get();
-			System.out.println("====="+current);
 			if(current.isEmpty()) return "";
 			String name=current.pop() ;
 			return name== null ? "" : name;
