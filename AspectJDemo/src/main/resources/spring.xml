@@ -2,19 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:koala="http://www.kyrin.org/schema/koala"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd "
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd 
+        http://www.kyrin.org/schema/koala http://www.kyrin.org/schema/koala.xsd "
+        
+        
        default-autowire="byName" default-lazy-init="true">
 
     <context:annotation-config/>
     <context:component-scan base-package="com.demo.AspectJDemo" />
 	
 	<!-- 将自定义的Aspect进行注册 -->
-	<bean id="dataSourceAspect" class="com.demo.AspectJDemo.DataSourceAspect" />
+	<!--  <bean id="dataSourceAspect" class="com.demo.AspectJDemo.DataSourceAspect" /> -->
+	<koala:default-aspect /> 
+	
 	
 	<!-- 只用cglib代理，替换掉默认的JDK动态代理-->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>

@@ -140,6 +140,8 @@
  
 
 	spring.xml中的配置：
+	<!--让aspect起作用-->
+	<koala:default-aspect /> 
 	
 	<!-- 只用cglib代理，替换掉默认的JDK动态代理,order必须大于@Aspect的order，也就是必须大于0-->
 	<aop:aspectj-autoproxy proxy-target-class="true" order="6000"/>
