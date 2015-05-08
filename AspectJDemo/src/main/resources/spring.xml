@@ -19,7 +19,7 @@
 	
 	<!-- 将自定义的Aspect进行注册 -->
 	<!--  <bean id="dataSourceAspect" class="com.demo.AspectJDemo.DataSourceAspect" /> -->
-	<koala:default-aspect /> 
+	<koala:default-aspect />
 	
 	
 	<!-- 只用cglib代理，替换掉默认的JDK动态代理-->

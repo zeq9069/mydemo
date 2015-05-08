@@ -26,17 +26,7 @@ public class TestDemo1{
 		application = new ClassPathXmlApplicationContext("spring.xml");
 		UserService userService=(UserService) application.getBean("userService");
 		
-		
-		//userService.create();
-		//userService.create();
-		//userService.create();
-		//userService.delete("1");
-		//userService.delete("1");
-		//userService.delete("1");
-		//userService.delete("1");
-		
-		
-		ExecutorService execute=Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		ExecutorService execute=Executors.newFixedThreadPool(2000);
 		for(int i=0;i<9000;i++){
 			execute.submit(new Runnable() {
 				@Override

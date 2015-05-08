@@ -1,15 +1,13 @@
 package com.demo.AspectJDemo;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
@@ -20,6 +18,7 @@ import com.demo.AspectJDemo.annotation.DataSourceEntity;
 import com.demo.AspectJDemo.annotation.DataSourceGroup;
 import com.demo.AspectJDemo.annotation.Group;
 import com.demo.AspectJDemo.datasource.DynamicDataSource;
+import com.demo.AspectJDemo.filter.MonitorFilter;
 
 /**
  * ***********************
@@ -41,13 +40,22 @@ import com.demo.AspectJDemo.datasource.DynamicDataSource;
  */
 @Aspect
 @Order(value=0)
-public class DataSourceAspect {
+public class DataSourceAspect extends AbstractDataSourceAspect{
 	
 	private static Logger logger=Logger.getLogger(DataSourceAspect.class);
 	
 	
+	public DataSourceAspect(){
+		this(null);
+	}
+	
+	public DataSourceAspect(List<MonitorFilter> filters) {
+		super(filters);
+	}
+	
+	
 	@Pointcut(value="@annotation(com.demo.AspectJDemo.annotation.ChangeFor)")
-	public void inWebSevice(){}
+	public void inWebService(){}
 	
 	@Pointcut(value="@within(com.demo.AspectJDemo.annotation.DataSourceDistribute)")
 	public void inWebServiceClass(){}
@@ -55,32 +63,8 @@ public class DataSourceAspect {
 	@Pointcut(value="@within(com.demo.AspectJDemo.annotation.DataSourceGroup)")
 	public void inWebServiceClass2(){}
 	
-	@Pointcut(value="inWebServiceClass() || inWebServiceClass2()")
+	@Pointcut(value="inWebService() || inWebServiceClass() || inWebServiceClass2()")
 	public void all(){}
-	
-	//添加synchronized关键字，避免在同一个group下的数据源轮训不均匀
-	@Before(value="all()")
-	public  synchronized void classBefore(JoinPoint jp){
-		MethodSignature sig=(MethodSignature) jp.getSignature();
-		Method method=sig.getMethod();
-		String name=method.getName();
-		Annotation annotation=method.getAnnotation(ChangeFor.class);
-		if(annotation!=null){
-			return;
-		}
-		Object obj=jp.getTarget();
-		DataSourceDistribute dataSourceDistribute=obj.getClass().getAnnotation(DataSourceDistribute.class);
-		DataSourceGroup dataSourceGroup=obj.getClass().getAnnotation(DataSourceGroup.class);
-		if(dataSourceDistribute!=null){
-			if(dealDataSourceDistribute(dataSourceDistribute,name)){
-				return;
-			}
-			
-		}
-		if(dataSourceGroup!=null){
-			dealDataSourceGroup(dataSourceGroup,name);
-		}
-	}
 	
 	
 	private  boolean dealDataSourceDistribute(DataSourceDistribute dataSourceDistribute,String methodName){
@@ -112,23 +96,85 @@ public class DataSourceAspect {
 	}
 	
 	
-	@Around(value="inWebSevice()")
-	public   Object around(ProceedingJoinPoint pj) throws Throwable{
-		logger.info("The Around has been start !");
-		Object obj=null;
-		MethodSignature sig=(MethodSignature) pj.getSignature();
-		//获取被拦截的方法
-		Method method=sig.getMethod();
-		Annotation annotation=method.getAnnotation(ChangeFor.class);
-		if(annotation!=null){
-			ChangeFor changeFor=(ChangeFor)annotation;
-			DynamicDataSource.changeFor(changeFor.value());
-			logger.info("成功切换到数据源："+changeFor.value());
-		}
-		obj=pj.proceed();
-		logger.info("The Around has been stop !");
-		return obj;
+	private void  dealChangeTo(ChangeFor changeFor){
+		DynamicDataSource.changeFor(changeFor.value());
+		logger.info("成功切换到数据源："+changeFor.value());
 	}
+	
+	//添加synchronized关键字，避免在同一个group下的数据源轮训不均匀
+	@Around(value="all()")
+	public  synchronized Object around(ProceedingJoinPoint pj) throws Throwable{
+		logger.info("The Around has been start !");
+		MethodSignature sig=(MethodSignature) pj.getSignature();
+		Method method=sig.getMethod();
+		String name=method.getName();
+		ChangeFor changeFor=method.getAnnotation(ChangeFor.class);
+		if(changeFor!=null){
+			dealChangeTo(changeFor);
+			return process(pj);
+		}
+		Object obj=pj.getTarget();
+		DataSourceDistribute dataSourceDistribute=obj.getClass().getAnnotation(DataSourceDistribute.class);
+		DataSourceGroup dataSourceGroup=obj.getClass().getAnnotation(DataSourceGroup.class);
+		if(dataSourceDistribute!=null){
+			if(dealDataSourceDistribute(dataSourceDistribute,name)){
+				dealDataSourceDistribute(dataSourceDistribute, name);
+				return process(pj);
+			}
+		}
+		if(dataSourceGroup!=null){
+			dealDataSourceGroup(dataSourceGroup,name);
+		}
+		return process(pj);
+	}
+	
+	
+	public Object process(ProceedingJoinPoint pj) throws Throwable{
+		//Before do something
+		super.before();
+		
+		//方法执行
+		Object result=pj.proceed();
+		
+		//after do something
+		super.after();
+		
+		return result;
+	}
+	
+	
+
+	/*@Before(value="all()")
+	public  synchronized void classBefore(JoinPoint jp){
+		super.before();
+		MethodSignature sig=(MethodSignature) jp.getSignature();
+		Method method=sig.getMethod();
+		String name=method.getName();
+		ChangeFor changeFor=method.getAnnotation(ChangeFor.class);
+		if(changeFor!=null){
+			dealChangeTo(changeFor);
+			return;
+		}
+		Object obj=jp.getTarget();
+		DataSourceDistribute dataSourceDistribute=obj.getClass().getAnnotation(DataSourceDistribute.class);
+		DataSourceGroup dataSourceGroup=obj.getClass().getAnnotation(DataSourceGroup.class);
+		if(dataSourceDistribute!=null){
+			if(dealDataSourceDistribute(dataSourceDistribute,name)){
+				return;
+			}
+			
+		}
+		if(dataSourceGroup!=null){
+			dealDataSourceGroup(dataSourceGroup,name);
+		}
+	}
+	
+	@After(value="all()")
+	public void after(){
+		super.after();
+	}*/
+	
+	
 
 	
 	/*@Before(value="inWebSevice()")

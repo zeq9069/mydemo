@@ -20,7 +20,10 @@ import com.demo.AspectJDemo.service.UserService;
 //@DataSourceDistribute(value={@DataSourceEntity(methodPattern="delete*|update*"),
 //		@DataSourceEntity(dataSource="slave",methodPattern="find*")})
 
-@DataSourceGroup(groups={@Group(groupName="slave-group",methodPattern="delete*"),@Group(groupName="master-group",methodPattern="create*")})
+@DataSourceGroup(groups={
+		@Group(groupName="slave-group",methodPattern="delete*"),
+		@Group(groupName="master-group",methodPattern="create*")
+		})
 public class UserServiceImpl implements UserService{
 
 	private static Logger logger=Logger.getLogger(UserServiceImpl.class);
@@ -31,14 +34,14 @@ public class UserServiceImpl implements UserService{
 	
 	//@ChangeFor
 	@Transactional(readOnly=false)
-	public String create() {
+	public  String create() {
 		logger.info("Starting create a new User !");
 		userReponsitory.create();
 		return "success";
 	}
 
 	@Transactional(readOnly=false)
-	public void delete(String id) {
+	public  void delete(String id) {
 		logger.info("Starting dalete a new User !");
 		userReponsitory.create();
 	}
