@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: SpringBootTest1 Maven Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.demo
+Build-Jdk: 1.7.0_51
+Built-By: lenovo
+Created-By: Maven Integration for Eclipse
+
