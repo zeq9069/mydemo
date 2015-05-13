@@ -1,0 +1,12 @@
+com/demo/SpringBootDemo/controller/SchoolController.class
+com/demo/SpringBootDemo/repository/SchoolRepository.class
+com/demo/SpringBootDemo/resource/Users.class
+com/demo/SpringBootDemo/service/impl/SchoolSeviceImpl.class
+com/demo/SpringBootDemo/service/SchoolService.class
+com/demo/SpringBootDemo/config/DataSourceConfig.class
+com/demo/SpringBootDemo/domain/School.class
+com/demo/SpringBootDemo/controller/SampleController.class
+com/demo/SpringBootDemo/resource/UserResource.class
+com/demo/SpringBootDemo/repository/impl/SchoolRepositoryImpl.class
+com/demo/SpringBootDemo/SpringApplicationConfig.class
+com/demo/SpringBootDemo/resource/UserResourceAssembler.class
