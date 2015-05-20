@@ -61,6 +61,13 @@
   	-GET http://localhost:8888/home/client/info?access_token=7ea44bf1-570b-44df-802f-e551134f45ab
   	
   	返回：client_info
+  	
+  	或者
+  	
+  	
+  	Request 			-GET http://localhost:8888/home/client/info
+  	Request Headers		Authorization: Bearer a6232d65-fe3d-4f22-93f2-76eb20330c3d
+  	
   			
   			
   	5)refresh_token(每次refresh_token都会更新，也可以一直使用一个固定不变，可以设置)

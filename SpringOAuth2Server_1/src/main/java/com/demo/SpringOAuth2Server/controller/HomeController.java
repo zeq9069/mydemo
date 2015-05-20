@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,10 @@ public class HomeController {
 	public String userInfo(){	
 		//获取当前登录用户的信息
 		Object obj=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		if(obj instanceof UserDetails){
+			UserDetails userInfo=(UserDetails)obj;
+			return "当前用户名："+userInfo.getUsername()+"，权限："+userInfo.getAuthorities();
+		}
 		return ""+obj;
 	}
 	
