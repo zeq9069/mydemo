@@ -1,6 +1,5 @@
 package com.demo.SpringOAuth2Server.service;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 
 @Component

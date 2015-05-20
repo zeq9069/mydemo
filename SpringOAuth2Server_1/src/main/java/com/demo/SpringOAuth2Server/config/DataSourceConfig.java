@@ -11,7 +11,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+/**
+ * 
+ * 数据库配置
+ * 
+ * @author zhangerqiang
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig {
