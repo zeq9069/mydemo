@@ -66,7 +66,7 @@
   	
   	
   	Request 			-GET http://localhost:8888/home/client/info
-  	Request Headers		Authorization: Bearer a6232d65-fe3d-4f22-93f2-76eb20330c3d
+  	Request Headers		Authorization: Bearer 7ea44bf1-570b-44df-802f-e551134f45ab
   	
   			
   			
@@ -118,3 +118,21 @@
  七，实现将token和refresh_token存放于数据库
  
  	定义两个表oauth_access_token和oauth_refresh_token，两者有级联关系。同时由JdbcTokenStore代替InMemoryTokenStore
+ 	
+ 八，scope参数
+ 
+ 		该参数时你对申请资源的操作范围，比如：read，write等。
+ 	在将client信息存放于数据库时，其中有两个字段跟请求的scope有关，它们是scope和autoapprove，scope可以是多这个值，指client的请求的
+ 	资源的范围，这些范围不需要用户授予（也就是说，登陆之后不会跳转到用户授权的页面），是自动获取的。一般scope是空得。autoapprove是指哪些scope的值可以自动授予，
+ 	不需要用户去授予，可以是多个。当第三方请求的scope的值是这里的任意一个时，自动跳过授权页面。可以参考BaseClientDetails
+ 	
+ 	使用方法：
+ 		http://localhost:8888/oauth/authorize?response_type=code&client_id=test&redirect_uri=http://test.com&scope=READ write
+ 		（多个值，用空格隔开）
+ 		
+ 		登陆之后，就会跳转到授权页面。
+ 	
+ 	
+ 	
+ 
+ 	
