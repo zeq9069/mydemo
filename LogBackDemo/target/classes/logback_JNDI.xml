@@ -1,0 +1,14 @@
+<configuration>
+  <insertFromJNDI env-entry-name="java:comp/env/appName" as="appName" />
+  <contextName>${appName}</contextName>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d ${CONTEXT_NAME} %level %msg %logger{50}%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="DEBUG">
+    <appender-ref ref="CONSOLE" />
+  </root>
+</configuration>

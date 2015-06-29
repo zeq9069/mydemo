@@ -1,0 +1,30 @@
+<configuration>
+  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> 
+  
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+  
+   <!-- in the absence of the class attribute, assume 
+   		ch.qos.logback.core.hook.DelayingShutdownHook -->
+   <shutdownHook/>
+   
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>foo.log</file>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[%date %level] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.demo.LogBackDemo" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

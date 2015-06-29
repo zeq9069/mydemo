@@ -1,0 +1,25 @@
+<configuration>
+
+  <!-- 
+  	LOCAL SCOPE	 : A property with local scope exists from the point of its definition in a configuration file until the end of interpretation/execution of said configuration file. As a corollary, each time a configuration file is parsed and executed, variables in local scope are defined anew.
+
+	CONTEXT SCOPE: A property with context scope is inserted into the context and lasts as long as the context or until it is cleared. Once defined, a property in context scope is part of the context. As such, it is available in all logging events, including those sent to remote hosts via serialization.
+
+	SYSTEM SCOPE : A property with system scope is inserted into the JVM's system properties and lasts as long as the JVM or until it is cleared.
+  
+  
+   -->
+    
+  <property scope="context" name="nodeId" value="firstNode" />
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>/opt/${nodeId}/myApp.log</file>
+    <encoder>
+      <pattern>%msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="debug">
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>
