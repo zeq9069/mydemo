@@ -19,6 +19,19 @@ import java.nio.charset.Charset;
  *   bodyLength:(整形，4字节) 消息的大小长度  
  *   
  * 
+ * ByteBuf 支持的类型以及转换为字节的大小：
+ * 
+ * [类型]                   [字节]
+ * ++++++++++++++++++++++++++++
+ * Char                      2
+ * Byte                      1(8位)
+ * Double                    8
+ * float                     4
+ * long                      8
+ * int                       4
+ * short                     2(16位)
+ * boolean                   1
+ * ++++++++++++++++++++++++++++
  * 
  * @author kyrin
  *
