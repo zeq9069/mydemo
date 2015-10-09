@@ -1,10 +1,6 @@
 package com.demo.NettyDemo.example.seventeen;
 
-import java.io.Serializable;
-
-public class MyRequest implements Serializable {
-
-	private static final long serialVersionUID = 14152631038586341L;
+public class MyRequest {
 
 	private final byte type = (byte) 0;
 
