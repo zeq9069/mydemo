@@ -14,7 +14,7 @@ public class MyClientHandler extends ChannelHandlerAdapter {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("channelActive");
-		MyRequest request = new MyRequest("Hello, I'm kyrin !");
+		MyRequest request = new MyRequest("Hello, I'm kyrin ! 我很好奇你来自哪里");
 		ctx.writeAndFlush(request);
 	}
 
