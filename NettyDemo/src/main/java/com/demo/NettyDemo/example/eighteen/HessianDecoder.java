@@ -11,6 +11,8 @@ import com.caucho.hessian.io.Hessian2Input;
 
 /**
  * 
+ * hession 解码 java对象必须实现序列化接口 
+ * 
  * @author kyrin
  *
  */

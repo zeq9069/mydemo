@@ -2,6 +2,11 @@ package com.demo.NettyDemo.example.eighteen;
 
 import java.io.Serializable;
 
+/**
+ * hession 要求java对象必须实现序列化接口
+ * @author kyrin
+ *
+ */
 public class MyRequest implements Serializable {
 
 	private static final long serialVersionUID = 95153675312082112L;

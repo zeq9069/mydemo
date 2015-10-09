@@ -8,6 +8,11 @@ import java.io.ByteArrayOutputStream;
 
 import com.caucho.hessian.io.Hessian2Output;
 
+/**
+ *  hession 解码 java对象必须实现序列化接口 
+ * @author kyrin
+ *
+ */
 public class HessianEncoder extends MessageToByteEncoder<Object> {
 
 	@Override
