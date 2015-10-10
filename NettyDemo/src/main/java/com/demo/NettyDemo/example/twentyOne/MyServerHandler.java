@@ -1,9 +1,9 @@
-package com.demo.NettyDemo.example.twenty;
+package com.demo.NettyDemo.example.twentyOne;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-public class MyClientHandler extends ChannelHandlerAdapter {
+public class MyServerHandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -14,7 +14,7 @@ public class MyClientHandler extends ChannelHandlerAdapter {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("channelActive");
-		ctx.writeAndFlush("Hello");
+		ClientCache.put(System.currentTimeMillis(), ctx.channel());
 	}
 
 	@Override

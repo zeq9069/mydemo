@@ -1,0 +1,68 @@
+<!DOCTYPE>
+<html>
+	<head>
+ 		<title>websocket测试</title>
+		<!--目前还不支持断链重连的机制-->
+	<script type="text/javascript">
+	var socket;
+		if(!window.WebSocket){
+			window.WebSocket =window.MozWebSocket;
+		}
+		
+		if(window.WebSocket){
+			socket=new WebSocket("ws://localhost:9999");
+			socket.onmessage=function(event){
+				var ta=document.getElementById("responseText");
+				//ta.value="";
+				ta.value=ta.value+"\t\r"+event.data;
+			};
+			socket.onopen=function(event){
+				var ta=document.getElementById("responseText");
+				ta.value="打开webscoket服务正常，浏览器支持websocket！";
+			};
+			socket.onclose=function(event){
+				var ta=document.getElementById("responseText");
+				ta.value="";
+				ta.value="websocket关闭！";
+			};
+			
+		}
+		else
+		{
+			alert("抱歉，你的浏览器不支持webscoket协议！");
+		
+		}
+		
+		function send(message){
+			if(!window.WebSocket){return;}
+			if(socket.readyState==WebSocket.OPEN){
+				socket.send(message);
+			}else{
+				alert("websocket连接没有建立成功");
+			}
+		
+		}
+		
+		
+		
+	</script>
+	</head>
+	
+	<body>
+	
+	
+	<form onsubmit="return false;">
+		<input type="text" name="message" value="netty"/>
+		<br><br>
+		<input type="button" value="发送websocket请求消息" onclick="send(this.form.message.value)" />
+		<hr color="blue" />
+		<h3>
+			服务端返回的应答消息
+		</h3>
+		<textarea id="responseText" stype="width:500px;height:300px;"></textarea>
+	</form>
+	
+	</body>
+	
+	
+</html>
