@@ -1,6 +1,5 @@
 package com.demo.NettyDemo.example.nineteen;
 
-
 /**
  * hession 要求java对象必须实现序列化接口
  * @author kyrin
