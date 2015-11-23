@@ -11,9 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class AES_test1 {
 	private static final String AES = "AES";
 	static final String CIPHER_ALGORITHM_ECB = "AES/ECB/PKCS5Padding";
-	/*
-	 * 
-	 */
+	//"算法/模式/补码方式"
 	static final String CIPHER_ALGORITHM_CBC = "AES/CBC/PKCS5Padding";
 	/* 
 	 * AES/CBC/NoPadding 要求

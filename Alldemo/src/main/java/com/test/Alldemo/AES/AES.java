@@ -15,6 +15,7 @@ import javax.crypto.spec.IvParameterSpec;
 public class AES {
 	static Cipher cipher;
 	static final String KEY_ALGORITHM = "AES";
+	//"算法/模式/补码方式"
 	static final String CIPHER_ALGORITHM_ECB = "AES/ECB/PKCS5Padding";
 	/*
 	 * 
