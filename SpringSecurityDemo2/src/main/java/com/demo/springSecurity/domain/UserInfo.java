@@ -1,5 +1,6 @@
 package com.demo.springSecurity.domain;
 
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +18,7 @@ public class UserInfo implements UserDetails{
 	private int status;
 	private String desc;
 	private List<Role> roles;
-	
+	private List<String> permissions;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> list=new ArrayList<GrantedAuthority>();
@@ -105,5 +106,15 @@ public class UserInfo implements UserDetails{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
+	public List<String> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<String> permissions) {
+		this.permissions = permissions;
+	}
+	
+	
 	
 }

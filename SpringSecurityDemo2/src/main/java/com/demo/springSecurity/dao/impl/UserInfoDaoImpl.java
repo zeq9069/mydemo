@@ -1,7 +1,9 @@
 package com.demo.springSecurity.dao.impl;
 
+import java.security.Permission;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.logging.Logger;
@@ -32,6 +34,9 @@ public class UserInfoDaoImpl extends JdbcDaoSupport implements UserInfoDao {
 					userInfo.setStatus(rs.getInt("status"));
 					userInfo.setDesc(rs.getString("desc"));
 					userInfo.setRoles(getRolesByUserId(username));
+					List<String> p=new ArrayList<String>();
+					p.add("READ");
+					userInfo.setPermissions(p);
 					return userInfo;
 				}
 			});
