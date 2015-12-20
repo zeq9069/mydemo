@@ -1,5 +1,6 @@
 package com.demo.SpringOAuth2Server.config;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -133,6 +136,8 @@ public class OAuth2ServerConfig {
 			endpoints.tokenStore(tokenStore());
 			endpoints.tokenServices(tokenServices());
 			endpoints.approvalStore(approvalStore());
+			endpoints.accessTokenConverter(new DefaultAccessTokenConverter());//使得check_token url 生效
 		}
+		
 	}
 }
