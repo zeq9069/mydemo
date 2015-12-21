@@ -137,6 +137,8 @@ public class OAuth2ServerConfig {
 			endpoints.tokenServices(tokenServices());
 			endpoints.approvalStore(approvalStore());
 			endpoints.accessTokenConverter(new DefaultAccessTokenConverter());//使得check_token url 生效
+			endpoints.pathMapping("/oauth/authorize", "/v1/oauth2/authorize") //替代一些默认的url
+			.pathMapping("/oauth/token", "/v1/oauth2/token");
 		}
 		
 	}
