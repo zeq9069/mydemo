@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 					.defaultSuccessUrl("/home/index")
 					.usernameParameter("username")
 					.passwordParameter("password")
-					.loginProcessingUrl("/loginHandle")
+					.loginProcessingUrl("/loginHandle/www")//登录处理页url随意写，不需要用户去实现
 				.and()
 				.httpBasic();
 		}
