@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -44,8 +45,8 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources)
 				throws Exception {
+			resources.resourceId("res_1").stateless(false);
 			super.configure(resources);
-			resources.resourceId("resource_1").stateless(false);
 		}
 
 		@Override
@@ -133,6 +134,7 @@ public class OAuth2ServerConfig {
 			endpoints.tokenStore(tokenStore());
 			endpoints.tokenServices(tokenServices());
 			endpoints.approvalStore(approvalStore());
+			endpoints.accessTokenConverter(new DefaultAccessTokenConverter()); //排除check_token 请求时accessTokenConverter未初始化的错误
 		}
 	}
 }

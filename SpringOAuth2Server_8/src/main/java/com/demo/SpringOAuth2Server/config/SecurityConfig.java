@@ -30,6 +30,7 @@ import com.demo.SpringOAuth2Server.service.UserInfoService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	
 	@Autowired
 	private DataSource dataSource;
 	

@@ -86,7 +86,7 @@ public class UserInfo implements UserDetails{
 	/*
 	 *是否被锁定 ，0被锁定，1没有
 	 */
-	private int isLocked;
+	private int isLocked=1;
 	
 	
 	
