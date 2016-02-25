@@ -131,367 +131,295 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 	}
 
 	public byte getByte(int columnIndex) throws SQLException {
-		return 0;
+		return rs.getByte(columnIndex);
 	}
 
 	public byte getByte(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getByte(columnLabel);
 	}
 
 	public byte[] getBytes(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getBytes(columnIndex);
 	}
 
 	public byte[] getBytes(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getBytes(columnLabel);
 	}
 
 	public Reader getCharacterStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getCharacterStream(columnIndex);
 	}
 
 	public Reader getCharacterStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getCharacterStream(columnLabel);
 	}
 
 	public Clob getClob(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getClob(columnIndex);
 	}
 
 	public Clob getClob(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getClob(columnLabel);
 	}
 
 	public int getConcurrency() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getConcurrency();
 	}
 
 	public String getCursorName() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getCursorName();
 	}
 
 	public Date getDate(int columnIndex, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getDate(columnIndex, cal);
 	}
 
 	public Date getDate(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getDate(columnIndex);
 	}
 
 	public Date getDate(String columnLabel, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getDate(columnLabel, cal);
 	}
 
 	public Date getDate(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getDate(columnLabel);
 	}
 
 	public double getDouble(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getDouble(columnIndex);
 	}
 
 	public double getDouble(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getDouble(columnLabel);
 	}
 
 	public int getFetchDirection() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getFetchDirection();
 	}
 
 	public int getFetchSize() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getFetchSize();
 	}
 
 	public float getFloat(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getFloat(columnIndex);
 	}
 
 	public float getFloat(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getFloat(columnLabel);
 	}
 
 	public int getHoldability() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getHoldability();
 	}
 
 	public int getInt(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getInt(columnIndex);
 	}
 
 	public int getInt(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getInt(columnLabel);
 	}
 
 	public long getLong(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getLong(columnIndex);
 	}
 
 	public long getLong(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getLong(columnLabel);
 	}
 
 	public ResultSetMetaData getMetaData() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getMetaData();
 	}
 
 	public Reader getNCharacterStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getNCharacterStream(columnIndex);
 	}
 
 	public Reader getNCharacterStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getNCharacterStream(columnLabel);
 	}
 
 	public NClob getNClob(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getNClob(columnIndex);
 	}
 
 	public NClob getNClob(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getNClob(columnLabel);
 	}
 
 	public String getNString(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getNString(columnIndex);
 	}
 
 	public String getNString(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getNString(columnLabel);
 	}
 
 	public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getObject(columnIndex, type);
 	}
 
 	public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getObject(columnIndex, map);
 	}
 
 	public Object getObject(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getObject(columnIndex);
 	}
 
 	public <T> T getObject(String columnLabel, Class<T> type) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getObject(columnLabel, type);
 	}
 
 	public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getObject(columnLabel);
 	}
 
 	public Object getObject(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getObject(columnLabel);
 	}
 
 	public Ref getRef(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getRef(columnIndex);
 	}
 
 	public Ref getRef(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getRef(columnLabel);
 	}
 
 	public int getRow() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getRow();
 	}
 
 	public RowId getRowId(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getRowId(columnIndex);
 	}
 
 	public RowId getRowId(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getRowId(columnLabel);
 	}
 
 	public SQLXML getSQLXML(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getSQLXML(columnIndex);
 	}
 
 	public SQLXML getSQLXML(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getSQLXML(columnLabel);
 	}
 
 	public short getShort(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getShort(columnIndex);
 	}
 
 	public short getShort(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getShort(columnLabel);
 	}
 
 	public Statement getStatement() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getStatement();
 	}
 
 	public String getString(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getString(columnIndex);
 	}
 
 	public String getString(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getString(columnLabel);
 	}
 
 	public Time getTime(int columnIndex, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTime(columnIndex, cal);
 	}
 
 	public Time getTime(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTime(columnIndex);
 	}
 
 	public Time getTime(String columnLabel, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTime(columnLabel, cal);
 	}
 
 	public Time getTime(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTime(columnLabel);
 	}
 
 	public Timestamp getTimestamp(int columnIndex, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTimestamp(columnIndex, cal);
 	}
 
 	public Timestamp getTimestamp(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTimestamp(columnIndex);
 	}
 
 	public Timestamp getTimestamp(String columnLabel, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTimestamp(columnLabel, cal);
 	}
 
 	public Timestamp getTimestamp(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getTimestamp(columnLabel);
 	}
 
 	public int getType() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return rs.getType();
 	}
 
 	public URL getURL(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getURL(columnIndex);
 	}
 
 	public URL getURL(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getURL(columnLabel);
 	}
 
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getUnicodeStream(columnIndex);
 	}
 
 	public InputStream getUnicodeStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getUnicodeStream(columnLabel);
 	}
 
 	public SQLWarning getWarnings() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return rs.getWarnings();
 	}
 
 	public void insertRow() throws SQLException {
-		// TODO Auto-generated method stub
-
+		rs.insertRow();
 	}
 
 	public boolean isAfterLast() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		return rs.isAfterLast();
 	}
 
 	public boolean isBeforeFirst() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		return rs.isBeforeFirst();
 	}
 
 	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		return rs.isClosed();
 	}
 
 	public boolean isFirst() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		return rs.isFirst();
 	}
 
 	public boolean isLast() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		return rs.isLast();
 	}
 
 	public boolean last() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		return rs.last();
 	}
 
 	public void moveToCurrentRow() throws SQLException {
-		// TODO Auto-generated method stub
-
+		rs.moveToCurrentRow();
 	}
 
 	public void moveToInsertRow() throws SQLException {
-		// TODO Auto-generated method stub
-
+		rs.moveToInsertRow();
 	}
 
 	public abstract boolean next() throws SQLException;
@@ -567,13 +495,11 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 	}
 
 	public void updateBinaryStream(int columnIndex, InputStream x, int length) throws SQLException {
-		// TODO Auto-generated method stub
-
+		rs.updateBinaryStream(columnIndex, x, length);
 	}
 
 	public void updateBinaryStream(int columnIndex, InputStream x, long length) throws SQLException {
-		// TODO Auto-generated method stub
-
+		rs.updateBinaryStream(columnIndex, x, length);
 	}
 
 	public void updateBinaryStream(int columnIndex, InputStream x) throws SQLException {

@@ -80,7 +80,7 @@ public class ShardingPreparedStatment extends AbstractShardingPreparedStatmentWr
 	@Override
 	public ResultSet executeQuery() throws SQLException {
 		System.out.println("---executeQuery 2---");
-		return ps.executeQuery();
+		return new ShardingResultSet(ps.executeQuery());
 	}
 
 	@Override
