@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
- * 在执行SQL之前自定义一些动作
+ * 在执行SQL之前自定义一些动作,实现多数据源，多preparedStatment，多ResultSet的合并
  * @author kyrin
  *
  */

@@ -2,6 +2,7 @@ package com.kyrincloud.MysqlSharding;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Array;
@@ -23,7 +24,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-public abstract class AbstractShardingPreparedStatmentWrapper implements PreparedStatement {
+public abstract class AbstractShardingPreparedStatmentWrapper implements PreparedStatement,Serializable {
 
 	protected PreparedStatement ps;
 

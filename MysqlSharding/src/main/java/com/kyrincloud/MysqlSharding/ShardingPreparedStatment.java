@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+
+import com.kyrincloud.MysqlSharding.util.Copy;
 
 public class ShardingPreparedStatment extends AbstractShardingPreparedStatmentWrapper {
 
@@ -80,7 +83,14 @@ public class ShardingPreparedStatment extends AbstractShardingPreparedStatmentWr
 	@Override
 	public ResultSet executeQuery() throws SQLException {
 		System.out.println("---executeQuery 2---");
-		return new ShardingResultSet(ps.executeQuery());
+		ResultSet rs=ps.executeQuery();
+		ResultSet rs2=null;
+		try {
+			rs2=Copy.copy(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ShardingResultSet(Arrays.asList(rs,rs2));
 	}
 
 	@Override

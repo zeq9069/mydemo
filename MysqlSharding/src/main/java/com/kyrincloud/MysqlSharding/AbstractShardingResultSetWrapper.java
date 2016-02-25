@@ -789,5 +789,9 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 	public boolean wasNull() throws SQLException {
 		return rs.wasNull();
 	}
+	
+	public void setCurrentResultSet(ResultSet rs){
+		this.rs=rs;
+	}
 
 }
