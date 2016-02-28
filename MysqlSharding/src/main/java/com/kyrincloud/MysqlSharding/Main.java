@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.sql.DataSource;
 
@@ -19,8 +20,10 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, PropertyVetoException {
 		String sql = "select * from t_order_0";
-		DataSource ds = createDataSource();
-		ShardingDataSource dataSource = new ShardingDataSource(ds);
+		DataSource ds = createDataSource("ds_0");
+		DataSource ds2= createDataSource("ds_0");
+		DataSource ds3=createDataSource("ds_1");
+		ShardingDataSource dataSource = new ShardingDataSource(Arrays.asList(ds,ds2,ds3));
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -30,14 +33,14 @@ public class Main {
 		}
 	}
 
-	public static DataSource createDataSource() throws PropertyVetoException {
-		ComboPooledDataSource ds = new ComboPooledDataSource();
-		ds.setDataSourceName("ds_0");
-		ds.setDriverClass("com.mysql.jdbc.Driver");
-		ds.setJdbcUrl("jdbc:mysql://localhost:3306/ds_0");
-		ds.setUser("root");
-		ds.setPassword("root");
-		return ds;
+	public static DataSource createDataSource(String ds) throws PropertyVetoException {
+		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		cpds.setDataSourceName(ds);
+		cpds.setDriverClass("com.mysql.jdbc.Driver");
+		cpds.setJdbcUrl(String.format("jdbc:mysql://localhost:3306/%s",ds));
+		cpds.setUser("root");
+		cpds.setPassword("root");
+		return cpds;
 	}
 
 }

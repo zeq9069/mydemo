@@ -793,5 +793,5 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 	public void setCurrentResultSet(ResultSet rs){
 		this.rs=rs;
 	}
-
+	
 }

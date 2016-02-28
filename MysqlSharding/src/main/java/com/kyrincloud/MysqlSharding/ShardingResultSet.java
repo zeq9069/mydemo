@@ -24,12 +24,13 @@ public class ShardingResultSet extends AbstractShardingResultSetWrapper {
 			return true;
 		}
 		if(resultSets!=null){
-			for(int i=1;i<resultSets.size();i++){
+			for(int i=resultSets.indexOf(rs)+1;i<resultSets.size();i++){
 				System.out.println(i);
 				setCurrentResultSet(resultSets.get(i));
+				return rs.next();
 			}
 		}
-		return rs.next();
+		return false;
 	}
 
 	@Override

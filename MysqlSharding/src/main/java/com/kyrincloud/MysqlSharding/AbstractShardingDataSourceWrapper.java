@@ -15,38 +15,38 @@ import javax.sql.DataSource;
  */
 public abstract class AbstractShardingDataSourceWrapper implements DataSource {
 
-	protected DataSource dataSource;
 
-	public AbstractShardingDataSourceWrapper(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
+	protected PrintWriter pw=new PrintWriter(System.out);
+	
 	public PrintWriter getLogWriter() throws SQLException {
-		return dataSource.getLogWriter();
+		return pw;
 	}
 
 	public int getLoginTimeout() throws SQLException {
-		return dataSource.getLoginTimeout();
+		throw new SQLException("not supper getLoginTimeout");
 	}
 
 	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		return dataSource.getParentLogger();
+		return  Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	}
 
 	public void setLogWriter(PrintWriter out) throws SQLException {
-		dataSource.setLogWriter(out);
+		this.pw = out;
 	}
 
 	public void setLoginTimeout(int seconds) throws SQLException {
-		dataSource.setLoginTimeout(seconds);
+		throw new SQLException("not supper setLoginTimeout");
 	}
 
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		return dataSource.isWrapperFor(iface);
+		return iface.isInstance(this);
 	}
 
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		return dataSource.unwrap(iface);
+		 if (isWrapperFor(iface)) {
+	            return (T) this;
+	        }
+	        throw new SQLException(String.format("[%s] cannot be unwrapped as [%s]", getClass().getName(), iface.getName()));
 	}
 
 	public abstract Connection getConnection() throws SQLException;

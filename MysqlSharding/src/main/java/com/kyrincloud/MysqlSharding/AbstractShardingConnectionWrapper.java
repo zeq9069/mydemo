@@ -8,226 +8,286 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.NClob;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public abstract class AbstractShardingConnectionWrapper implements Connection {
 
-	protected Connection connection;
+	private boolean autoCommit = true;
 
-	public AbstractShardingConnectionWrapper(Connection connection) {
-		this.connection = connection;
-	}
+	private boolean readOnly = true;
+
+	private boolean closed;
+
+	private int transactionIsolation = TRANSACTION_READ_UNCOMMITTED;
 
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		return connection.isWrapperFor(iface);
+		return iface.isInstance(this);
 	}
 
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		return connection.unwrap(iface);
-	}
-
-	public void abort(Executor executor) throws SQLException {
-		connection.abort(executor);
-	}
-
-	public void clearWarnings() throws SQLException {
-		connection.clearWarnings();
-	}
-
-	public void close() throws SQLException {
-		connection.close();
-	}
-
-	public void commit() throws SQLException {
-		connection.commit();
-	}
-
-	public Array createArrayOf(String typeName, Object[] elements) throws SQLException {
-		return connection.createArrayOf(typeName, elements);
-	}
-
-	public Blob createBlob() throws SQLException {
-		return connection.createBlob();
-	}
-
-	public Clob createClob() throws SQLException {
-		return connection.createClob();
-	}
-
-	public NClob createNClob() throws SQLException {
-		return connection.createNClob();
-	}
-
-	public SQLXML createSQLXML() throws SQLException {
-		return connection.createSQLXML();
+		 if (isWrapperFor(iface)) {
+	            return (T) this;
+	        }
+	        throw new SQLException(String.format("[%s] cannot be unwrapped as [%s]", getClass().getName(), iface.getName()));
 	}
 
 	public abstract Statement createStatement() throws SQLException;
 
-	public abstract Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability)
+	public abstract Statement createStatement(int resultSetType,
+			int resultSetConcurrency, int resultSetHoldability)
 			throws SQLException;
 
-	public abstract Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException;
-
-	public Struct createStruct(String typeName, Object[] attributes) throws SQLException {
-		return connection.createStruct(typeName, attributes);
-	}
-
-	public boolean getAutoCommit() throws SQLException {
-		return connection.getAutoCommit();
-	}
-
-	public String getCatalog() throws SQLException {
-		return connection.getCatalog();
-	}
-
-	public Properties getClientInfo() throws SQLException {
-		return connection.getClientInfo();
-	}
-
-	public String getClientInfo(String name) throws SQLException {
-		return connection.getClientInfo(name);
-	}
-
-	public int getHoldability() throws SQLException {
-		return connection.getHoldability();
-	}
+	public abstract Statement createStatement(int resultSetType,
+			int resultSetConcurrency) throws SQLException;
 
 	public DatabaseMetaData getMetaData() throws SQLException {
-		return connection.getMetaData();
+		return getConnections().get(0).getMetaData();
 	}
 
-	public int getNetworkTimeout() throws SQLException {
-		return connection.getNetworkTimeout();
-	}
-
-	public String getSchema() throws SQLException {
-		return connection.getSchema();
-	}
-
-	public int getTransactionIsolation() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Map<String, Class<?>> getTypeMap() throws SQLException {
-		return connection.getTypeMap();
-	}
-
-	public SQLWarning getWarnings() throws SQLException {
-		return connection.getWarnings();
-	}
-
-	public boolean isClosed() throws SQLException {
-		return connection.isClosed();
-	}
-
-	public boolean isReadOnly() throws SQLException {
-		return connection.isReadOnly();
-	}
-
-	public boolean isValid(int timeout) throws SQLException {
-		return connection.isValid(timeout);
-	}
-
-	public String nativeSQL(String sql) throws SQLException {
-		return connection.nativeSQL(sql);
-	}
-
-	public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency,
-			int resultSetHoldability) throws SQLException {
-		return connection.prepareCall(sql);
-	}
-
-	public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-		return connection.prepareCall(sql, resultSetType, resultSetConcurrency);
-	}
-
-	public CallableStatement prepareCall(String sql) throws SQLException {
-		return connection.prepareCall(sql);
-	}
-
-	public abstract PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency,
+	public abstract PreparedStatement prepareStatement(String sql,
+			int resultSetType, int resultSetConcurrency,
 			int resultSetHoldability) throws SQLException;
 
-	public abstract PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency)
+	public abstract PreparedStatement prepareStatement(String sql,
+			int resultSetType, int resultSetConcurrency) throws SQLException;
+
+	public abstract PreparedStatement prepareStatement(String sql,
+			int autoGeneratedKeys) throws SQLException;
+
+	public abstract PreparedStatement prepareStatement(String sql,
+			int[] columnIndexes) throws SQLException;
+
+	public abstract PreparedStatement prepareStatement(String sql,
+			String[] columnNames) throws SQLException;
+
+	public abstract PreparedStatement prepareStatement(String sql)
 			throws SQLException;
 
-	public abstract PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException;
-
-	public abstract PreparedStatement prepareStatement(String sql, int[] columnIndexes) throws SQLException;
-
-	public abstract PreparedStatement prepareStatement(String sql, String[] columnNames) throws SQLException;
-
-	public abstract PreparedStatement prepareStatement(String sql) throws SQLException;
-
-	public void releaseSavepoint(Savepoint savepoint) throws SQLException {
-		connection.releaseSavepoint(savepoint);
+	public final CallableStatement prepareCall(final String sql)
+			throws SQLException {
+		throw new SQLFeatureNotSupportedException("prepareCall");
 	}
 
-	public void rollback() throws SQLException {
-		connection.rollback();
+	public final CallableStatement prepareCall(final String sql,
+			final int resultSetType, final int resultSetConcurrency)
+			throws SQLException {
+		throw new SQLFeatureNotSupportedException("prepareCall");
 	}
 
-	public void rollback(Savepoint savepoint) throws SQLException {
-		connection.rollback(savepoint);
+	public final CallableStatement prepareCall(final String sql,
+			final int resultSetType, final int resultSetConcurrency,
+			final int resultSetHoldability) throws SQLException {
+		throw new SQLFeatureNotSupportedException("prepareCall");
 	}
 
-	public void setAutoCommit(boolean autoCommit) throws SQLException {
-		connection.setAutoCommit(autoCommit);
+	public final String nativeSQL(final String sql) throws SQLException {
+		throw new SQLFeatureNotSupportedException("nativeSQL");
 	}
 
-	public void setCatalog(String catalog) throws SQLException {
-		connection.setCatalog(catalog);
+	public final Savepoint setSavepoint() throws SQLException {
+		throw new SQLFeatureNotSupportedException("setSavepoint");
 	}
 
-	public void setClientInfo(Properties properties) throws SQLClientInfoException {
-		connection.setClientInfo(properties);
+	public final Savepoint setSavepoint(final String name) throws SQLException {
+		throw new SQLFeatureNotSupportedException("setSavepoint name");
 	}
 
-	public void setClientInfo(String name, String value) throws SQLClientInfoException {
-		connection.setClientInfo(name, value);
+	public final void releaseSavepoint(final Savepoint savepoint)
+			throws SQLException {
+		throw new SQLFeatureNotSupportedException("releaseSavepoint");
 	}
 
-	public void setHoldability(int holdability) throws SQLException {
-		connection.setHoldability(holdability);
+	public final void rollback(final Savepoint savepoint) throws SQLException {
+		throw new SQLFeatureNotSupportedException("rollback savepoint");
 	}
 
-	public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
-		connection.setNetworkTimeout(executor, milliseconds);
+	public final void abort(final Executor executor) throws SQLException {
+		throw new SQLFeatureNotSupportedException("abort");
 	}
 
-	public void setReadOnly(boolean readOnly) throws SQLException {
-		connection.setReadOnly(readOnly);
+	public final String getCatalog() throws SQLException {
+		throw new SQLFeatureNotSupportedException("getCatalog");
 	}
 
-	public Savepoint setSavepoint() throws SQLException {
-		return connection.setSavepoint();
+	public final void setCatalog(final String catalog) throws SQLException {
+		throw new SQLFeatureNotSupportedException("setCatalog");
 	}
 
-	public Savepoint setSavepoint(String name) throws SQLException {
-		return connection.setSavepoint();
+	public final String getSchema() throws SQLException {
+		throw new SQLFeatureNotSupportedException("getSchema");
 	}
 
-	public void setSchema(String schema) throws SQLException {
-		connection.setSchema(schema);
+	public final void setSchema(final String schema) throws SQLException {
+		throw new SQLFeatureNotSupportedException("setSchema");
 	}
 
-	public void setTransactionIsolation(int level) throws SQLException {
-		connection.setTransactionIsolation(level);
+	public final Map<String, Class<?>> getTypeMap() throws SQLException {
+		throw new SQLFeatureNotSupportedException("getTypeMap");
 	}
 
-	public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
-		connection.setTypeMap(map);
+	public final void setTypeMap(final Map<String, Class<?>> map)
+			throws SQLException {
+		throw new SQLFeatureNotSupportedException("setTypeMap");
 	}
+
+	public final int getNetworkTimeout() throws SQLException {
+		throw new SQLFeatureNotSupportedException("getNetworkTimeout");
+	}
+
+	public final void setNetworkTimeout(final Executor executor,
+			final int milliseconds) throws SQLException {
+		throw new SQLFeatureNotSupportedException("setNetworkTimeout");
+	}
+
+	public final Clob createClob() throws SQLException {
+		throw new SQLFeatureNotSupportedException("createClob");
+	}
+
+	public final Blob createBlob() throws SQLException {
+		throw new SQLFeatureNotSupportedException("createBlob");
+	}
+
+	public final NClob createNClob() throws SQLException {
+		throw new SQLFeatureNotSupportedException("createNClob");
+	}
+
+	public final SQLXML createSQLXML() throws SQLException {
+		throw new SQLFeatureNotSupportedException("createSQLXML");
+	}
+
+	public final Array createArrayOf(final String typeName,
+			final Object[] elements) throws SQLException {
+		throw new SQLFeatureNotSupportedException("createArrayOf");
+	}
+
+	public final Struct createStruct(final String typeName,
+			final Object[] attributes) throws SQLException {
+		throw new SQLFeatureNotSupportedException("createStruct");
+	}
+
+	public final boolean isValid(final int timeout) throws SQLException {
+		throw new SQLFeatureNotSupportedException("isValid");
+	}
+
+	public final Properties getClientInfo() throws SQLException {
+		throw new SQLFeatureNotSupportedException("getClientInfo");
+	}
+
+	public final String getClientInfo(final String name) throws SQLException {
+		throw new SQLFeatureNotSupportedException("getClientInfo name");
+	}
+
+	public final void setClientInfo(final String name, final String value)
+			throws SQLClientInfoException {
+		throw new UnsupportedOperationException("setClientInfo name value");
+	}
+
+	public final void setClientInfo(final Properties properties)
+			throws SQLClientInfoException {
+		throw new UnsupportedOperationException("setClientInfo properties");
+	}
+
+	public final boolean getAutoCommit() throws SQLException {
+		return autoCommit;
+	}
+
+	public final void setAutoCommit(final boolean autoCommit)
+			throws SQLException {
+		this.autoCommit = autoCommit;
+		if (getConnections().isEmpty()) {
+			//recordMethodInvocation(Connection.class, "setAutoCommit",
+			//		new Class[] { boolean.class }, new Object[] { autoCommit });
+			return;
+		}
+		for (Connection each : getConnections()) {
+			each.setAutoCommit(autoCommit);
+		}
+	}
+
+	public final void commit() throws SQLException {
+		for (Connection each : getConnections()) {
+			each.commit();
+		}
+	}
+
+	public final void rollback() throws SQLException {
+		for (Connection each : getConnections()) {
+			each.rollback();
+		}
+	}
+
+	public final void close() throws SQLException {
+		for (Connection each : getConnections()) {
+			each.close();
+		}
+		closed = true;
+	}
+
+	public final boolean isClosed() throws SQLException {
+		return closed;
+	}
+
+	public final boolean isReadOnly() throws SQLException {
+		return readOnly;
+	}
+
+	public final void setReadOnly(final boolean readOnly) throws SQLException {
+		this.readOnly = readOnly;
+		if (getConnections().isEmpty()) {
+			//recordMethodInvocation(Connection.class, "setReadOnly",
+			//		new Class[] { boolean.class }, new Object[] { readOnly });
+			return;
+		}
+		for (Connection each : getConnections()) {
+			each.setReadOnly(readOnly);
+		}
+	}
+
+	public final int getTransactionIsolation() throws SQLException {
+		return transactionIsolation;
+	}
+
+	public final void setTransactionIsolation(final int level)
+			throws SQLException {
+		transactionIsolation = level;
+		if (getConnections().isEmpty()) {
+		//	recordMethodInvocation(Connection.class, "setTransactionIsolation",
+		//			new Class[] { int.class }, new Object[] { level });
+			return;
+		}
+		for (Connection each : getConnections()) {
+			each.setTransactionIsolation(level);
+		}
+	}
+
+	// -------以下代码与MySQL实现保持一致.-------
+
+	public SQLWarning getWarnings() throws SQLException {
+		return null;
+	}
+
+	public void clearWarnings() throws SQLException {
+	}
+
+	public final int getHoldability() throws SQLException {
+		return ResultSet.CLOSE_CURSORS_AT_COMMIT;
+	}
+
+	public final void setHoldability(final int holdability) throws SQLException {
+	}
+	
+	public abstract List<Connection> getConnections();
 
 }
