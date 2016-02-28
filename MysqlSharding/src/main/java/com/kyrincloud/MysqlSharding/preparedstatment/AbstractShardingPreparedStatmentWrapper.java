@@ -2,7 +2,6 @@ package com.kyrincloud.MysqlSharding.preparedstatment;
 
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Array;
@@ -23,10 +22,15 @@ import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public abstract class AbstractShardingPreparedStatmentWrapper implements PreparedStatement,Serializable {
+public abstract class AbstractShardingPreparedStatmentWrapper implements PreparedStatement {
 
+	
+	private List<Object> parameters = new ArrayList<Object>();
+	
 	public void addBatch(String sql) throws SQLException {
 		 throw new SQLFeatureNotSupportedException(" not support addBatch");
 	}
@@ -183,12 +187,12 @@ public abstract class AbstractShardingPreparedStatmentWrapper implements Prepare
 		 throw new SQLFeatureNotSupportedException();
 	}
 
-	public void addBatch() throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+	public  void addBatch() throws SQLException {
+		throw new SQLException();
 	}
-
+	
 	public void clearParameters() throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		 getParameters().clear();
 	}
 
 	public abstract boolean execute() throws SQLException;
@@ -206,67 +210,67 @@ public abstract class AbstractShardingPreparedStatmentWrapper implements Prepare
 	}
 
 	public void setArray(int parameterIndex, Array x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setAsciiStream(int parameterIndex, InputStream x, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setAsciiStream(int parameterIndex, InputStream x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBinaryStream(int parameterIndex, InputStream x, int length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBinaryStream(int parameterIndex, InputStream x, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBinaryStream(int parameterIndex, InputStream x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBlob(int parameterIndex, Blob x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBlob(int parameterIndex, InputStream inputStream, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,inputStream);
 	}
 
 	public void setBlob(int parameterIndex, InputStream inputStream) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,inputStream);
 	}
 
 	public void setBoolean(int parameterIndex, boolean x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setByte(int parameterIndex, byte x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setBytes(int parameterIndex, byte[] x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,reader);
 	}
 
 	public void setCharacterStream(int parameterIndex, Reader reader, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,reader);
 	}
 
 	public void setCharacterStream(int parameterIndex, Reader reader) throws SQLException {
@@ -274,43 +278,43 @@ public abstract class AbstractShardingPreparedStatmentWrapper implements Prepare
 	}
 
 	public void setClob(int parameterIndex, Clob x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setClob(int parameterIndex, Reader reader, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,reader);
 	}
 
 	public void setClob(int parameterIndex, Reader reader) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,reader);
 	}
 
 	public void setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setDate(int parameterIndex, Date x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setDouble(int parameterIndex, double x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setFloat(int parameterIndex, float x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setInt(int parameterIndex, int x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setLong(int parameterIndex, long x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setNCharacterStream(int parameterIndex, Reader value, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,value);
 	}
 
 	public void setNCharacterStream(int parameterIndex, Reader value) throws SQLException {
@@ -318,85 +322,99 @@ public abstract class AbstractShardingPreparedStatmentWrapper implements Prepare
 	}
 
 	public void setNClob(int parameterIndex, NClob value) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,value);
 	}
 
 	public void setNClob(int parameterIndex, Reader reader, long length) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,reader);
 	}
 
 	public void setNClob(int parameterIndex, Reader reader) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,reader);
 	}
 
 	public void setNString(int parameterIndex, String value) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,value);
 	}
 
 	public void setNull(int parameterIndex, int sqlType, String typeName) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,null);
 	}
 
 	public void setNull(int parameterIndex, int sqlType) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		 setParameters(parameterIndex,null);
 	}
 
 	public void setObject(int parameterIndex, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setObject(int parameterIndex, Object x, int targetSqlType) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 
 	}
 
 	public void setObject(int parameterIndex, Object x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 
 	}
 
 	public void setRef(int parameterIndex, Ref x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setRowId(int parameterIndex, RowId x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setSQLXML(int parameterIndex, SQLXML xmlObject) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,xmlObject);
 	}
 
 	public void setShort(int parameterIndex, short x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setString(int parameterIndex, String x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setTime(int parameterIndex, Time x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setTimestamp(int parameterIndex, Timestamp x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setURL(int parameterIndex, URL x) throws SQLException {
-		 throw new SQLFeatureNotSupportedException();
+		setParameters(parameterIndex,x);
 	}
 
 	public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
 		 throw new SQLFeatureNotSupportedException();
+	}
+	
+	private void setParameters(int index,Object element){
+		int mid = index - parameters.size();
+		if(mid > 1){
+			while(--mid>0){
+				parameters.add(null);
+			}
+		}
+		parameters.add(index-1, element);
+	}
+	
+	public List<Object> getParameters(){
+		return parameters;
 	}
 
 }

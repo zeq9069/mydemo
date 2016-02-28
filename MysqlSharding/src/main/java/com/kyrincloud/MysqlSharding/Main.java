@@ -65,33 +65,32 @@ public class Main {
 	}
 	
 	public static  void insert() throws SQLException, PropertyVetoException{
-		String sql = "insert into user_table(id,name,email) values(100,'www','www@gmail.com')";
+		String sql = "insert into user_table(id,name,email) values(100,?,?)";
 		ShardingDataSource dataSource = new ShardingDataSource(Arrays.asList(ds1,ds2));
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
-		//ps.setString(1, "www");
-		//ps.setString(2, "www@gmail.com");
+		ps.setString(1, "www");
+		ps.setString(2, "www@gmail.com");
 		int res = ps.executeUpdate();
 		System.out.println("总共插入："+res);
 	}
 	
 	public static  void del() throws SQLException, PropertyVetoException{
-		String sql = "delete  from user_table where id=100 ";
+		String sql = "delete  from user_table where id=? ";
 		ShardingDataSource dataSource = new ShardingDataSource(Arrays.asList(ds1,ds2));
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
-		//ps.setString(1, "www");
-		//ps.setString(2, "www@gmail.com");
+		ps.setInt(1, 100);
 		int res = ps.executeUpdate();
 		System.out.println("总共删除："+res);
 	}
 	public static  void update() throws SQLException, PropertyVetoException{
-		String sql = "update user_table set name='www1' where id =100 ";
+		String sql = "update user_table set name=? where id =? ";
 		ShardingDataSource dataSource = new ShardingDataSource(Arrays.asList(ds1,ds2));
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
-		//ps.setString(1, "www");
-		//ps.setString(2, "www@gmail.com");
+		ps.setString(1, "www");
+		ps.setInt(2, 100);
 		int res = ps.executeUpdate();
 		System.out.println("总共更新："+res);
 	}
