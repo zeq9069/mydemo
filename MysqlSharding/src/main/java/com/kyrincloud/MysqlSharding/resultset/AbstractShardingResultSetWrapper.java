@@ -90,6 +90,7 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 		return rs.getAsciiStream(columnLabel);
 	}
 
+	@SuppressWarnings("deprecation")
 	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
 		return rs.getBigDecimal(columnIndex, scale);
 	}
@@ -98,6 +99,7 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 		return rs.getBigDecimal(columnIndex);
 	}
 
+	@SuppressWarnings("deprecation")
 	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
 		return rs.getBigDecimal(columnLabel, scale);
 	}
@@ -374,10 +376,12 @@ public abstract class AbstractShardingResultSetWrapper implements ResultSet {
 		return rs.getURL(columnLabel);
 	}
 
+	@SuppressWarnings("deprecation")
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
 		return rs.getUnicodeStream(columnIndex);
 	}
 
+	@SuppressWarnings("deprecation")
 	public InputStream getUnicodeStream(String columnLabel) throws SQLException {
 		return rs.getUnicodeStream(columnLabel);
 	}

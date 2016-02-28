@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 
 public final class Copy {
 	
+	@SuppressWarnings("unchecked")
 	public static <T> T copy(T clazz) throws Exception{
 		 ByteArrayOutputStream bos = new ByteArrayOutputStream();  
 	        ObjectOutputStream oos = new ObjectOutputStream(bos);  
@@ -17,7 +18,7 @@ public final class Copy {
 	  
 	        ObjectInputStream ois = new ObjectInputStream(bis);  
 	  
-	        return (T)ois.readObject();  
+	        return (T) ois.readObject();  
 	}
 
 }

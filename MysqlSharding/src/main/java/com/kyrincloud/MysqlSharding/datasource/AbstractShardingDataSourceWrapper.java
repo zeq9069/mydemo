@@ -42,6 +42,7 @@ public abstract class AbstractShardingDataSourceWrapper implements DataSource {
 		return iface.isInstance(this);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		 if (isWrapperFor(iface)) {
 	            return (T) this;
