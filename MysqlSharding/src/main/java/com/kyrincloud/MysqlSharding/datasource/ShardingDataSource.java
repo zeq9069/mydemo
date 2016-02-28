@@ -23,13 +23,11 @@ public class ShardingDataSource extends AbstractShardingDataSourceWrapper {
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		System.out.println("---获取连接---");
 		return new ShardingConnection(connections);
 	}
 
 	@Override
 	public Connection getConnection(String username, String password) throws SQLException {
-		System.out.println("---获取连接---username,password");
 		return new ShardingConnection(connections);
 	}
 	

@@ -19,13 +19,11 @@ public class ShardingResultSet extends AbstractShardingResultSetWrapper {
 
 	@Override
 	public boolean next() throws SQLException {
-		System.out.println("---next 1---");
 		if(rs.next()){
 			return true;
 		}
 		if(resultSets!=null){
 			for(int i=resultSets.indexOf(rs)+1;i<resultSets.size();i++){
-				System.out.println(i);
 				setCurrentResultSet(resultSets.get(i));
 				return rs.next();
 			}
@@ -35,7 +33,6 @@ public class ShardingResultSet extends AbstractShardingResultSetWrapper {
 
 	@Override
 	public boolean previous() throws SQLException {
-		System.out.println("---previous 1");
 		return rs.previous();
 	}
 
