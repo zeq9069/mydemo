@@ -1,3 +1,3 @@
 按照sharding-jdbc的原理
 封装jdbc，实现一条SQL在多个数据源的执行，然后结果归并返回的功能
-(目前仅支持PreparedStatment方式的excuteQuery运行)
+(目前仅支持PreparedStatment方式的executeQuery,executeUpdate运行)
