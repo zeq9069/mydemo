@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import javax.sql.DataSource;
 
+import com.kyrincloud.MysqlSharding.datasource.ShardingDataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**

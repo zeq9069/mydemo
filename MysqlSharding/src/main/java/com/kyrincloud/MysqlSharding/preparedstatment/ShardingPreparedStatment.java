@@ -1,4 +1,4 @@
-package com.kyrincloud.MysqlSharding;
+package com.kyrincloud.MysqlSharding.preparedstatment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.kyrincloud.MysqlSharding.resultset.ShardingResultSet;
 import com.kyrincloud.MysqlSharding.util.Copy;
 
 public class ShardingPreparedStatment extends AbstractShardingPreparedStatmentWrapper {

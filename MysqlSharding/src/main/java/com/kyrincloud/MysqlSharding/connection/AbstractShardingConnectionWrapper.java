@@ -1,4 +1,4 @@
-package com.kyrincloud.MysqlSharding;
+package com.kyrincloud.MysqlSharding.connection;
 
 import java.sql.Array;
 import java.sql.Blob;

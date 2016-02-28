@@ -1,4 +1,4 @@
-package com.kyrincloud.MysqlSharding;
+package com.kyrincloud.MysqlSharding.resultset;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

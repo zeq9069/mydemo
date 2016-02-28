@@ -1,4 +1,4 @@
-package com.kyrincloud.MysqlSharding;
+package com.kyrincloud.MysqlSharding.preparedstatment;
 
 import java.io.InputStream;
 import java.io.Reader;

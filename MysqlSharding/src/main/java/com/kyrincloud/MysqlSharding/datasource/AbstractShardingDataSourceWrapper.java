@@ -1,4 +1,4 @@
-package com.kyrincloud.MysqlSharding;
+package com.kyrincloud.MysqlSharding.datasource;
 
 import java.io.PrintWriter;
 import java.sql.Connection;
