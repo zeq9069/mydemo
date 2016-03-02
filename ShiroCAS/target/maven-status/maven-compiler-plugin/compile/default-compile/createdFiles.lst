@@ -1,0 +1,4 @@
+com\kyrin\CAS\controller\LoginUser.class
+com\kyrin\CAS\controller\config\MyCASRealm.class
+com\kyrin\CAS\controller\ApplicationStart.class
+com\kyrin\CAS\controller\config\ShiroConfig.class
