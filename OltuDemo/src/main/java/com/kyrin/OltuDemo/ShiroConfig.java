@@ -1,12 +1,5 @@
 package com.kyrin.OltuDemo;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.Filter;
-
-import org.apache.shiro.cas.CasFilter;
-import org.apache.shiro.cas.CasRealm;
 import org.apache.shiro.cas.CasSubjectFactory;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -24,8 +17,6 @@ import com.kyrin.OltuDemo.realm.UserRealm;
 @Configuration
 public class ShiroConfig {
 
- 
-	
 	@Bean
 	public Realm myRealm(){
 		UserRealm realm=new UserRealm();
@@ -80,6 +71,4 @@ public class ShiroConfig {
 		auth.setSecurityManager(defaultWebSecurityManager());
 		return auth;
 	}
-	 
-
 }

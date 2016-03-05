@@ -31,12 +31,12 @@ public class OAuthServiceImpl implements OAuthService{
 	@Autowired
 	private AccessTokenRespository accessTokenRepository;
 	
-	//授权码缓存
+	//授权码缓存 key=code,value=username
 	Map<String,String> cache=new ConcurrentHashMap<String ,String >();
 	
 	@Override
-	public void saveAuthorizationCode(String code) {
-		cache.put(code,code);
+	public void saveAuthorizationCode(String code,String username) {
+		cache.put(code,username);
 	}
 	
 	@Override
@@ -81,6 +81,5 @@ public class OAuthServiceImpl implements OAuthService{
 			String username, Date expireIn) {
 		accessTokenRepository.save(new AccessTokenInfo(accessToken,refreshToken,expireIn,clientId,username));
 	}
-
 
 }

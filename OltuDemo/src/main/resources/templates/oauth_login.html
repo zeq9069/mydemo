@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录并授权</title>
+    <style>.error{color:red;}</style>
+</head>
+<body>
+
+<div>使用你的Shiro示例Server帐号访问 [<span th:if="${client!=null}" th:text="${client.clientName}"></span>] ，并同时登录Shiro示例Server</div>
+<div class="error" th:text="${error}"></div>
+
+<form action="" method="post">
+    用户名：<input th:type="text" th:name="username" /><br></br>
+    密码：<input th:type="password" th:name="password" /><br></br>
+    <input th:type="submit" th:value="登录并授权" />
+</form>
+
+</body>
+</html>

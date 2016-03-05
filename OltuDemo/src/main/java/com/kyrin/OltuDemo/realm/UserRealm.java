@@ -30,9 +30,8 @@ public class UserRealm extends AuthorizingRealm{
 			AuthenticationToken token) throws AuthenticationException {
 		System.out.println("-----");
 		String username = (String) token.getPrincipal();
-		String password = (String) token.getCredentials();
 		if("admin".equals(username)){
-			SimpleAuthenticationInfo authen=new SimpleAuthenticationInfo(username,password,"");
+			SimpleAuthenticationInfo authen=new SimpleAuthenticationInfo(username,"123",UserRealm.class.getName());
 			return authen;
 		}
 		return null;

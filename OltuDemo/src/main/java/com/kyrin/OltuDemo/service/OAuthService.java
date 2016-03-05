@@ -14,7 +14,7 @@ public interface OAuthService {
 	
 	public void saveAccessToken(String accessToken,String refreshToken,String clientId,String username,Date expireIn);
 	
-	public void saveAuthorizationCode(String code);
+	public void saveAuthorizationCode(String code,String username);
 	
 	public String getAuthorzationCode(String code);
 	
@@ -25,6 +25,5 @@ public interface OAuthService {
 	public boolean checkClientId(String clientId);
 	
 	public boolean checkRedirectUrl(String clientId,String redirectUrl);
-	
 	
 }
