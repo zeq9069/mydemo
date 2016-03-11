@@ -136,13 +136,9 @@ public class OAuth2ServerConfig {
 			endpoints.tokenStore(tokenStore());
 			endpoints.tokenServices(tokenServices());
 			endpoints.approvalStore(approvalStore());
-<<<<<<< HEAD
 			endpoints.accessTokenConverter(new DefaultAccessTokenConverter()); //排除check_token 请求时accessTokenConverter未初始化的错误
-=======
-			endpoints.accessTokenConverter(new DefaultAccessTokenConverter());//使得check_token url 生效
 			endpoints.pathMapping("/oauth/authorize", "/v1/oauth2/authorize") //替代一些默认的url
 			.pathMapping("/oauth/token", "/v1/oauth2/token");
->>>>>>> fbd3b4516bf0e5517ccaa8eb5e38e25172e859ac
 		}
 		
 	}

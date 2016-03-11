@@ -28,7 +28,7 @@ public class UserInfoDaoImpl extends JdbcDaoSupport implements UserInfoDao {
 	
 	
 	@Override
-	public UserInfo findUserInfoByName(String username) {
+	public UserInfo findUserInfoByName(final String username) {
 		String sql="select * from users where username=?";
 		UserInfo userInfo=null;
 		try{
@@ -48,7 +48,7 @@ public class UserInfoDaoImpl extends JdbcDaoSupport implements UserInfoDao {
 			});
 			
 		}catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			if(logger.isInfoEnabled()){
 				logger.info("用户名不存在");
 			}
@@ -57,7 +57,7 @@ public class UserInfoDaoImpl extends JdbcDaoSupport implements UserInfoDao {
 	}
 	
 	private List<Role> getRolesByUserId(String username){
-		String sql="select r.id,r.name,r.desc from users u ,role r, users_role ur where u.id=ur.user_id and r.id=ur.role_id and u.username=?";
+		String sql="select r.id,r.name,r.desc from users u ,roles r, users_role ur where u.id=ur.user_id and r.id=ur.role_id and u.username=?";
 		return this.getJdbcTemplate().query(sql,new String[]{username},new RowMapper<Role>(){
 			@Override
 			public Role mapRow(ResultSet rs, int rowNum) throws SQLException {

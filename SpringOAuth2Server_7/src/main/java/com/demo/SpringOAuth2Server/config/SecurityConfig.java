@@ -44,13 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 			//密码加密解密
-			Md5PasswordEncoder md5=new Md5PasswordEncoder();
-			DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
-			daoAuthenticationProvider.setSaltSource(mySaltSource);
-			daoAuthenticationProvider.setPasswordEncoder(md5);
-			daoAuthenticationProvider.setUserDetailsService(userInfoService);
+			//Md5PasswordEncoder md5=new Md5PasswordEncoder();
+			//DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+			//daoAuthenticationProvider.setSaltSource(mySaltSource);
+			//daoAuthenticationProvider.setPasswordEncoder(md5);
+			//daoAuthenticationProvider.setUserDetailsService(userInfoService);
 			
-			auth.authenticationProvider(daoAuthenticationProvider);
+			//auth.authenticationProvider(daoAuthenticationProvider);
+			auth.userDetailsService(userInfoService);
 			
 		}
 		

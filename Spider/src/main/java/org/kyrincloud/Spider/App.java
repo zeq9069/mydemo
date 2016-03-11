@@ -1,25 +1,13 @@
 package org.kyrincloud.Spider;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.http.Header;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 
@@ -39,7 +27,7 @@ import org.apache.http.impl.client.HttpClients;
  * 请求验证码：
  *   http://qyxy.baic.gov.cn//CheckCodeCaptcha?currentTimeMillis=1457594746390（生成验证码图片）
  *   
- *   header:
+ *   header:GET
  *   Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,;q=0.8
  *	 Accept-Encoding:gzip, deflate, sdch
  *   Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
@@ -63,7 +51,7 @@ import org.apache.http.impl.client.HttpClients;
  * 请求搜索公司名称列表：
  *   http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!getBjQyList.dhtml
  *     
- *     header:
+ *     header: POST
  *   Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,;q=0.8
  *   Accept-Encoding:gzip, deflate
  *   Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
@@ -88,6 +76,35 @@ import org.apache.http.impl.client.HttpClients;
  * 请求公司详情页
  *   http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!openEntInfo.dhtml?entId=a1a1a1a027fc643a0128149ecf4a34d9&credit_ticket=12A68858BF5D270044E1E6C8DE3655B9&entNo=110112604140634&timeStamp=1457624843830
  * credit_ticket 需要从公司列表页解析出来，每个公司对应的url的值都不一样
+ *   
+ *   header: GET
+ *   Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,;q=0.8
+ *   Accept-Encoding:gzip, deflate, sdch
+ *   Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
+ *   Connection:keep-alive
+ *   Cookie:JSESSIONID=CrvMWvYCkKKJT9tnv38GlCk9Tf0BC666X8nYw5RvWdrhShgQBQZX!-966417528; BIGipServerpool_xy3_web=1091938496.16671.0000; CNZZDATA1257386840=1567385135-1457596878-http%253A%252F%252Fqyxy.baic.gov.cn%252F%7C1457653914
+ *   Host:qyxy.baic.gov.cn
+ *   Referer:http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!getBjQyList.dhtml
+ *   Upgrade-Insecure-Requests:1
+ *   User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
+ *   
+ *   
+ *   公司详情里包括以下URL：
+ *   		//登记信息
+ 			/gjjbj/gjjQueryCreditAction!biangengFrame.dhtml?ent_id="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+			//动产抵押
+			/gjjbjTab/gjjTabQueryCreditAction!dcdyFrame.dhtml?entId="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+			//股权出质登记信息
+			/gdczdj/gdczdjAction!gdczdjFrame.dhtml?entId="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+			//行政处罚
+			/gsgs/gsxzcfAction!list.dhtml?entId="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+			//经营异常
+			/gsgs/gsxzcfAction!list_jyycxx.dhtml?entId="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+			//严重违法
+			/gsgs/gsxzcfAction!list_yzwfxx.dhtml?ent_id="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+			//抽查检查
+			/gsgs/gsxzcfAction!list_ccjcxx.dhtml?ent_id="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
+ *   
  */
 public class App 
 {
@@ -106,7 +123,39 @@ public class App
 	//company_list
 	static String company_list="http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!getBjQyList.dhtml";
 	
+	//company详细信息
 	static String company_details="http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!openEntInfo.dhtml";
+	
+	//company_details登记信息
+	static String company_details_djxx="http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!biangengFrame.dhtml";//ent_id=&clear=true&timeStamp=
+	//company_details动产抵押
+	static String company_details_dcdy="http://qyxy.baic.gov.cn/gjjbjTab/gjjTabQueryCreditAction!dcdyFrame.dhtml";//entId=&clear=true&timeStamp=;
+	//company_details股权出质登记信息
+	static String company_details_bqczdjxx="http://qyxy.baic.gov.cn/gdczdj/gdczdjAction!gdczdjFrame.dhtml";//entId=&clear=true&timeStamp=;
+	//company_details行政处罚
+	static String company_details_xzcf="http://qyxy.baic.gov.cn/gsgs/gsxzcfAction!list.dhtml";//entId=&clear=true&timeStamp=
+	//company_details经营异常
+	static String company_details_jyyc="http://qyxy.baic.gov.cn/gsgs/gsxzcfAction!list_jyycxx.dhtml";//entId=&clear=true&timeStamp=
+	//company_details严重违法
+	static String company_details_yzwf="http://qyxy.baic.gov.cn/gsgs/gsxzcfAction!list_yzwf"
+			+ "xx.dhtml";//ent_id=&clear=true&timeStamp=
+	//company_details抽查检查
+	static String company_details_ccjc="http://qyxy.baic.gov.cn/gsgs/gsxzcfAction!list_ccjcxx.dhtml";//ent_id=&clear=true&timeStamp=
+	
+	/*****************************以下url，实用性待验证*****************************************/
+	/*//company_details个体工商户信息
+	static String company_details_gtgshxx="http://qyxy.baic.gov.cn/gtgsh/gtgsh_gtgshxxAction!gtgshxx.dhtml";//entId=&clear=true&timeStamp= 
+	
+	//工商公示信息
+	static String company_gsgsxx ="http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!openEntInfo.dhtml";//entId= &entNo= &credit_ticket= &str=1&timeStamp= ;给该url一个时间戳~~这样就必须每次从服务器读取数
+	
+	//企业公示信息
+	static String company_qygs ="http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!openInfo.dhtml";//entId= &entNo= &credit_ticket= &str=2&timeStamp= ;给该url一个时间戳~~这样就必须每次从服务器读取数
+		
+	//其他公示信息
+	static String company_qtgs ="http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!openInfo.dhtml";//entId= &entNo= &credit_ticket= &str=3&timeStamp= ;给该url一个时间戳~~这样就必须每次从服务器读取数
+			*/
+	
 	
 	static CloseableHttpClient client=HttpClients.createDefault();
 	
@@ -137,15 +186,15 @@ public class App
 		if(response.getStatusLine().getStatusCode()==200){
 			System.out.println("header :"+response);
 			InputStream is=response.getEntity().getContent();
-			ImageUtil.compass(is, "/Users/zhangerqiang/Desktop/code.jpg");
+			ImageUtil.compass(is, "C:\\Users\\lenovo\\Desktop\\code.jpg");
 			System.out.println(c);
 		}
 	}
 	
 	//请求搜索企业列表currentTimeMillis需要跟每次请求验证码的currentTimeMillis保持一致
-	public static void company() throws Exception{
-		HttpPost get=new HttpPost(company_list+"?currentTimeMillis=1457623956356&credit_ticket=A4588C4298879FCA419BAF525E3DCE00&checkcode=8&keyword=百度");
-		setCompanyHeader(get);
+	public static void companyList() throws Exception{
+		HttpPost get=new HttpPost(company_list+"?currentTimeMillis=1457663488640&credit_ticket=6ABC044E8EEF660D946545495908B8FA&checkcode=6&keyword=百度");
+		setCompanyListHeader(get);
 		HttpResponse response=client.execute(get);
 		System.out.println("header :"+response);
 		InputStream is=response.getEntity().getContent();
@@ -159,44 +208,83 @@ public class App
 		System.out.println(result);
 	}
 	
+	//请求公司详情页的timeStamp一致,credit_ticket是每个url的认证票，每个url都不相同
+	public static void companyDetails() throws Exception{
+		long timestamp=(new Date()).getTime();
+		HttpGet get=new HttpGet(company_details+"?entId=a1a1a1a027fc643a0128149ecf4a34d9&credit_ticket=84996718BB9D765595A703FE1C1EE038&entNo=110112604140634&timeStamp="+timestamp);
+		setCompanyDetailsHeader(get);
+		HttpResponse response=client.execute(get);
+		System.out.println("header :"+response);
+		InputStream is=response.getEntity().getContent();
+		System.out.println(response.getEntity().getContentLength());
+		System.out.println("时间戳："+timestamp);
+		byte[] context=new byte[1024];
+		StringBuffer result=new StringBuffer();
+		while(is.read(context)!=-1){
+			Thread.sleep(1000);
+			result.append(new String(context,"UTF-8"));
+		}
+		System.out.println(result);
+	}
+	
+	
+	//请求公司详情页的timeStamp一致
+		public static void companyDetailsQygs() throws Exception{
+			//任何一个company_details_xxx
+			HttpGet get=new HttpGet(company_details_djxx+"?entId=a1a1a1a027fc643a0128149ecf4a34d9&clear=true&timeStamp="+(new Date()).getTime());
+			setCompanyDetailsXXHeader(get);
+			HttpResponse response=client.execute(get);
+			System.out.println("header :"+response);
+			InputStream is=response.getEntity().getContent();
+			System.out.println(response.getEntity().getContentLength());
+			byte[] context=new byte[1024];
+			StringBuffer result=new StringBuffer();
+			while(is.read(context)!=-1){
+				Thread.sleep(1000);
+				result.append(new String(context,"UTF-8"));
+			}
+			System.out.println(result);
+		}
 	
 	
 	public static void main(String[] args) throws Exception {
-		//index();
+		index();
 		//code();
-		company();
+		//companyList();
+		//companyDetails();
+		//companyDetailsQygs();
 	}
 	
-	private static void setCompanyHeader(HttpPost get){
-		get.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-		get.setHeader("Accept-Encoding", "gzip, deflate");
-		get.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
-		get.setHeader("Cache-Control", "max-age=0");
-		get.setHeader("Connection", "keep-alive");
-		//get.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		get.setHeader("Cookie", "JSESSIONID=T4r7WhMZTSpWJS8TGdyg83SbLcrhnVpvBJjmVRKWvClygPBQZD5Y!1768546710; BIGipServerpool_xy3_web=1058384064.17695.0000");
-		get.setHeader("Host", "qyxy.baic.gov.cn");
-		get.setHeader("Origin", "http://qyxy.baic.gov.cn");
-		get.setHeader("Referer","http://qyxy.baic.gov.cn/beijing");
-		get.setHeader("Upgrade-Insecure-Requests","1");
-		get.setHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36");
+	//请求公司搜索列表页header
+	private static void setCompanyListHeader(HttpRequestBase req){
+		setCodeHeader(req);
+		req.setHeader("Origin", "http://qyxy.baic.gov.cn");
+		req.setHeader("Referer","http://qyxy.baic.gov.cn/beijing");
+	}
+	
+	//请求公司搜索列表页header
+	private static void setCompanyDetailsHeader(HttpRequestBase req){
+			setCodeHeader(req);
+			req.setHeader("Referer","http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!getBjQyList.dhtml");
+	}
+	//公司详情页header
+	private static void setCompanyDetailsXXHeader(HttpRequestBase req){
+			setCodeHeader(req);
+			req.setHeader("Referer",company_details+"?entId=a1a1a1a027fc643a0128149ecf4a34d9&credit_ticket=8966768067B0FB088A20F1E501A8F026&entNo=110112604140634&timeStamp=1457663593763");
 	}
 	
 	
-	private static void setCodeHeader(HttpGet get){
-		get.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-		get.setHeader("Accept-Encoding", "gzip, deflate");
-		get.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
-		get.setHeader("Cache-Control", "max-age=0");
-		get.setHeader("Connection", "keep-alive");
-		//get.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		get.setHeader("Cookie", "JSESSIONID=T4r7WhMZTSpWJS8TGdyg83SbLcrhnVpvBJjmVRKWvClygPBQZD5Y!1768546710; BIGipServerpool_xy3_web=1058384064.17695.0000");
-		get.setHeader("Host", "qyxy.baic.gov.cn");
-		//get.setHeader("Origin", "http://qyxy.baic.gov.cn");
-		//get.setHeader("Referer","http://qyxy.baic.gov.cn/beijing");
-		get.setHeader("Upgrade-Insecure-Requests","1");
-		get.setHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36");
-	
+	//请求验证码header
+	private static void setCodeHeader(HttpRequestBase req){
+		req.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+		req.setHeader("Accept-Encoding", "gzip, deflate");
+		req.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
+		req.setHeader("Cache-Control", "max-age=0");
+		req.setHeader("Connection", "keep-alive");
+		req.setHeader("Cookie", "JSESSIONID=nbTPWvrNS5GqdDQxNXG2N2pTXsvnwyVT32lJQhsG3dGk8pbvg8xJ!-968895144; BIGipServerpool_xy3_web=1108715712.16671.0000");
+		req.setHeader("Host", "qyxy.baic.gov.cn");
+		req.setHeader("Upgrade-Insecure-Requests","1");
+		req.setHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36");
 	}
 	
 	    

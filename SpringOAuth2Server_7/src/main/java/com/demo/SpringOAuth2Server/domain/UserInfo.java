@@ -22,7 +22,7 @@ public class UserInfo implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> list=new ArrayList<GrantedAuthority>();
-		for(Role role:roles){
+		for(final Role role:roles){
 			list.add(new GrantedAuthority() {
 				@Override
 				public String getAuthority() {
