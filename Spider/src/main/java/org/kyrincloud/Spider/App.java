@@ -248,10 +248,10 @@ public class App
 	
 	
 	public static void main(String[] args) throws Exception {
-		index();
+		//index();
 		//code();
 		//companyList();
-		//companyDetails();
+		companyDetails();
 		//companyDetailsQygs();
 	}
 	
