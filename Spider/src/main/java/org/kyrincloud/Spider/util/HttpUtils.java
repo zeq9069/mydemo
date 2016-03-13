@@ -1,8 +1,10 @@
 package org.kyrincloud.Spider.util;
 
 import java.io.IOException;
+import java.net.URI;
 
 import org.apache.http.Header;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -20,7 +22,6 @@ public final class HttpUtils {
 	
 	private static CloseableHttpClient httpClient=HttpClients.createDefault();
 	
-	
 	public static HttpResponse exec(HttpUriRequest request) throws ClientProtocolException, IOException{
 		return httpClient.execute(request);
 	}
@@ -37,8 +38,10 @@ public final class HttpUtils {
 		default:
 			return null;
 		}
-		for(Header header:headers){
-			request.addHeader(header);
+		if(headers!=null){
+			for(Header header:headers){
+				request.addHeader(header);
+			}
 		}
 		return request;
 	}
