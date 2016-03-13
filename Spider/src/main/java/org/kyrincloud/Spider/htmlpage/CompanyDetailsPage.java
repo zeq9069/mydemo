@@ -52,7 +52,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setEntNo(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -62,7 +62,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setName(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -72,7 +72,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("") ){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("") ){
 						continue;
 					}
 						companyInfo.setType(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -82,7 +82,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setOperator(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -92,7 +92,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setAddress(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -102,7 +102,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setGroupType(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -112,7 +112,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setRegDate(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -122,7 +122,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setOptDateStart(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -132,7 +132,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 								child=child.getNextSibling();
 						}
-						if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+						if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 							continue;
 						}
 						companyInfo.setOptDateEnd(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -142,7 +142,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setFound(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -152,7 +152,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setBuildDate(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -162,7 +162,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setOptScope(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -172,7 +172,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setRegDepartment(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -182,7 +182,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setCheckDate(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));
@@ -192,7 +192,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();
 					}
-					if(child.getNextSibling()==null && !child.toPlainTextString().trim().equals("")){
+					if(child.getNextSibling()==null && child.toPlainTextString().trim().equals("")){
 						continue;
 					}
 						companyInfo.setRegStatus(child.getNextSibling().toPlainTextString().trim().replace("\n", "").replace("\t", ""));

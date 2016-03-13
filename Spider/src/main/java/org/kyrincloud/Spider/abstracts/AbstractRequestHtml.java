@@ -2,6 +2,7 @@ package org.kyrincloud.Spider.abstracts;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import org.apache.http.Header;
@@ -82,23 +83,39 @@ public abstract class AbstractRequestHtml implements RequestHtml{
 	
 	//获取源代码
 	public String getHtmlText() throws UnsupportedOperationException, IOException{
-			String htmlText=null;
-			try {
-				InputStream is = getResponse().getEntity().getContent();
-				
-				byte[] b=new byte[1024];
-				while(is.read(b,0,b.length)!=-1){
-					String res=new String(b,"UTF-8");
-					Arrays.fill(b, (byte)0);
-					htmlText+=res;
-				}
-				is.close();
-			} catch (UnsupportedOperationException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+//			String htmlText=null;
+//			try {
+//				InputStream is = getResponse().getEntity().getContent();
+//				byte[] b=new byte[1024];
+//				while(isr.read(b,0,b.length)!=-1){
+//					String res=new String(b,"UTF-8");
+//					Arrays.fill(b, (byte)0);
+//					htmlText+=res;
+//				}
+//				is.close();
+//			} catch (UnsupportedOperationException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			return htmlText;
+		String htmlText=null;
+		try {
+			InputStream is = getResponse().getEntity().getContent();
+			InputStreamReader isr = new InputStreamReader(is,"utf-8"); 
+			char[] b=new char[1024];
+			while(isr.read(b)!=-1){
+				String res=new String(b);
+				Arrays.fill(b, (char)0);
+				htmlText+=res;
 			}
-			return htmlText;
+			isr.close();
+		} catch (UnsupportedOperationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return htmlText;
 	}
 	
 }

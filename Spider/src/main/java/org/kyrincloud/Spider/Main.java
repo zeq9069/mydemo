@@ -53,7 +53,7 @@ public class Main {
 		System.out.println("[>>>验证码请求完毕<<<]");
 		
 		//3请求公司列表页
-		CompanyListPage companyList=new CompanyListPage(HttpMethodType.POST,Constant.company_list+"?currentTimeMillis="+checkCode.getcurrentTimeMills()+"&"+"credit_ticket="+index.getCreditTicket()+"&checkcode="+checkCode.getCode()+"&"+"keyword=军事", buildCompanyListHeader(headerCookie));
+		CompanyListPage companyList=new CompanyListPage(HttpMethodType.POST,Constant.company_list+"?currentTimeMillis="+checkCode.getcurrentTimeMills()+"&"+"credit_ticket="+index.getCreditTicket()+"&checkcode="+checkCode.getCode()+"&"+"keyword=百度", buildCompanyListHeader(headerCookie));
 		companyList.handler();
 		
 		System.out.println("[>>>公司列表请求完毕<<<]");
