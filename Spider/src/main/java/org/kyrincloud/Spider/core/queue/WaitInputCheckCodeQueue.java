@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.queue;
+package org.kyrincloud.Spider.core.queue;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.constant;
+package org.kyrincloud.Spider.core.constant;
 
 /**
  * url常量

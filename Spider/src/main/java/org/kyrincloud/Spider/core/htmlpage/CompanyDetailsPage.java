@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.htmlpage;
+package org.kyrincloud.Spider.core.htmlpage;
 
 import java.io.IOException;
 
@@ -10,9 +10,9 @@ import org.htmlparser.filters.HasChildFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
-import org.kyrincloud.Spider.abstracts.AbstractRequestHtml;
-import org.kyrincloud.Spider.htmlpage.model.CompanyInfo;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.core.abstracts.AbstractRequestHtml;
+import org.kyrincloud.Spider.core.htmlpage.model.CompanyInfo;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 /**
  * 公司详情页

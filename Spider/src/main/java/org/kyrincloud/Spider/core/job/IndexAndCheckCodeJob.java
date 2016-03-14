@@ -1,15 +1,15 @@
-package org.kyrincloud.Spider.job;
+package org.kyrincloud.Spider.core.job;
 
 import java.io.IOException;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.kyrincloud.Spider.htmlpage.CheckCodePage;
-import org.kyrincloud.Spider.htmlpage.IndexPage;
-import org.kyrincloud.Spider.queue.WaitInputCheckCodeQueue;
-import org.kyrincloud.Spider.requestHeader.RequestHeaderBuild;
-import org.kyrincloud.Spider.util.ImageUtil;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.core.htmlpage.CheckCodePage;
+import org.kyrincloud.Spider.core.htmlpage.IndexPage;
+import org.kyrincloud.Spider.core.queue.WaitInputCheckCodeQueue;
+import org.kyrincloud.Spider.core.requestHeader.RequestHeaderBuild;
+import org.kyrincloud.Spider.core.util.ImageUtil;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 import com.alibaba.fastjson.JSONObject;
 

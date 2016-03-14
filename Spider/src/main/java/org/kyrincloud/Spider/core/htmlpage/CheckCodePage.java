@@ -1,12 +1,12 @@
-package org.kyrincloud.Spider.htmlpage;
+package org.kyrincloud.Spider.core.htmlpage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.http.Header;
-import org.kyrincloud.Spider.abstracts.AbstractRequestHtml;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.core.abstracts.AbstractRequestHtml;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 //2.验证码请求页
 public class CheckCodePage extends AbstractRequestHtml{

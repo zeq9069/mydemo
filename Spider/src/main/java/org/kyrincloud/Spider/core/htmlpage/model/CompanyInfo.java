@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.htmlpage.model;
+package org.kyrincloud.Spider.core.htmlpage.model;
 
 /**
  * 公司实体

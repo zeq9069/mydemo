@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.util;
+package org.kyrincloud.Spider.core.util;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

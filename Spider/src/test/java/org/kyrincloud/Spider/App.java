@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.kyrincloud.Spider.util.ImageUtil;
+import org.kyrincloud.Spider.core.util.ImageUtil;
 
 
 /**

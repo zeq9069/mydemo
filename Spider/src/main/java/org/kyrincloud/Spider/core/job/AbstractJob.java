@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.job;
+package org.kyrincloud.Spider.core.job;
 
 import org.apache.http.Header;
 

@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.kyrincloud.Spider.job.FetchCompanyInfoJob;
-import org.kyrincloud.Spider.job.IndexAndCheckCodeJob;
-import org.kyrincloud.Spider.queue.WaitFetchQueue;
-import org.kyrincloud.Spider.queue.WaitInputCheckCodeQueue;
-import org.kyrincloud.Spider.requestHeader.BrowserType;
+import org.kyrincloud.Spider.core.job.FetchCompanyInfoJob;
+import org.kyrincloud.Spider.core.job.IndexAndCheckCodeJob;
+import org.kyrincloud.Spider.core.queue.WaitFetchQueue;
+import org.kyrincloud.Spider.core.queue.WaitInputCheckCodeQueue;
+import org.kyrincloud.Spider.core.requestHeader.BrowserType;
 
 import com.alibaba.fastjson.JSONObject;
 

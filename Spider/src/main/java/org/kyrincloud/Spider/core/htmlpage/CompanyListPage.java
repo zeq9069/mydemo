@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.htmlpage;
+package org.kyrincloud.Spider.core.htmlpage;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -17,9 +17,9 @@ import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
-import org.kyrincloud.Spider.abstracts.AbstractRequestHtml;
-import org.kyrincloud.Spider.constant.Constant;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.core.abstracts.AbstractRequestHtml;
+import org.kyrincloud.Spider.core.constant.Constant;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 /**
  * 获取企业列表页面

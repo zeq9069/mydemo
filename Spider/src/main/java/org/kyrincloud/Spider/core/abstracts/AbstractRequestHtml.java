@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.abstracts;
+package org.kyrincloud.Spider.core.abstracts;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +10,8 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.kyrincloud.Spider.util.HttpUtils;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.core.util.HttpUtils;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 /**
  * 页面行为抽象类

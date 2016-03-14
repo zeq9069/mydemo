@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.requestHeader;
+package org.kyrincloud.Spider.core.requestHeader;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;

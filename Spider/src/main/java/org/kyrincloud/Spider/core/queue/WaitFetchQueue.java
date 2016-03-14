@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.queue;
+package org.kyrincloud.Spider.core.queue;
 
 import java.util.Collection;
 import java.util.concurrent.BlockingQueue;

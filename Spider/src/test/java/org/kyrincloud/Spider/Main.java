@@ -6,13 +6,13 @@ import java.util.Arrays;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.kyrincloud.Spider.constant.Constant;
-import org.kyrincloud.Spider.htmlpage.CheckCodePage;
-import org.kyrincloud.Spider.htmlpage.CompanyDetailsPage;
-import org.kyrincloud.Spider.htmlpage.CompanyListPage;
-import org.kyrincloud.Spider.htmlpage.IndexPage;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
-import org.kyrincloud.Spider.util.ImageUtil;
+import org.kyrincloud.Spider.core.constant.Constant;
+import org.kyrincloud.Spider.core.htmlpage.CheckCodePage;
+import org.kyrincloud.Spider.core.htmlpage.CompanyDetailsPage;
+import org.kyrincloud.Spider.core.htmlpage.CompanyListPage;
+import org.kyrincloud.Spider.core.htmlpage.IndexPage;
+import org.kyrincloud.Spider.core.util.ImageUtil;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 /**
  * 测试

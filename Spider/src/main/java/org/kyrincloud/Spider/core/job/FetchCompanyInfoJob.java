@@ -1,13 +1,13 @@
-package org.kyrincloud.Spider.job;
+package org.kyrincloud.Spider.core.job;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.kyrincloud.Spider.constant.Constant;
-import org.kyrincloud.Spider.htmlpage.CompanyDetailsPage;
-import org.kyrincloud.Spider.htmlpage.CompanyListPage;
-import org.kyrincloud.Spider.queue.WaitFetchQueue;
-import org.kyrincloud.Spider.requestHeader.RequestHeaderBuild;
-import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.core.constant.Constant;
+import org.kyrincloud.Spider.core.htmlpage.CompanyDetailsPage;
+import org.kyrincloud.Spider.core.htmlpage.CompanyListPage;
+import org.kyrincloud.Spider.core.queue.WaitFetchQueue;
+import org.kyrincloud.Spider.core.requestHeader.RequestHeaderBuild;
+import org.kyrincloud.Spider.core.util.HttpUtils.HttpMethodType;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -1,4 +1,4 @@
-package org.kyrincloud.Spider.abstracts;
+package org.kyrincloud.Spider.core.abstracts;
 
 import org.apache.http.Header;
 
