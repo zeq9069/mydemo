@@ -1,8 +1,6 @@
 package org.kyrincloud.Spider.htmlpage;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -77,7 +75,11 @@ public class IndexPage extends AbstractRequestHtml{
 			}
 			
 			System.out.println(""+credit_ticket+":"+checkCodeUri());
-		} catch (ParserException | UnsupportedOperationException | IOException e) {
+		} catch (ParserException e) {
+			e.printStackTrace();
+		}catch (UnsupportedOperationException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

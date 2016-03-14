@@ -1,13 +1,10 @@
 package org.kyrincloud.Spider.htmlpage;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.apache.http.Header;
 import org.htmlparser.Node;
@@ -76,7 +73,11 @@ public class CompanyListPage extends AbstractRequestHtml{
 				companyUrlList.add(url);
 			}
 			
-		} catch (ParserException | UnsupportedOperationException | IOException e) {
+		} catch (ParserException   e) {
+			e.printStackTrace();
+		} catch (  UnsupportedOperationException  e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		

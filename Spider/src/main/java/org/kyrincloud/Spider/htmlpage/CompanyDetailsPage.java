@@ -47,7 +47,7 @@ public class CompanyDetailsPage extends AbstractRequestHtml{
 						continue;
 					}
 					
-					System.out.println(child.toPlainTextString());
+					//System.out.println(child.toPlainTextString());
 					if(child.toPlainTextString().trim().equals("注册号")||child.toPlainTextString().trim().equals("统一社会信用代码")){
 						while(child.getNextSibling()!=null && child.getNextSibling().toPlainTextString().trim().equals("")){
 							child=child.getNextSibling();

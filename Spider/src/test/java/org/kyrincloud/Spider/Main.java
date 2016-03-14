@@ -11,19 +11,25 @@ import org.kyrincloud.Spider.htmlpage.CheckCodePage;
 import org.kyrincloud.Spider.htmlpage.CompanyDetailsPage;
 import org.kyrincloud.Spider.htmlpage.CompanyListPage;
 import org.kyrincloud.Spider.htmlpage.IndexPage;
-import org.kyrincloud.Spider.util.ImageUtil;
 import org.kyrincloud.Spider.util.HttpUtils.HttpMethodType;
+import org.kyrincloud.Spider.util.ImageUtil;
 
+/**
+ * 测试
+ */
+@Deprecated
 public class Main {
 	
 	private static String[] provinces=new String[]{"beijing","tianjin","henan","hebei","hubei","hunan","jiangxi","zhejiang","shanghai","jiangsu"
 			,"fujian","guangdong","guangxi","hainan","yunnan","sichuan","chongqing","shanxi","shanxi","chongqing","neimenggu",
 			"jilin","liaoning","heilongjiang","qinghai","gansu","xinjiang","xizang","shandong","taiwan","xianggang","aomen",
 			"guizhou","ningxia"};
-	private static String currentProvince;
+	private static String currentProvince=provinces[0];
+	private static String checkCodeImagePath="C:\\Users\\lenovo\\Desktop\\code.png";
+	private static String keyword="中石油";
 	
 	public void testIndex() throws UnsupportedOperationException, IOException{
-		IndexPage index=new IndexPage(HttpMethodType.GET, null,provinces[0]);
+		IndexPage index=new IndexPage(HttpMethodType.GET, null,currentProvince);
 		index.handler();
 		System.out.println(index.getResponseFirstHeader("Set-Cookie").getValue());
 		InputStream is=index.getResponse().getEntity().getContent();
@@ -36,40 +42,33 @@ public class Main {
 	
 	public static void main(String[] args) throws UnsupportedOperationException, IOException {
 		currentProvince=provinces[0];
+	
 		//1请求搜索首页
 		IndexPage index=new IndexPage(HttpMethodType.GET, null,currentProvince);
 		index.handler();
-		
 		System.out.println("[>>>首页请求完毕<<<]");
-		
 		//构建cookie header = Cookie:JSESSIONID=YnPyWhjGw2mLN8dHxhS7HHJBv7GjYVb41ylcGxvv1MVdGDlrVGCn!-968895144; BIGipServerpool_xy3_web=1108715712.16671.0000
 		Header headerCookie=new BasicHeader("Cookie","JSESSIONID="+index.getCookie().get("JSESSIONID")+"; "+"BIGipServerpool_xy3_web="+index.getCookie().get("BIGipServerpool_xy3_web"));
-
+		
 		//2请求验证码
 		CheckCodePage checkCode=new CheckCodePage(HttpMethodType.GET, index.checkCodeUri()+"?currentTimeMillis="+System.currentTimeMillis(), buildCheckCodeRequestHeader(headerCookie));
-		ImageUtil.compass(checkCode.getResponse().getEntity().getContent(), "/Users/zhangerqiang/Desktop/code.png");
+		ImageUtil.compass(checkCode.getResponse().getEntity().getContent(),checkCodeImagePath);
 		checkCode.handler();
-		
 		System.out.println("[>>>验证码请求完毕<<<]");
 		
 		//3请求公司列表页
-		CompanyListPage companyList=new CompanyListPage(HttpMethodType.POST,Constant.company_list+"?currentTimeMillis="+checkCode.getcurrentTimeMills()+"&"+"credit_ticket="+index.getCreditTicket()+"&checkcode="+checkCode.getCode()+"&"+"keyword=百度", buildCompanyListHeader(headerCookie));
+		CompanyListPage companyList=new CompanyListPage(HttpMethodType.POST,Constant.company_list+"?currentTimeMillis="+checkCode.getcurrentTimeMills()+"&"+"credit_ticket="+index.getCreditTicket()+"&checkcode="+checkCode.getCode()+"&"+"keyword="+keyword, buildCompanyListHeader(headerCookie));
 		companyList.handler();
-		
 		System.out.println("[>>>公司列表请求完毕<<<]");
 		
+		//4获取公司详情信息
 		for(int i=0;i<companyList.getCompanyUrlLit().size();i++){
-			//4获取公司详情信息
 			CompanyDetailsPage companyDetails=new CompanyDetailsPage(HttpMethodType.GET, companyList.getCompanyUrlLit().get(i), buildCompanyDetailsHeader(headerCookie));
 			companyDetails.handler();
 		}
 		System.out.println("[>>>公司详情请求完毕<<<]");
 	}
 	
-	
-	
-	
-
 	//请求公司搜索列表页header
 	private static Header[] buildCompanyListHeader(Header ...header){
 		Header[] appendHeaders=buildCommonHeader();
@@ -84,7 +83,6 @@ public class Main {
 		}
 		headers[appendHeaderLength+headerLength+1]=new BasicHeader("Origin", "http://qyxy.baic.gov.cn");
 		headers[appendHeaderLength+headerLength+1]=new BasicHeader("Referer","http://qyxy.baic.gov.cn/"+currentProvince);
-		//还缺少req.setHeader("Cookie", "JSESSIONID=nbTPWvrNS5GqdDQxNXG2N2pTXsvnwyVT32lJQhsG3dGk8pbvg8xJ!-968895144; BIGipServerpool_xy3_web=1108715712.16671.0000");
 		return headers;
 	}
 	
@@ -103,10 +101,9 @@ public class Main {
 		headers[appendHeaderLength + headerLength] = new BasicHeader(
 				"Referer",
 				"http://qyxy.baic.gov.cn/gjjbj/gjjQueryCreditAction!getBjQyList.dhtml");
-		// 还缺少req.setHeader("Cookie",
-		// "JSESSIONID=nbTPWvrNS5GqdDQxNXG2N2pTXsvnwyVT32lJQhsG3dGk8pbvg8xJ!-968895144; BIGipServerpool_xy3_web=1108715712.16671.0000");
 		return headers;
 	}
+	
 	//公司详情页header
 	private static Header[] buildCompanyDetailsXXHeader(Header ...header){
 		Header[] appendHeaders=buildCommonHeader();
@@ -124,10 +121,6 @@ public class Main {
 		return headers;
 	}
 	
-	
-	 
-	
-	
 	private static Header[] buildCheckCodeRequestHeader(Header ...header){
 		Header[] appendHeaders=buildCommonHeader();
 		Header[] headers=new Header[appendHeaders.length+header.length];
@@ -139,7 +132,6 @@ public class Main {
 		for(int i=appendHeaderLength;i<appendHeaderLength+headerLength;i++){
 			headers[i]=header[i-appendHeaderLength];
 		}
-		//还缺少req.setHeader("Cookie", "JSESSIONID=nbTPWvrNS5GqdDQxNXG2N2pTXsvnwyVT32lJQhsG3dGk8pbvg8xJ!-968895144; BIGipServerpool_xy3_web=1108715712.16671.0000");
 		return header;
 	}
 	
