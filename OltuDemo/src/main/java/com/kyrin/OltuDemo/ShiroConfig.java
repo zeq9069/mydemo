@@ -3,6 +3,7 @@ package com.kyrin.OltuDemo;
 import org.apache.shiro.cas.CasSubjectFactory;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -17,6 +18,7 @@ import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 
 import com.kyrin.OltuDemo.realm.UserRealm;
+import com.kyrin.OltuDemo.shiro.config.RedisSessionDao;
 
 @Configuration
 public class ShiroConfig {
@@ -32,6 +34,12 @@ public class ShiroConfig {
 		return new CasSubjectFactory();
 	}
 	
+	@Bean
+	public SessionDAO sessionDAO(){
+		RedisSessionDao redisDao=new RedisSessionDao();
+		redisDao.setSpring_session_prefix("oltu:spring:sessions");
+		return redisDao;
+	}
 	
 	/**
 	 * redis 共享session , 修改session的共享域 
@@ -41,6 +49,7 @@ public class ShiroConfig {
 	public DefaultWebSessionManager defaultWebSessionManager(){
 		DefaultWebSessionManager d=new DefaultWebSessionManager();
 		d.getSessionIdCookie().setDomain(".oauth.com");
+		d.setSessionDAO(sessionDAO());
 		return d;
 	}
 	

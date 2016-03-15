@@ -6,7 +6,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 
 @SpringBootApplication
-@EnableRedisHttpSession
 public class App {
     public static void main( String[] args ){
     	SpringApplication.run(App.class);
