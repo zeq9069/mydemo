@@ -2,6 +2,7 @@ package com.kyrin.OltuDemo;
 
 import org.apache.shiro.cas.CasSubjectFactory;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -13,11 +14,11 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import  org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 
 import com.kyrin.OltuDemo.realm.UserRealm;
 
 @Configuration
-@Import(value=ServerProperties.class)
 public class ShiroConfig {
 
 	@Bean
@@ -31,11 +32,26 @@ public class ShiroConfig {
 		return new CasSubjectFactory();
 	}
 	
+	
+	/**
+	 * redis 共享session , 修改session的共享域 
+	 * @return
+	 */
+	@Bean
+	public DefaultWebSessionManager defaultWebSessionManager(){
+		DefaultWebSessionManager d=new DefaultWebSessionManager();
+		d.getSessionIdCookie().setDomain(".oauth.com");
+		return d;
+	}
+	
+	
+	
 	@Bean
 	public DefaultWebSecurityManager defaultWebSecurityManager(){
 		DefaultWebSecurityManager dsm=new DefaultWebSecurityManager();
 		dsm.setRealm(myRealm());
 		dsm.setSubjectFactory(defaultWebSubjectFactory());
+		dsm.setSessionManager(defaultWebSessionManager());
 		return dsm;
 	}
 	
