@@ -1,5 +1,7 @@
 package org.kyrincloud.Spider.core.constant;
 
+import java.util.Calendar;
+
 /**
  * url常量
  * @author kyrin
@@ -41,5 +43,6 @@ public class Constant {
 		//company_details抽查检查
 		public static final  String company_details_ccjc="http://qyxy.baic.gov.cn/gsgs/gsxzcfAction!list_ccjcxx.dhtml";//ent_id=&clear=true&timeStamp=
 		
-
+		//验证码保存路径
+		public static String checkCodeImagePath="src/main/resources/static/upload/images/";
 }

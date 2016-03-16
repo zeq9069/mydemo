@@ -3,6 +3,8 @@ package org.kyrincloud.Spider.core.htmlpage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.http.Header;
 import org.kyrincloud.Spider.core.abstracts.AbstractRequestHtml;
@@ -16,7 +18,6 @@ public class CheckCodePage extends AbstractRequestHtml{
 	
 	//请求验证码的时间戳
 	private long currentTimeMills;
-	
 	
 	public CheckCodePage(HttpMethodType type, String url, Header[] headers) {
 		super(type, url, headers);

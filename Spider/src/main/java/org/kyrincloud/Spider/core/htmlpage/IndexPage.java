@@ -38,6 +38,7 @@ public class IndexPage extends AbstractRequestHtml{
 
 	@Override
 	public void handler() {
+		
 		//TODO html文本解析
 		//1，解析cookie
 		Header[] cookieHeader=getResponseHeaders("Set-Cookie");

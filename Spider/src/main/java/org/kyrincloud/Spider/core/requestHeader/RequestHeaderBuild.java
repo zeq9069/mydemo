@@ -9,7 +9,23 @@ import org.apache.http.message.BasicHeader;
  *
  */
 public class RequestHeaderBuild {
-
+	
+	//请求公司搜索列表页header
+		public static Header[] buildIndexHeader(Header ...header){
+				Header[] appendHeaders=buildCommonHeader();
+				Header[] headers=new Header[1+appendHeaders.length+header.length];
+				int appendHeaderLength=appendHeaders.length;
+				int headerLength=header.length;
+				for(int i=0;i<appendHeaderLength;i++){
+					headers[i]=appendHeaders[i];
+				}
+				for(int i=appendHeaderLength;i<appendHeaderLength+headerLength;i++){
+					headers[i]=header[i-appendHeaderLength];
+				}
+				headers[appendHeaderLength+headerLength]=new BasicHeader("Referer","http://gsxt.saic.gov.cn/");
+				return headers;
+			}
+		
 	//请求公司搜索列表页header
 	public static Header[] buildCompanyListHeader(String currentProvince,Header ...header){
 			Header[] appendHeaders=buildCommonHeader();
@@ -88,6 +104,5 @@ public class RequestHeaderBuild {
 			headers[6]=new BasicHeader("Host", "qyxy.baic.gov.cn");
 			return headers;
 		}
-
 	
 }

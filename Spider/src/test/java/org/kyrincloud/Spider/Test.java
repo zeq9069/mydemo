@@ -3,6 +3,7 @@ package org.kyrincloud.Spider;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.TimerTask;
 
 import org.kyrincloud.Spider.core.job.FetchCompanyInfoJob;
 import org.kyrincloud.Spider.core.job.IndexAndCheckCodeJob;
@@ -21,7 +22,7 @@ public class Test {
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		for(int i=0;i<2;i++){
+		/*for(int i=0;i<2;i++){
 			IndexAndCheckCodeJob index=new IndexAndCheckCodeJob();
 			if(i==0){
 				index.setBrowser(BrowserType.MAC_CHROME);
@@ -31,18 +32,17 @@ public class Test {
 				index.setBrowser(BrowserType.WIN_FIREFOX);
 			}
 			index.start();
-		}
+		}*/
 		
-		/*java.util.Timer timer=new java.util.Timer();
+		java.util.Timer timer=new java.util.Timer();
 		timer.schedule(new TimerTask() {
-			
 			@Override
 			public void run() {
 				IndexAndCheckCodeJob index=new IndexAndCheckCodeJob();
-					index.setBrowser(BrowserType.MAC_CHROME);
-					index.run();
+				index.setBrowser(BrowserType.MAC_CHROME);
+				index.run();				
 			}
-		}, 100);*/
+		}, 1000,1000);
 		
 		InputStreamReader is=new InputStreamReader(System.in);
 		BufferedReader br=new BufferedReader(is);

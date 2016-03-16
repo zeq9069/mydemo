@@ -5,7 +5,7 @@ package org.kyrincloud.Spider.core.job;
  * @author kyrin
  *
  */
-public interface Job extends Runnable{
+public interface Job{
 	
 	public void start();
 

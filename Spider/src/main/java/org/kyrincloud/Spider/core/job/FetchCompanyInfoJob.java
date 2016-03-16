@@ -22,6 +22,7 @@ public class FetchCompanyInfoJob extends AbstractJob{
 		,"fujian","guangdong","guangxi","hainan","yunnan","sichuan","chongqing","shanxi","shanxi","chongqing","neimenggu",
 		"jilin","liaoning","heilongjiang","qinghai","gansu","xinjiang","xizang","shandong","taiwan","xianggang","aomen",
 		"guizhou","ningxia"};
+	
 	private static String currentProvince=provinces[0];
 
 	public void start() {

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="http://www.w3school.com.cn/jquery/jquery-1.11.1.min.js" />
+<title>首页</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>key</td>
+			<td>图片</td>
+			<td>输入</td>
+			<td>提交</td>
+		</tr>
+		<tr th:each="url,urlStat : ${urls}">
+			<td th:text="${url.key}"></td>
+			<td><img th:src="'/'+${url.value}" /></td>
+			<td><input type="text" th:id="${url.key}" /></td>
+			<td><button th:name="${url.key}" width="10" >提交</button></td>
+		</tr>
+	</table>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+	 $("button").click(function(){
+		 alert(this.name);
+			var id=this.name;
+			var code=$("#"+id).val();
+			 $.get("/checkcode/"+id+"/"+code,function(data,status){
+			      alert("数据：" + data + "\n状态：" + status);
+			    });
+		  });
+});
+</script>
+</html>
