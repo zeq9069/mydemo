@@ -3,8 +3,6 @@ package org.kyrincloud.Spider.core.htmlpage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.http.Header;
 import org.kyrincloud.Spider.core.abstracts.AbstractRequestHtml;

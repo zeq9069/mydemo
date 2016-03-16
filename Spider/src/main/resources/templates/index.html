@@ -17,7 +17,11 @@
 			<td th:text="${url.key}"></td>
 			<td><img th:src="'/'+${url.value}" /></td>
 			<td><input type="text" th:id="${url.key}" /></td>
-			<td><button th:name="${url.key}" width="10" >提交</button></td>
+			<td><button th:name="${url.key}" >提交</button></td>
+			<td><input type="hidden" th:id="${url.key}+'_cookie'" th:value="${objectValue.get(url.key).Cookie}" /></td>
+			<td><input type="hidden" th:id="${url.key}+'_credit_ticket'" th:value="${objectValue.get(url.key).credit_ticket}" /></td>
+			<td><input type="hidden" th:id="${url.key}+'_timestamp'" th:value="${objectValue.get(url.key).timestamp}" /></td>
+			<td><input type="hidden" th:id="${url.key}+'_keyword'" th:value="${objectValue.get(url.key).keyword}" /></td>
 		</tr>
 	</table>
 </body>
@@ -26,8 +30,13 @@ $(document).ready(function(){
 	 $("button").click(function(){
 		 alert(this.name);
 			var id=this.name;
+			var cookie=$("#"+id+"_cookie").val();
+			var credit_ticket=$("#"+id+"_credit_ticket").val();
+			var timestamp=$("#"+id+"_timestamp").val();
+			var keyword=$("#"+id+"_keyword").val();
 			var code=$("#"+id).val();
-			 $.get("/checkcode/"+id+"/"+code,function(data,status){
+			var values="cookie="+cookie+"%26credit_ticket="+credit_ticket+"%26timestamp="+timestamp+"%26keyword="+keyword;
+			 $.get("/checkcode/"+id+"/"+code+"?"+values,function(data,status){
 			      alert("数据：" + data + "\n状态：" + status);
 			    });
 		  });

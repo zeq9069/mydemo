@@ -12,8 +12,6 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-import org.kyrincloud.Spider.core.constant.Constant;
-
 import net.coobird.thumbnailator.Thumbnails;
 
 /**

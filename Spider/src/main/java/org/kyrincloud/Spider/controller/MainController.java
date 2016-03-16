@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,25 +48,35 @@ public class MainController {
 		Calendar calendar=Calendar.getInstance();
 		Set<String> keys=WaitInputCheckCodeQueue.getKeys();
 		Map<String,String> urls=new HashMap<String, String>();
+		Map<String,JSONObject> objectValue=new HashMap<String, JSONObject>();
 		for(String key:keys){
 			urls.put(key,"upload/images/"+calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+"/"+key+".png");
+			objectValue.put(key, WaitInputCheckCodeQueue.get(key));
+			WaitInputCheckCodeQueue.remove(key);
 		}
 		model.addObject("urls", urls);
+		model.addObject("objectValue",objectValue);
 		model.setViewName("index");
 		return model;
 	}
 	
 	@RequestMapping(value="/checkcode/{key}/{code}",method=RequestMethod.GET)
 	@ResponseBody
-	public boolean fetchCode(@PathVariable("key") String key,@PathVariable("code") String code){
-		JSONObject obj=WaitInputCheckCodeQueue.remove(key);
-		if(obj==null){
-			return false;
-		}
-		obj.put("checkcode", code);
+	public boolean fetchCode(@PathVariable("key") String key,@PathVariable("code") String code,
+			String cookie, String credit_ticket, String timestamp, String keyword){
+		//JSONObject obj=WaitInputCheckCodeQueue.remove(key);
+		//if(obj==null){
+		//	return false;
+		//}
+		JSONObject object=new JSONObject();
+		object.put("Cookie", cookie);
+		object.put("credit_ticket", credit_ticket);
+		object.put("timestamp", timestamp);
+		object.put("keyword", keyword);
+		object.put("checkcode", code);
 		ImageUtil.removeImg(Constant.checkCodeImagePath,key+".png");//删除已经输入过的验证码图片
 		try {
-			WaitFetchQueue.put(obj);
+			WaitFetchQueue.put(object);
 			(new FetchCompanyInfoJob()).start();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
