@@ -7,11 +7,13 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.kyrincloud.Spider.core.constant.Constant;
 import org.kyrincloud.Spider.core.job.FetchCompanyInfoJob;
 import org.kyrincloud.Spider.core.job.IndexAndCheckCodeJob;
 import org.kyrincloud.Spider.core.queue.WaitFetchQueue;
 import org.kyrincloud.Spider.core.queue.WaitInputCheckCodeQueue;
 import org.kyrincloud.Spider.core.requestHeader.BrowserType;
+import org.kyrincloud.Spider.core.util.ImageUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +63,7 @@ public class MainController {
 			return false;
 		}
 		obj.put("checkcode", code);
+		ImageUtil.removeImg(Constant.checkCodeImagePath,key+".png");//删除已经输入过的验证码图片
 		try {
 			WaitFetchQueue.put(obj);
 			(new FetchCompanyInfoJob()).start();

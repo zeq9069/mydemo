@@ -2,9 +2,6 @@ package org.kyrincloud.Spider.core.job;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;

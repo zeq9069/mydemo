@@ -12,6 +12,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import org.kyrincloud.Spider.core.constant.Constant;
+
 import net.coobird.thumbnailator.Thumbnails;
 
 /**
@@ -48,7 +50,35 @@ public class ImageUtil {
 	}
 
 	
-
+	/**
+	 * 同过指定父目录，删除图片
+	 * @param path
+	 * @return
+	 */
+	public static boolean removeImg(String parentPath,String name) {
+		File file = new File(parentPath);
+		if (!file.exists()) {
+			return false;
+		}
+		if (file.canWrite()) {
+			if (file.isFile() && file.getName().equals(name)) {
+				return file.delete();
+			} else if (file.isDirectory()) {
+				File[] files = file.listFiles();
+				for (int i = 0; i < files.length; i++) {
+					if(files[i].isFile()){
+						if(files[i].getName().equals(name)){
+							return files[i].delete();
+						}
+					}else{
+						 removeImg(files[i].getAbsolutePath(),name);
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
 	 * 判断目录是否存在，不存在就创建
 	 * @param path
@@ -64,4 +94,5 @@ public class ImageUtil {
 	private static void saveToFile(String file, BufferedImage image) throws IOException {
 		Thumbnails.of(image).scale(1).outputFormat(IMAGE_TYPE).toFile(file);
 	}
+	
 }
