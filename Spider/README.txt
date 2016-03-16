@@ -1,6 +1,7 @@
  
 人工打码
-目前存在的问题：当用多线程去请求的时候，首页有时候response header中并没有获取到cookie
+目前存在的问题：当用多线程去请求的时候，首页有时候response header中并没有获取到cookie，目前是使用全局共享cookie来实现的
+但是也有个问题就是cookie过期以后，首页访问会不会重新返回新的cookie，这个有待验证。
  /* 
  * 爬取企业信息:
  * 
@@ -94,3 +95,5 @@
 			/gsgs/gsxzcfAction!list_ccjcxx.dhtml?ent_id="+encodeURIComponent(jQuery.trim(entId))+"&clear=true&timeStamp="+new Date().getTime());
  *   
  */
+
+ 
