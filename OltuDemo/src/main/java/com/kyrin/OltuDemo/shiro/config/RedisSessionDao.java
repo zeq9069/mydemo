@@ -9,26 +9,26 @@ import java.util.Set;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
-import org.springframework.util.SerializationUtils;
 
 import redis.clients.jedis.Jedis;
 
 /**
- * redis操作session     序列化需要自己实现
+ * 自定义实现shiro中的SessionDAO
+ * 将session存入redis实现session跨应用的共享（目前仅仅是同域名）
  * @author kyrin
  *
  */
 public class RedisSessionDao extends AbstractSessionDAO{
 
-	private String spring_session_prefix="oltu:spring:session:sessions";
+	private String spring_session_prefix="spring:session:sessions";
 	
 	@Override
 	public void update(Session session) throws UnknownSessionException {
 		if(session==null || session.getId()==null){
 			return ;
 		}
-		byte[] sessionId = SerializationUtils.serialize(getSessionKey(session.getId()));
-		byte[] sessionValue = SerializationUtils.serialize(session);
+		byte[] sessionId =  getSessionKey(session.getId()).getBytes();
+		byte[] sessionValue = SerializationUtil.serialize(session);
 		Jedis jedis=RedisUtil.getJedis();
 		try{
 			Long expire = session.getTimeout() / 1000;
@@ -49,7 +49,7 @@ public class RedisSessionDao extends AbstractSessionDAO{
 		}
 		Jedis jedis=RedisUtil.getJedis();
 		try{
-			byte[] sessionId = SerializationUtils.serialize(getSessionKey(session.getId()));
+			byte[] sessionId =  getSessionKey(session.getId()).getBytes();
 			jedis.del(sessionId);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class RedisSessionDao extends AbstractSessionDAO{
 		try{
 		Set<String> keys =jedis.keys(getSpring_session_prefix()+":*");
 		for(String key:keys){
-			Session session=(Session) SerializationUtils.deserialize(jedis.get(key.getBytes()));
+			Session session= SerializationUtil.deserialize(jedis.get(key.getBytes()),Session.class);
 			sessions.add(session);
 		}
 		}catch(Exception e){
@@ -82,7 +82,7 @@ public class RedisSessionDao extends AbstractSessionDAO{
         this.assignSessionId(session, sessionId);  
        Jedis jedis=RedisUtil.getJedis();
        try{
-    	   jedis.set(SerializationUtils.serialize(getSessionKey(session.getId())), SerializationUtils.serialize(session));
+    	   jedis.set(getSessionKey(session.getId()).getBytes(), SerializationUtil.serialize(session));
        }catch(Exception e){
     	   e.printStackTrace();
        }finally{
@@ -98,7 +98,7 @@ public class RedisSessionDao extends AbstractSessionDAO{
 		}
 		Jedis jedis=RedisUtil.getJedis();
 		try{
-			return (Session) SerializationUtils.deserialize(jedis.get(SerializationUtils.serialize(getSessionKey(sessionId))));
+			return SerializationUtil.deserialize(jedis.get(getSessionKey(sessionId).getBytes()),Session.class);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -1,28 +1,30 @@
-package com.kyrin.OltuDemo;
+package com.kyrin.OltuDemo.shiro.config;
 
 import org.apache.shiro.cas.CasSubjectFactory;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Import;
 import  org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 
 import com.kyrin.OltuDemo.realm.UserRealm;
-import com.kyrin.OltuDemo.shiro.config.RedisSessionDao;
 
 @Configuration
 public class ShiroConfig {
 
+	private String cookie_domain=".oauth.com";
+	
+	private String session_redis_key_prefix="oltu:spring:sessions";
+	
+	
 	@Bean
 	public Realm myRealm(){
 		UserRealm realm=new UserRealm();
@@ -37,7 +39,7 @@ public class ShiroConfig {
 	@Bean
 	public SessionDAO sessionDAO(){
 		RedisSessionDao redisDao=new RedisSessionDao();
-		redisDao.setSpring_session_prefix("oltu:spring:sessions");
+		redisDao.setSpring_session_prefix(session_redis_key_prefix);
 		return redisDao;
 	}
 	
@@ -48,7 +50,7 @@ public class ShiroConfig {
 	@Bean
 	public DefaultWebSessionManager defaultWebSessionManager(){
 		DefaultWebSessionManager d=new DefaultWebSessionManager();
-		d.getSessionIdCookie().setDomain(".oauth.com");
+		d.getSessionIdCookie().setDomain(cookie_domain);
 		d.setSessionDAO(sessionDAO());
 		return d;
 	}
