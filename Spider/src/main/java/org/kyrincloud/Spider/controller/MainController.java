@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.kyrincloud.Spider.core.constant.Constant;
 import org.kyrincloud.Spider.core.job.FetchCompanyInfoJob;
@@ -12,6 +15,7 @@ import org.kyrincloud.Spider.core.job.IndexAndCheckCodeJob;
 import org.kyrincloud.Spider.core.queue.WaitFetchQueue;
 import org.kyrincloud.Spider.core.queue.WaitInputCheckCodeQueue;
 import org.kyrincloud.Spider.core.requestHeader.BrowserType;
+import org.kyrincloud.Spider.core.thread.ScheduledExecutorFactory;
 import org.kyrincloud.Spider.core.util.ImageUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +30,7 @@ import com.alibaba.fastjson.JSONObject;
 public class MainController {
 	
 	static{
-		Timer t=new Timer();
-		
-		t.scheduleAtFixedRate(new TimerTask() {
+		ScheduledExecutorFactory.exe(new Runnable() {
 			@Override
 			public void run() {
 				for(int i=0;i<5;i++){
@@ -37,16 +39,18 @@ public class MainController {
 					index.start();
 				}
 			}
-		}, 5000, 5000);
-		t.scheduleAtFixedRate(new TimerTask() {
+		} , 5000, 5000,TimeUnit.MILLISECONDS);
+		
+		 
+		ScheduledExecutorFactory.exe(new Runnable() {
 			@Override
-			public void run() {
-				for(int i=0;i<5;i++){
-					FetchCompanyInfoJob company=new FetchCompanyInfoJob();
-					company.start();
+				public void run() {
+					for(int i=0;i<10;i++){
+						FetchCompanyInfoJob company=new FetchCompanyInfoJob();
+						company.start();
+					}
 				}
-			}
-		}, 1000, 1000);
+		} , 10000, 10000,TimeUnit.MILLISECONDS);
 	}
 	
 	
