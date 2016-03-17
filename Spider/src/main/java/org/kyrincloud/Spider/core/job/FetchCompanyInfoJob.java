@@ -29,10 +29,12 @@ public class FetchCompanyInfoJob extends AbstractJob{
 		JSONObject obj=null;
 		while(!WaitFetchQueue.isEmpty()){
 			obj=WaitFetchQueue.poll();
-			if(obj!=null){
-				break;
-			}
+			break;
 		}
+		if(obj==null){
+			return;
+		}
+
 		//获取User-Agent头部
 		BasicHeader headerCookie=new BasicHeader("Cookie",obj.getString("Cookie"));
 		setBrowser(obj.getObject("browser", Header.class));

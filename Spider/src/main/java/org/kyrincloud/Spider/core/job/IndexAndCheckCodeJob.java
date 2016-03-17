@@ -18,8 +18,9 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 首页访问（获取验证票和验证码类型）+验证码访问
- * {"Cookie":"xxx","credit_ticket":"xxx","checkcode":"","timestamp":"xxx","keyword":""} 放入等待验证码人工输入队列  ->
- * {"Cookie":"xxx","credit_ticket":"xxx","checkcode":"xxx","timestamp":"xxx","keyword":"xxx"} 输入完成之后，放入等待使用的队列
+ * {"Cookie":"xxx","credit_ticket":"xxx","checkcode":"","timestamp":"xxx","keyword":"","browser":"xxx"} 放入等待验证码人工输入队列  ->
+ * {"Cookie":"xxx","credit_ticket":"xxx","checkcode":"xxx","timestamp":"xxx","keyword":"xxx","browser":"xxx"} 输入完成之后，放入等待使用的队列
+ * 
  * @author kyrin
  *
  */
@@ -50,7 +51,7 @@ public class IndexAndCheckCodeJob extends AbstractJob{
 			GlobalCookieHeader.setHeader(headerCookie);
 		}else{
 			headerCookie=GlobalCookieHeader.getHeader();
-			val=GlobalCookieHeader.getHeader().getValue();
+			val=headerCookie.getValue();
 		}
 		
 		

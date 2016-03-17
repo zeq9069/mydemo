@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 等待使用的队列
+ *  {"Cookie":"xxx","credit_ticket":"xxx","checkcode":"xxx","timestamp":"xxx","keyword":"xxx","browser":"xxx"} 放入等待验证码人工输入队列  ->
  * @author kyrin
  *
  */

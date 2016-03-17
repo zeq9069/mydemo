@@ -22,7 +22,7 @@ public class Test {
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		/*for(int i=0;i<2;i++){
+		for(int i=0;i<2;i++){
 			IndexAndCheckCodeJob index=new IndexAndCheckCodeJob();
 			if(i==0){
 				index.setBrowser(BrowserType.MAC_CHROME);
@@ -32,9 +32,9 @@ public class Test {
 				index.setBrowser(BrowserType.WIN_FIREFOX);
 			}
 			index.start();
-		}*/
+		}
 		
-		java.util.Timer timer=new java.util.Timer();
+	/*	java.util.Timer timer=new java.util.Timer();
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
@@ -42,7 +42,7 @@ public class Test {
 				index.setBrowser(BrowserType.MAC_CHROME);
 				index.run();				
 			}
-		}, 1000,1000);
+		}, 1000,1000);*/
 		
 		InputStreamReader is=new InputStreamReader(System.in);
 		BufferedReader br=new BufferedReader(is);

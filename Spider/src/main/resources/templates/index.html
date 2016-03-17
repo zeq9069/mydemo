@@ -3,7 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="http://www.w3school.com.cn/jquery/jquery-1.11.1.min.js" />
-<title>首页</title>
+<script src="js/index.js" type="text/javascript" charset="utf-8"/>
+<title>企业信息-人工打码平台</title>
 </head>
 <body>
 	<table>
@@ -13,33 +14,15 @@
 			<td>输入</td>
 			<td>提交</td>
 		</tr>
-		<tr th:each="url,urlStat : ${urls}">
+		<tr th:if="${urls.size()!=0} and ${objectValue.size()!=0} " th:each="url,urlStat : ${urls}" th:id="${url.key}+'_tr'">
 			<td th:text="${url.key}"></td>
 			<td><img th:src="'/'+${url.value}" /></td>
 			<td><input type="text" th:id="${url.key}" /></td>
 			<td><button th:name="${url.key}" >提交</button></td>
 			<td><input type="hidden" th:id="${url.key}+'_cookie'" th:value="${objectValue.get(url.key).Cookie}" /></td>
 			<td><input type="hidden" th:id="${url.key}+'_credit_ticket'" th:value="${objectValue.get(url.key).credit_ticket}" /></td>
-			<td><input type="hidden" th:id="${url.key}+'_timestamp'" th:value="${objectValue.get(url.key).timestamp}" /></td>
 			<td><input type="hidden" th:id="${url.key}+'_keyword'" th:value="${objectValue.get(url.key).keyword}" /></td>
 		</tr>
 	</table>
 </body>
-<script type="text/javascript">
-$(document).ready(function(){
-	 $("button").click(function(){
-		 alert(this.name);
-			var id=this.name;
-			var cookie=$("#"+id+"_cookie").val();
-			var credit_ticket=$("#"+id+"_credit_ticket").val();
-			var timestamp=$("#"+id+"_timestamp").val();
-			var keyword=$("#"+id+"_keyword").val();
-			var code=$("#"+id).val();
-			var values="cookie="+cookie+"%26credit_ticket="+credit_ticket+"%26timestamp="+timestamp+"%26keyword="+keyword;
-			 $.get("/checkcode/"+id+"/"+code+"?"+values,function(data,status){
-			      alert("数据：" + data + "\n状态：" + status);
-			    });
-		  });
-});
-</script>
 </html>
