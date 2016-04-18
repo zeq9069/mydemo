@@ -78,15 +78,15 @@ public class DefaultRPCProtocol implements RPCProtocol{
 
 		byte[] h = new byte[2];
 		is.read(h);
-		if (h[0] != (byte) 1) {
+		if (h[0] !=  1) {
 			throw new IllegalArgumentException(
 					"The message package protocol is error");
 		}
-		if (h[1] != (byte) 1 || h[1] != (byte) 0) {
+		if (h[1] != 1 && h[1] != 0) {
 			throw new IllegalArgumentException(
 					"The message package type is error");
 		}
-		if (h[1] == (byte) 1) {
+		if (h[1] ==1) {
 			Request request = new Request();
 			ByteBuffer buff = ByteBuffer.allocate(4);
 			int clazz_len = readInt(is, buff);
@@ -121,7 +121,7 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			}
 			request.setTargetInterfaceName(new String(_clazz));
 			request.setMethodName(new String(_method));
-			request.setArgs(argsType);
+			request.setArgs(args);
 			request.setArgsType(argsType);
 			return request;
 		} else if (h[1] == (byte) 0) {

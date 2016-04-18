@@ -81,7 +81,7 @@ public class RPCClient {
 	private static Object getResult(InputStream is) throws IOException{
 		byte[] h=new byte[2];
 		is.read(h);
-		if(h[0]==(byte)1 && h[1]==(byte)0){
+		if(h[0]==1 && h[1]==0){
 			ByteBuffer b_len=ByteBuffer.allocate(4);
 			is.read(b_len.array());
 			int body_len=b_len.getInt();

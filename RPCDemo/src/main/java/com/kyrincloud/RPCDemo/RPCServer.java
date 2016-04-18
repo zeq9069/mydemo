@@ -7,10 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.kyrincloud.RPCDemo.codec.MyCodec;
@@ -69,7 +66,7 @@ public class RPCServer {
 	}
 	
 	public static void start(int port) throws IOException{
-		server = new ServerSocket(9999);
+		server = new ServerSocket(port);
 		while(true){
 			Socket ss=server.accept();
 			InputStream is=ss.getInputStream();
@@ -179,6 +176,7 @@ public class RPCServer {
 		Object[] argseObject=new Object[request.getArgs().length];
 		for(int i=0;i<request.getArgsType().length;i++){
 			argsTypeObject[i]=new String(request.getArgsType()[i]).getClass();
+			System.out.println(new String(request.getArgs()[i]));
 			argseObject[i]=MyCodec.decode(request.getArgs()[i]);
 		}
 		//构造methodKey，获取指定要执行的Method，这些Method都是你提前缓存好的
