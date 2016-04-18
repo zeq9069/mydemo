@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.kyrincloud.RPCDemo.codec.MyCodec;
+import com.kyrincloud.RPCDemo.message.Request;
+import com.kyrincloud.RPCDemo.message.Response;
+import com.kyrincloud.RPCDemo.protocol.factory.RPCProtocolFactory;
 import com.kyrincloud.RPCDemo.service.HelloImpl;
 import com.kyrincloud.RPCDemo.service.IHello;
 
@@ -56,7 +59,7 @@ public class RPCServer {
 		
 		//2,启动
 		try {
-			System.out.println("\n[	create by Kyrin  kyrincloud@qq.com      ]\n");
+			System.out.println("\n[create by Kyrin  kyrincloud@qq.com]\n");
 			System.out.println("----------服务启动----------------");
 			start(9999);
 		} catch (IOException e) {
@@ -71,17 +74,21 @@ public class RPCServer {
 			Socket ss=server.accept();
 			InputStream is=ss.getInputStream();
 			OutputStream os=ss.getOutputStream();
-			Object obj= invokeResult(is);	//获取client发送的数据包，并执行本地服务返回结果
-			sendResponse(obj, os);			//把结果发送到client
+			Object requestObj=RPCProtocolFactory.getProtocol(1).decode(is);
+			if(requestObj instanceof Request){
+				Request request=(Request)requestObj;
+				Object result= handleRequest(request);	//获取client发送的数据包，并执行本地服务返回结果
+				sendResponse(result, os);			//把结果发送到client
+			} 
 			is.close();
 			os.close();
 		}
 	}
 	
 	
-	public static Object invokeResult(InputStream is) throws IOException{
+	public static Object handleRequest(Request request) throws IOException{
 		Object result=null;
-		byte[] version=new byte[2];
+		/*byte[] version=new byte[2];
 		is.read(version);
 		if(version[0]==(byte)1 || version[1]==(byte)1){
 			ByteBuffer buff=ByteBuffer.allocate(4);
@@ -119,9 +126,11 @@ public class RPCServer {
 				is.read(b);
 				argsType.add(b);
 			}
+			*/
 			
+		
 			try {
-				result=handleRequest(new String(_clazz), new String(_method),args,argsType); //处理请求的数据
+				result=invokeResult(request); //处理请求的数据
 			} catch (NoSuchMethodException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,43 +152,42 @@ public class RPCServer {
 			
 			
 			//--------------万恶的分割线-----------------
-			System.out.println("\n服务端接收到的className :"+new String(_clazz));
-			System.out.println("服务端接收到的method :"+new String(_method));
-			for(byte[] b:args){
+			System.out.println("\n服务端接收到的className :"+request.getTargetInterfaceName());
+			System.out.println("服务端接收到的method :"+request.getMethodName());
+			for(byte[] b:request.getArgs()){
 				System.out.println("服务端接收到的args :"+MyCodec.decode(b));
 			}
-			for(byte[] b:argsType){
+			for(byte[] b:request.getArgsType()){
 				System.out.println("服务端接收到的argsType :"+new String(b)+"\n");
 			}
-		}
 		return result;
 	}
 	
-	private static int readInt(InputStream is,ByteBuffer buff) throws IOException{
+	/*private static int readInt(InputStream is,ByteBuffer buff) throws IOException{
 		byte[] clazz=buff.array();
 		is.read(clazz);
 		int result= buff.getInt();
 		buff.clear();
 		return result;
-	}
+	}*/
 	
 	//处理请求的数据
-	public static Object handleRequest(String instanceName,String methodName,List<byte[]> args,List<byte[]> argsType) throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+	public static Object invokeResult(Request request) throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 
-		Object instance=classCache.get(instanceName);
-		Class<?>[] argsTypeObject=new Class<?>[argsType.size()];
-		Object[] argseObject=new Object[args.size()];
-		for(int i=0;i<argsType.size();i++){
-			argsTypeObject[i]=new String(argsType.get(i)).getClass();
-			argseObject[i]=MyCodec.decode(args.get(i));
+		Object instance=classCache.get(request.getTargetInterfaceName());
+		Class<?>[] argsTypeObject=new Class<?>[request.getArgsType().length];
+		Object[] argseObject=new Object[request.getArgs().length];
+		for(int i=0;i<request.getArgsType().length;i++){
+			argsTypeObject[i]=new String(request.getArgsType()[i]).getClass();
+			argseObject[i]=MyCodec.decode(request.getArgs()[i]);
 		}
 		//构造methodKey，获取指定要执行的Method，这些Method都是你提前缓存好的
 		StringBuffer methodKey=new StringBuffer();
-		methodKey.append(instanceName);
+		methodKey.append(request.getTargetInterfaceName());
 		methodKey.append("#");
-		methodKey.append(methodName);
+		methodKey.append(request.getMethodName());
 		methodKey.append("$");
-		for(byte[] at:argsType){
+		for(byte[] at:request.getArgsType()){
 			methodKey.append(new String(at)+"_");
 		}
 		Method method=methodCache.get(methodKey.toString());
@@ -200,13 +208,9 @@ public class RPCServer {
 	
 	//发送执行结果到client
 	public static void sendResponse(Object result,OutputStream os) throws IOException{
-		byte[] res=MyCodec.encode(result);
-		ByteBuffer bb=ByteBuffer.allocate(6+res.length);
-		bb.put((byte)1);
-		bb.put((byte)0);
-		bb.putInt(res.length);
-		bb.put(res);
-		os.write(bb.array());
+		Response response=new Response();
+		response.setResult(MyCodec.encode(result));
+		os.write(RPCProtocolFactory.getProtocol(1).encode(response));
 		os.flush();
 	}
 }
