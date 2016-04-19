@@ -11,6 +11,9 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		ClientProxy p=new ClientProxy();
+		int i=0;
+while(i<10){
+	
 		IHello hello=(IHello) p.newInstance(IHello.class);
 		String result=hello.sayMsg("222");
 		int result1=hello.say(12345);
@@ -19,7 +22,10 @@ public class Main {
 		map.put("1", "wwwwwwwwwww");
 		Map<String,String> result3=hello.say(map);
 		System.out.println("执行结果为：\n"+result+"\n"+result1+"\n"+result2+"\n"+result3.get("1"));
+		i++;
+		
+}
+	
+	
 	}
-	
-	
 }

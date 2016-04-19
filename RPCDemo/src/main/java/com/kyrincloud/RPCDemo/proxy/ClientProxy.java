@@ -6,6 +6,7 @@ import java.lang.reflect.Proxy;
 
 import com.kyrincloud.RPCDemo.RPCClient;
 import com.kyrincloud.RPCDemo.codec.MyCodec;
+import com.kyrincloud.RPCDemo.message.Request;
 
 public class ClientProxy implements InvocationHandler{
 
@@ -25,7 +26,14 @@ public class ClientProxy implements InvocationHandler{
 			argsType[i]=_argsType[i].getName();
 			argsObj[i]=MyCodec.encode(args[i]);
 		}
-		return RPCClient.invokeResult(clazz.getName(), method.getName(), argsType, argsObj);
+		
+		Request request=new Request();
+		request.setArgs(argsObj);
+		request.setArgsType(argsType);
+		request.setMethodName(method.getName());
+		request.setTargetInterfaceName(clazz.getName());
+		
+		return RPCClient.invokeResult(request);
 	}
 	
 }

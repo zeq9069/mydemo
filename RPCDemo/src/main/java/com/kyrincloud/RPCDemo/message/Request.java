@@ -14,7 +14,7 @@ public class Request {
 	
 	private String methodName;
 	
-	private byte[][] argsType;
+	private String[] argsType;
 	
 	private byte[][] args;
 	
@@ -22,7 +22,7 @@ public class Request {
 	public Request() {
 	}
 	
-	public Request(String targetInterfaceName,String methodName,byte[][] args,byte[][] argsType){
+	public Request(String targetInterfaceName,String methodName,byte[][] args,String[] argsType){
 		this.targetInterfaceName = targetInterfaceName;
 		this.methodName = methodName;
 		this.args = args;
@@ -45,11 +45,11 @@ public class Request {
 		this.methodName = methodName;
 	}
 
-	public byte[][] getArgsType() {
+	public String[] getArgsType() {
 		return argsType;
 	}
 
-	public void setArgsType(byte[][] argsType) {
+	public void setArgsType(String[] argsType) {
 		this.argsType = argsType;
 	}
 

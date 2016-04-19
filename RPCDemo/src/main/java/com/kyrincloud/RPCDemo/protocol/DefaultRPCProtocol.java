@@ -23,7 +23,7 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			byte [] _clazz=req.getTargetInterfaceName().getBytes();
 			byte [] _method=req.getMethodName().getBytes();
 			byte[][] _args=req.getArgs();
-			byte[][] _argsType=req.getArgsType();
+			String[] _argsType=req.getArgsType();
 			int allArgsLength=0;
 			for(int i=0;i<_args.length;i++){
 				allArgsLength+=_args[i].length;
@@ -31,13 +31,12 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			
 			int allArgsTypeLen=0;
 			for(int i=0;i<_argsType.length;i++){
-				allArgsLength+=_argsType[i].length;
+				allArgsLength+=_argsType[i].getBytes().length;
 			}
 			
-			
 			ByteBuffer bb=ByteBuffer.allocate(14+_clazz.length+_method.length+4+_args.length*4*2+4+allArgsLength+allArgsTypeLen);
-			bb.put(req.PROTOCOL);
-			bb.put(req.TYPE);
+			bb.put(Request.PROTOCOL);
+			bb.put(Request.TYPE);
 			bb.putInt(_clazz.length);
 			bb.putInt(_method.length);
 			bb.putInt(_args.length);
@@ -46,9 +45,8 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			}
 			bb.putInt(_args.length);
 			for(int i=0;i<_argsType.length;i++){
-				bb.putInt(_argsType[i].length);
+				bb.putInt(_argsType[i].getBytes().length);
 			}
-			
 			
 			bb.put(_clazz);
 			bb.put(_method);
@@ -57,15 +55,15 @@ public class DefaultRPCProtocol implements RPCProtocol{
 				bb.put(_args[i]);
 			}
 			for(int i=0;i<_argsType.length;i++){
-				bb.put(_argsType[i]);
+				bb.put(_argsType[i].getBytes());
 			}
 			return bb.array();
 		}else if(message instanceof Response){
 			Response resp=(Response) message;
 			byte[] res=resp.getResult();
 			ByteBuffer bb=ByteBuffer.allocate(6+res.length);
-			bb.put(resp.PROTOCOL);
-			bb.put(resp.TYPE);
+			bb.put(Response.PROTOCOL);
+			bb.put(Response.TYPE);
 			bb.putInt(res.length);
 			bb.put(res);
 			return bb.array();
@@ -108,7 +106,7 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			is.read(_clazz);
 			is.read(_method);
 			byte[][] args = new byte[allArgsLen.size()][];
-			byte[][] argsType = new byte[allArgsTypeLen.size()][];
+			String[] argsType =new String[allArgsTypeLen.size()];
 			for (int i = 0; i < argsNum; i++) {
 				byte[] b = new byte[allArgsLen.get(i)];
 				is.read(b);
@@ -117,7 +115,7 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			for (int i = 0; i < argsNum; i++) {
 				byte[] b = new byte[allArgsTypeLen.get(i)];
 				is.read(b);
-				argsType[i] = b;
+				argsType[i] = new String(b);
 			}
 			request.setTargetInterfaceName(new String(_clazz));
 			request.setMethodName(new String(_method));
@@ -134,16 +132,15 @@ public class DefaultRPCProtocol implements RPCProtocol{
 			response.setResult(body);
 			return response;
 		}
-
 		return null;
 	}
 		
-		private static int readInt(InputStream is,ByteBuffer buff) throws IOException{
-			byte[] clazz=buff.array();
-			is.read(clazz);
-			int result= buff.getInt();
-			buff.clear();
-			return result;
-		}
+	private static int readInt(InputStream is,ByteBuffer buff) throws IOException{
+		byte[] clazz=buff.array();
+		is.read(clazz);
+		int result= buff.getInt();
+		buff.clear();
+		return result;
+	}
 
 }
