@@ -1,6 +1,9 @@
 package com.kyrin.JsonLexer.LL1;
 
+import java.util.Queue;
+
 import com.kyrin.JsonLexer.JSONLexer;
+import com.kyrin.JsonLexer.Token;
 
 public class JSONParserTest {
 	
@@ -9,6 +12,10 @@ public class JSONParserTest {
 		JSONLexer lexer=new JSONLexer(input);
 		JSONParser parser=new JSONParser(lexer);
 		parser.json();
+		Queue<Token> q=parser.getAllToken();
+		for(Token t:q){
+			System.out.println(t);
+		}
 	}
 
 }
