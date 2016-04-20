@@ -13,14 +13,14 @@ import com.kyrin.JsonLexer.JSONLexer;
  * 
  * 在JSONLexer文法的基础上改造
  * 
- * 稍微完善之后为json文法，支持嵌套
+ * 稍微完善之后为json文法，支持嵌套和kv，但是目前不支持一些数组之类的类型还有一些关键字，以后会慢慢加进来
  * JSON::='{'<CONTENT>'}' ;
  * CONTENT::=<EXP>(','<EXP>)*;
  * EXP::=<KV>| <JSON> ;
  * KV::=<KEY> ':' <VALUE>;
  * KEY::='"' <VAL> '"'
  * VALUE='"'<VAL>'"'| <JSON>
- * 
+ * VAL::={'a'..'z'|'A'..'Z'|0..9}+
  * @author kyrin
  */
 public class JSONParser extends Parser{
@@ -61,14 +61,14 @@ public class JSONParser extends Parser{
 	
 	public void key(){
 		match(JSONLexer.DQUOTES);
-		match(JSONLexer.EXP);
+		match(JSONLexer.TEXT);
 		match(JSONLexer.DQUOTES);
 	}
 	
 	public void value(){
 		if(lookahead.tokenType==JSONLexer.DQUOTES){
 			match(JSONLexer.DQUOTES);
-			match(JSONLexer.EXP);
+			match(JSONLexer.TEXT);
 			match(JSONLexer.DQUOTES);
 		}else if(lookahead.tokenType==JSONLexer.LBRACK){
 			json();

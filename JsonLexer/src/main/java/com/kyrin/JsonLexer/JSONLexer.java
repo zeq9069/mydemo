@@ -8,6 +8,10 @@ package com.kyrin.JsonLexer;
  * EXP::='"' <VAL> '"'
  * VAL::={'a'..'z'|'A'..'Z'|0..9}+
  * 
+ * {"TEXT":"TEXT"}
+ * 此法单元有：{ 、 " 、 : 、 } 、 TEXT 总共5个Token ,忽略一些空格无用的字符
+ * 
+ * 仅仅是遍历字符串的词，校验遍历的词是否合法，并将词组成Token词法单元，这一步并不能做json格式的校验，是在Parser（语法分析器）中做的
  * 
  * 这种方式虽然能解析json字符串，但是并不能进行格式的校验，需要采用LL(1)或者LL(2)甚至LL(N)模式
  * 
@@ -16,17 +20,15 @@ package com.kyrin.JsonLexer;
  */
 public class JSONLexer extends Lexer{
 
-	
-
 	//定义Token
 	public static int LBRACK=2; 	//{
 	public static int RLRACK=3;	//}
 	public static int DQUOTES=4;	//""
 	public static int SEMICOLON=5;	//:
-	public static int EXP=6;		//key
+	public static int TEXT=6;		//
 	public static int COMMA=7;		//,
 	
-	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","EXP","COMMA"};
+	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","TEXT","COMMA"};
 	
 	public JSONLexer(String input) {
 		super(input);
@@ -59,7 +61,7 @@ public class JSONLexer extends Lexer{
 			sb.append(c);
 			consume();
 		}
-		return new Token(EXP,sb.toString());
+		return new Token(TEXT,sb.toString());
 	}
 	
 	public void consume(){
