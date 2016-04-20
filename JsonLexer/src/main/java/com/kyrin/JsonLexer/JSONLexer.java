@@ -1,6 +1,6 @@
 package com.kyrin.JsonLexer;
 /**
- * json 文法解析器
+ * json 文法(词法)解析器
  * 
  * JSON::='{'<CONTENT>'}' ;
  * CONTENT::=<KV>(','<KV>)*;
@@ -19,12 +19,12 @@ public class JSONLexer extends Lexer{
 	
 
 	//定义Token
-	private static int LBRACK=2; 	//{
-	private static int RLRACK=3;	//}
-	private static int DQUOTES=4;	//""
-	private static int SEMICOLON=5;	//:
-	private static int EXP=6;		//key
-	private static int COMMA=7;		//,
+	public static int LBRACK=2; 	//{
+	public static int RLRACK=3;	//}
+	public static int DQUOTES=4;	//""
+	public static int SEMICOLON=5;	//:
+	public static int EXP=6;		//key
+	public static int COMMA=7;		//,
 	
 	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","EXP","COMMA"};
 	

@@ -6,9 +6,9 @@ package com.kyrin.JsonLexer;
  */
 public class Token {
 
-	 int tokenType;
+	public int tokenType;
 	
-	String text;
+	public String text;
  
 	public Token(int tokenType,String text) {
 		this.tokenType=tokenType;
