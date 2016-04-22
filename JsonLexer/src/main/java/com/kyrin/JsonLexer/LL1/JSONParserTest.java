@@ -10,7 +10,7 @@ public class JSONParserTest {
 	
 	public static void main(String[] args) {
 		//String input="{\"key\":\"value\",{{\"key\":\"value\"}}}";
-		String input="{\"key\":\"value\",{{\"key\":[\"xx\"]}}}";
+		String input="{\'key\':1000,{{\"key\":[xx,false]}}}";
 		JSONLexer lexer=new JSONLexer(input);
 		JSONParser parser=new JSONParser(lexer);
 		parser.json();//可以校验json的格式是否正确，如果有误会报错，没错的话，什么都不会打印

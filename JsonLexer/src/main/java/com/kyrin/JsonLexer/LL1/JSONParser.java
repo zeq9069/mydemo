@@ -46,12 +46,12 @@ public class JSONParser extends Parser{
 	}
 	
 	public void exp(){
-		if(lookahead.tokenType==JSONLexer.DQUOTES){
-			kv();
-		}else if(lookahead.tokenType==JSONLexer.LBRACK){
+			
+		if(lookahead.tokenType==JSONLexer.LBRACK){
 			json();
 		}else {
-			throw new Error("exception KV or JSON ; found "+lookahead);
+			kv();
+			//throw new Error("exception KV or JSON ; found "+lookahead);
 		}
 	}
 	
@@ -62,9 +62,18 @@ public class JSONParser extends Parser{
 	}
 	
 	public void key(){
-		match(JSONLexer.DQUOTES);
-		match(JSONLexer.TEXT);
-		match(JSONLexer.DQUOTES);
+		if(lookahead.tokenType==JSONLexer.DQUOTES){
+			match(JSONLexer.DQUOTES);
+			match(JSONLexer.TEXT);
+			match(JSONLexer.DQUOTES);
+		}else if(lookahead.tokenType==JSONLexer.SINGLEQUOTES){
+			match(JSONLexer.SINGLEQUOTES);
+			match(JSONLexer.TEXT);
+			match(JSONLexer.SINGLEQUOTES);
+		}else {
+			match(JSONLexer.TEXT);
+			//throw new Error("exception TEXT or JSON or ARRAY ; found "+lookahead);
+		}
 	}
 	
 	public void value(){
@@ -72,6 +81,10 @@ public class JSONParser extends Parser{
 			match(JSONLexer.DQUOTES);
 			match(JSONLexer.TEXT);
 			match(JSONLexer.DQUOTES);
+		}else if(lookahead.tokenType==JSONLexer.SINGLEQUOTES){
+			match(JSONLexer.SINGLEQUOTES);
+			match(JSONLexer.TEXT);
+			match(JSONLexer.SINGLEQUOTES);
 		}else if(lookahead.tokenType==JSONLexer.LBRACK){
 			json();
 		}else if(lookahead.tokenType==JSONLexer.LBRACKETS){
@@ -79,7 +92,8 @@ public class JSONParser extends Parser{
 			array();
 			match(JSONLexer.RBRACKETS);
 		}else {
-			throw new Error("exception TEXT or JSON or ARRAY ; found "+lookahead);
+			match(JSONLexer.TEXT);
+			//throw new Error("exception TEXT or JSON or ARRAY ; found "+lookahead);
 		}
 	}
 	

@@ -29,8 +29,9 @@ public class JSONLexer extends Lexer{
 	public static int COMMA=7;		//,
 	public static int LBRACKETS=8;  //[
 	public static int RBRACKETS=9;  //]
+	public static int SINGLEQUOTES; //'
 	
-	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","TEXT","COMMA","LBRACKETS","LBRACKETS"};
+	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","TEXT","COMMA","LBRACKETS","LBRACKETS","SINGLEQUOTES"};
 	
 	public JSONLexer(String input) {
 		super(input);
@@ -47,6 +48,7 @@ public class JSONLexer extends Lexer{
 				case '}':consume();return new Token(RLRACK, "{");
 				case '[':consume();return new Token(LBRACKETS, "[");
 				case ']':consume();return new Token(RBRACKETS, "]");
+				case '\'':consume();return new Token(SINGLEQUOTES, "'");
 				default:
 					if(isLETTER()) return EXP();
 					else throw new Error("invalid char :"+c);
