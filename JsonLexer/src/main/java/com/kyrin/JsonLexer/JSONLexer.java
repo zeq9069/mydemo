@@ -22,13 +22,15 @@ public class JSONLexer extends Lexer{
 
 	//定义Token
 	public static int LBRACK=2; 	//{
-	public static int RLRACK=3;	//}
+	public static int RLRACK=3;		//}
 	public static int DQUOTES=4;	//""
 	public static int SEMICOLON=5;	//:
 	public static int TEXT=6;		//
 	public static int COMMA=7;		//,
+	public static int LBRACKETS=8;  //[
+	public static int RBRACKETS=9;  //]
 	
-	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","TEXT","COMMA"};
+	public static String[] tokenNames=new String[]{"n/a","<EOF>","LBRACK","RBRACK","DQUOTES","SEMICOLON","TEXT","COMMA","LBRACKETS","LBRACKETS"};
 	
 	public JSONLexer(String input) {
 		super(input);
@@ -43,6 +45,8 @@ public class JSONLexer extends Lexer{
 				case ':':consume();return new Token(SEMICOLON,":");
 				case ',':consume();return new Token(COMMA,",");
 				case '}':consume();return new Token(RLRACK, "{");
+				case '[':consume();return new Token(LBRACKETS, "[");
+				case ']':consume();return new Token(RBRACKETS, "]");
 				default:
 					if(isLETTER()) return EXP();
 					else throw new Error("invalid char :"+c);

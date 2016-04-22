@@ -3,7 +3,7 @@ package com.kyrin.JsonLexer.LL1;
 import com.kyrin.JsonLexer.JSONLexer;
 
 /**
- * 	JSON 语法解析器
+ * 	JSON 语法解析器（负责语法的合法性校验）
  * 
  * LL(1)模式，递归下降语法分析
  * 通常选择使用FIRST和FOLLOW两个运算来计算向前看集合。
@@ -19,7 +19,9 @@ import com.kyrin.JsonLexer.JSONLexer;
  * EXP::=<KV>| <JSON> ;
  * KV::=<KEY> ':' <VALUE>;
  * KEY::='"' <VAL> '"'
- * VALUE='"'<VAL>'"'| <JSON>
+ * VALUE::='"'<VAL>'"'| <JSON> | <ARRAY> 
+ * ARRAY::='['<COLUME>']'
+ * COLUME::=<VALUE>(','<VALUE>)*
  * VAL::={'a'..'z'|'A'..'Z'|0..9}+
  * @author kyrin
  */
@@ -72,6 +74,20 @@ public class JSONParser extends Parser{
 			match(JSONLexer.DQUOTES);
 		}else if(lookahead.tokenType==JSONLexer.LBRACK){
 			json();
+		}else if(lookahead.tokenType==JSONLexer.LBRACKETS){
+			match(JSONLexer.LBRACKETS);
+			array();
+			match(JSONLexer.RBRACKETS);
+		}else {
+			throw new Error("exception TEXT or JSON or ARRAY ; found "+lookahead);
+		}
+	}
+	
+	public void array(){
+		value();
+		while(lookahead.tokenType==JSONLexer.COMMA){
+			match(JSONLexer.COMMA);
+			value();
 		}
 	}
 	
