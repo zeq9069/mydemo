@@ -43,14 +43,16 @@ public class Connection {
 		Socket client=new Socket("localhost",3306);
 		OutputStream os=client.getOutputStream();
 		InputStream is=client.getInputStream();
-		ByteBuffer bb=ByteBuffer.allocate(1024);
-		TimeUnit.MILLISECONDS.sleep(100);
+		ByteBuffer bb=ByteBuffer.allocate(78);
+		TimeUnit.MILLISECONDS.sleep(1024);
 		is.read(bb.array());
 		for(byte res:bb.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
 		}
 		System.out.println();
 		System.out.println(new String(bb.array()));
+		
+		
     }
 	
 }
@@ -98,10 +100,10 @@ string[NUL]    username
 lenenc-int     length of auth-response
 string[n]      auth-response
   } else if capabilities & CLIENT_SECURE_CONNECTION {
-1              length of auth-response
-string[n]      auth-response
+1              length of auth-response  
+string[n]      auth-response  (password  ，SHA1输出160bit 也就是20字节)
   } else {
-string[NUL]    auth-response
+string[NUL]    auth-response (password  ，SHA1输出160bit 也就是20字节)
   }
   if capabilities & CLIENT_CONNECT_WITH_DB {
 string[NUL]    database
