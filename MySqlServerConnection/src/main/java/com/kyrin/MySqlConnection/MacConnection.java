@@ -6,16 +6,18 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 import com.kyrin.MySqlConnection.util.EncryptUtils;
 import com.kyrin.MySqlConnection.util.HexTranslate;
+import com.mysql.jdbc.Security;
 
 /**
  * mysql s/c protocol 测试
  * 测试环境
- * 	OS：win7
- * 	mysql_server_version:5.7.4-m14
+ * 	OS：mac pro
+ * 	mysql_server_version:5.6.23
  * 
  * 			Successful Authentication
  * 
@@ -40,25 +42,25 @@ import com.kyrin.MySqlConnection.util.HexTranslate;
  * 	  |									|
  *
  */
-public class Connection {
+public class MacConnection {
     
-	public static void main( String[] args ) throws UnknownHostException, IOException, InterruptedException{
+	public static void main( String[] args ) throws UnknownHostException, IOException, InterruptedException, NoSuchAlgorithmException{
 		Socket client=new Socket("127.0.0.1",3306);
 		OutputStream os=client.getOutputStream();
 		InputStream is=client.getInputStream();
 		ByteBuffer bb=ByteBuffer.allocate(78);
-		TimeUnit.MILLISECONDS.sleep(1024);
+		TimeUnit.MILLISECONDS.sleep(100);
 		is.read(bb.array());
 		byte[] f8 = new byte[8];   //提取scrambled前八位
 		byte[] f12=new byte[12];   //提取scrambled后12位
 		int j=1;
 		for(byte res:bb.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
-			if(j>=20 && j<28){
-				f8[j-20]=res;
+			if(j>=17 && j<25){
+				f8[j-17]=res;
 			}
-			if(j>=47 && j<59){
-				f12[j-47]=res;
+			if(j>=44 && j<56){
+				f12[j-44]=res;
 			}
 			j++;
 		}
@@ -68,13 +70,9 @@ public class Connection {
 		
 		String scrambled=new String(f8)+new String(f12);
 		System.out.println("scrambled="+scrambled);
+		
 		//client -> server
-		byte[] sha=EncryptUtils.SHA1("root");
-		byte[] pass_res=EncryptUtils.SHA1(scrambled+new String(EncryptUtils.SHA1(new String(sha))));
-		byte pass_sha1[]=new byte[20];
-		for(int i=0;i<20;i++){
-			pass_sha1[i]=(byte) (sha[i]^pass_res[i]);
-		}
+		byte pass_sha1[]=Security.scramble411("root",scrambled, "");
 		
 		
 		
@@ -116,11 +114,6 @@ public class Connection {
 		
 		sendServer.put(pass_sha1);
 		
-		sendServer.put(dbname.getBytes());
-		sendServer.put((byte)0);
-		sendServer.put(auth.getBytes());
-		
-		
 		
 		
 		os.write(sendServer.array());
@@ -132,14 +125,13 @@ public class Connection {
 		os.flush();
 		
 		
-		ByteBuffer bb1=ByteBuffer.allocate(80);
+		ByteBuffer bb1=ByteBuffer.allocate(11);
 		TimeUnit.MILLISECONDS.sleep(100);
 		is.read(bb1.array());
+		System.out.println("OK 数据包：");
 		for(byte res:bb1.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
 		}
-		System.out.println();
-		System.out.println(new String(bb1.array()));
 		
     }
 }
