@@ -46,8 +46,8 @@ public class Connection {
 		Socket client=new Socket("127.0.0.1",3306);
 		OutputStream os=client.getOutputStream();
 		InputStream is=client.getInputStream();
-		ByteBuffer bb=ByteBuffer.allocate(1024);
-		TimeUnit.MILLISECONDS.sleep(100);
+		ByteBuffer bb=ByteBuffer.allocate(78);
+		TimeUnit.MILLISECONDS.sleep(1024);
 		is.read(bb.array());
 		byte[] f8 = new byte[8];   //提取scrambled前八位
 		byte[] f12=new byte[12];   //提取scrambled后12位
@@ -66,6 +66,7 @@ public class Connection {
 		System.out.println(new String(bb.array()));
 		
 		
+<<<<<<< HEAD
 		String scrambled=new String(f8)+new String(f12);
 		System.out.println("scrambled="+scrambled);
 		//client -> server
@@ -141,6 +142,8 @@ public class Connection {
 		System.out.println();
 		System.out.println(new String(bb1.array()));
 		
+=======
+>>>>>>> d83b625650450aed3b49e0de34b767989e4e63f5
     }
 }
 
@@ -187,10 +190,10 @@ string[NUL]    username
 lenenc-int     length of auth-response
 string[n]      auth-response
   } else if capabilities & CLIENT_SECURE_CONNECTION {
-1              length of auth-response
-string[n]      auth-response
+1              length of auth-response  
+string[n]      auth-response  (password  ，SHA1输出160bit 也就是20字节)
   } else {
-string[NUL]    auth-response
+string[NUL]    auth-response (password  ，SHA1输出160bit 也就是20字节)
   }
   if capabilities & CLIENT_CONNECT_WITH_DB {
 string[NUL]    database
