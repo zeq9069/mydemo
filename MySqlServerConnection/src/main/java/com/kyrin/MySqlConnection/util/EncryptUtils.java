@@ -73,5 +73,6 @@ public final class EncryptUtils {
 		//adf367dc5075e76ed4b0134c6e68f7a8cc953efa
 		
 		System.out.println(HexTranslate.paser(scramble411(password,scrambled, "")));
+		//System.out.println(0xf7ff|(0x807f<<16));
 	}
 }

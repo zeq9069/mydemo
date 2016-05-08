@@ -9,7 +9,6 @@ import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
-import com.kyrin.MySqlConnection.util.EncryptUtils;
 import com.kyrin.MySqlConnection.util.HexTranslate;
 import com.mysql.jdbc.Security;
 
@@ -44,16 +43,43 @@ import com.mysql.jdbc.Security;
  */
 public class MacConnection {
     
+	static String username="root";
+
+	static String password="root";
+	
+	static String scrambled;//server -> client 密码加密
+
+	private static Socket client;
+	
 	public static void main( String[] args ) throws UnknownHostException, IOException, InterruptedException, NoSuchAlgorithmException{
-		Socket client=new Socket("127.0.0.1",3306);
+		
+		client = new Socket("127.0.0.1",3306);
+		
 		OutputStream os=client.getOutputStream();
 		InputStream is=client.getInputStream();
+		
+		//2.server -> client
+		initialHandShake(is);
+	
+		
+		//3.client -> server
+		HandshakeResponse41(os);
+		
+		//4. OK packate
+		OK(is);
+    }
+	
+	
+	//server -> client
+	public static void initialHandShake(InputStream is) throws InterruptedException, IOException{
 		ByteBuffer bb=ByteBuffer.allocate(78);
 		TimeUnit.MILLISECONDS.sleep(100);
 		is.read(bb.array());
 		byte[] f8 = new byte[8];   //提取scrambled前八位
 		byte[] f12=new byte[12];   //提取scrambled后12位
 		int j=1;
+		System.out.println(new String(bb.array()));
+		System.out.println("\n[initialHandshake数据包]");
 		for(byte res:bb.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
 			if(j>=17 && j<25){
@@ -64,32 +90,21 @@ public class MacConnection {
 			}
 			j++;
 		}
-		System.out.println();
-		System.out.println(new String(bb.array()));
-		
-		
-		String scrambled=new String(f8)+new String(f12);
+		scrambled=new String(f8)+new String(f12);
 		System.out.println("scrambled="+scrambled);
-		
-		//client -> server
-		byte pass_sha1[]=Security.scramble411("root",scrambled, "");
-		
-		
-		
-		for(byte b:pass_sha1){
-			System.out.print(HexTranslate.paser(b)+" ");
-		}
-		System.out.println();
-		String username="root";
-		String dbname="demo";
-		String auth="mysql_native_password";
-		int packetLen=4+4+4+1+23+username.getBytes().length+1+1+pass_sha1.length+dbname.getBytes().length+1+auth.getBytes().length;
+	}
+	
+	//client -> server (username and password)
+	public static void HandshakeResponse41(OutputStream os) throws NoSuchAlgorithmException, IOException{
+		byte pass_sha1[]=Security.scramble411(password,scrambled, "");//加密后的密码，也就是要传输给server端的字节数据
+		int packetLen=4+4+4+1+23+username.getBytes().length+1+1+pass_sha1.length+1;
 		ByteBuffer sendServer=ByteBuffer.allocate(packetLen);
 		sendServer.put((byte)(packetLen-4));
 		sendServer.put((byte)0x00);
 		sendServer.put((byte)0x00);
 		sendServer.put((byte)0x01);
 		
+		//这四个字符是如何生成的？
 		sendServer.put((byte)0x05);
 		sendServer.put((byte)0xa6);
 		sendServer.put((byte)0x03);
@@ -114,26 +129,26 @@ public class MacConnection {
 		
 		sendServer.put(pass_sha1);
 		
-		
-		
 		os.write(sendServer.array());
 		
+		System.out.println("\n[HandshakeResponse41数据包]");
 		for(byte bbbb:sendServer.array()){
 			System.out.print(HexTranslate.paser(bbbb)+"["+bbbb+"] ");
 		}
 		System.out.println();
 		os.flush();
-		
-		
+	}
+	
+	public static void OK(InputStream is) throws InterruptedException, IOException{
 		ByteBuffer bb1=ByteBuffer.allocate(11);
 		TimeUnit.MILLISECONDS.sleep(100);
 		is.read(bb1.array());
-		System.out.println("OK 数据包：");
+		
+		System.out.println("\n[OK 数据包]");
 		for(byte res:bb1.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
 		}
-		
-    }
+	}
 }
 
 /**
@@ -150,11 +165,11 @@ string[NUL]    server version													:35[53] 2e[46] 37[55] 2e[46] 34[52] 2d
 4              connection id													:ca[-54] 00[0] 00[0] 00[0]
 string[8]      auth-plugin-data-part-1											:5b[91] 37[55] 3e[62] 72[114] 46[70] 46[70] 6a[106] 65[101]
 1              [00] filler														:00[0]
-2              capability flags (lower 2 bytes)									:ff[-1] f7[-9]
+2              capability flags (lower 2 bytes)	(低两位)							:ff[-1] f7[-9]
   if more data in the packet:
 1              character set													:21[33]
 2              status flags														:02[2] 00[0] 
-2              capability flags (upper 2 bytes)									:ff[-1] 80[-128]
+2              capability flags (upper 2 bytes)	（高两位）							:ff[-1] 80[-128]
   if capabilities & CLIENT_PLUGIN_AUTH {
 1              length of auth-plugin-data										:15[21]
   } else {
@@ -168,9 +183,12 @@ string[NUL]    auth-plugin name															:6d[109] 79[121] 73[115] 71[113] 6
   }
 
   
+  capability flags 的低两位和高两位需要拼接，然后在下一次发送capability flags的时候有用，但并不是
+  直接发送上次生成的capability flags，而是需要执行一些逻辑，（可以参考MySQLIO.java中的clientParam生成方式）
+  
   3. client -> server
   
-4              capability flags, CLIENT_PROTOCOL_41 always set
+4              capability flags, CLIENT_PROTOCOL_41 always set （可以参考MySQLIO.java中的clientParam生成方式）
 4              max-packet size
 1              character set
 string[23]     reserved (all [0])

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 import com.kyrin.MySqlConnection.util.EncryptUtils;
@@ -42,7 +43,7 @@ import com.kyrin.MySqlConnection.util.HexTranslate;
  */
 public class Connection {
     
-	public static void main( String[] args ) throws UnknownHostException, IOException, InterruptedException{
+	public static void main( String[] args ) throws UnknownHostException, IOException, InterruptedException, NoSuchAlgorithmException{
 		Socket client=new Socket("127.0.0.1",3306);
 		OutputStream os=client.getOutputStream();
 		InputStream is=client.getInputStream();
@@ -69,13 +70,7 @@ public class Connection {
 		String scrambled=new String(f8)+new String(f12);
 		System.out.println("scrambled="+scrambled);
 		//client -> server
-		byte[] sha=EncryptUtils.SHA1("root");
-		byte[] pass_res=EncryptUtils.SHA1(scrambled+new String(EncryptUtils.SHA1(new String(sha))));
-		byte pass_sha1[]=new byte[20];
-		for(int i=0;i<20;i++){
-			pass_sha1[i]=(byte) (sha[i]^pass_res[i]);
-		}
-		
+		byte pass_sha1[]=EncryptUtils.scramble411("root", scrambled, "");
 		
 		
 		for(byte b:pass_sha1){
