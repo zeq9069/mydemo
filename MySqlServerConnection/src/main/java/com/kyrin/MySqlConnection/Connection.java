@@ -9,8 +9,8 @@ import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
-import com.kyrin.MySqlConnection.util.EncryptUtils;
 import com.kyrin.MySqlConnection.util.HexTranslate;
+import com.mysql.jdbc.Security;
 
 /**
  * mysql s/c protocol 测试
@@ -42,55 +42,114 @@ import com.kyrin.MySqlConnection.util.HexTranslate;
  *
  */
 public class Connection {
-    
+	
+	static int MYSQL_SERVER_VERSION_LEN="5.7.4-m14".length();
+	
+	static String username="root";
+
+	static String password="root";
+	
+	static String scrambled;//server -> client 密码加密
+	
+	static int capabilityFlags;
+
+	private static Socket client;
+	
 	public static void main( String[] args ) throws UnknownHostException, IOException, InterruptedException, NoSuchAlgorithmException{
-		Socket client=new Socket("127.0.0.1",3306);
+		client = new Socket("127.0.0.1",3306);
+		
 		OutputStream os=client.getOutputStream();
 		InputStream is=client.getInputStream();
-		ByteBuffer bb=ByteBuffer.allocate(78);
-		TimeUnit.MILLISECONDS.sleep(1024);
+		
+		//2.server -> client
+		initialHandShake(is);
+	
+		
+		//3.client -> server
+		HandshakeResponse41(os);
+		
+		//4. OK packate
+		OK(is);
+		
+		ByteBuffer bb=ByteBuffer.allocate(9);
+		bb.put((byte)0x05);
+		bb.put((byte)0x00);
+		bb.put((byte)0x00);
+		bb.put((byte)0x00);
+		bb.put((byte)0x05);
+		bb.put((byte)0x74);
+		bb.put((byte)0x65);
+		bb.put((byte)0x73);
+		bb.put((byte)0x74);
+		os.write(bb.array());
+		os.flush();
+    }
+	
+	//server -> client
+	public static void initialHandShake(InputStream is) throws InterruptedException, IOException{
+		ByteBuffer bb=ByteBuffer.allocate(81);
+		TimeUnit.MILLISECONDS.sleep(100);
 		is.read(bb.array());
 		byte[] f8 = new byte[8];   //提取scrambled前八位
 		byte[] f12=new byte[12];   //提取scrambled后12位
+		byte[] capabilityFlagsLower2=new byte[2];
+		byte[] capabilityFlagsUpper2=new byte[2];
 		int j=1;
+		System.out.println(new String(bb.array()));
+		System.out.println("\n[initialHandshake数据包]");
+		
+		//获取scrambled
+		int auth_plugin_data_part_1_index=4+1+MYSQL_SERVER_VERSION_LEN+1+4+1;
+		int auth_plugin_data_part_2_index=auth_plugin_data_part_1_index+8+1+2+1+2+2+1+10;
+		int capabilityFlags_lower_2_index=4+1+MYSQL_SERVER_VERSION_LEN+1+4+8+1+1;
+		int capabilityFlags_upper_2_index=capabilityFlags_lower_2_index+2+1+2;
+
 		for(byte res:bb.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
-			if(j>=20 && j<28){
-				f8[j-20]=res;
+			if(j>=auth_plugin_data_part_1_index && j<auth_plugin_data_part_1_index+8){
+				f8[j-auth_plugin_data_part_1_index]=res;
 			}
-			if(j>=47 && j<59){
-				f12[j-47]=res;
+			if(j>=auth_plugin_data_part_2_index && j<auth_plugin_data_part_2_index+12){
+				f12[j-auth_plugin_data_part_2_index]=res;
+			}
+			if(j>=capabilityFlags_lower_2_index && j<capabilityFlags_lower_2_index+2){
+				capabilityFlagsLower2[j-capabilityFlags_lower_2_index]=res;
+			}
+			if(j>=capabilityFlags_upper_2_index && j<capabilityFlags_upper_2_index+2){
+				capabilityFlagsUpper2[j-capabilityFlags_upper_2_index]=res;
 			}
 			j++;
 		}
-		System.out.println();
-		System.out.println(new String(bb.array()));
+		scrambled=new String(f8)+new String(f12);
+		System.out.println("\nscrambled="+scrambled);
 		
+		byte[] capabilityFlagsBytes=new byte[4];
+		capabilityFlagsBytes[0]=capabilityFlagsUpper2[1];
+		capabilityFlagsBytes[1]=capabilityFlagsUpper2[0];
+		capabilityFlagsBytes[2]=capabilityFlagsLower2[1];
+		capabilityFlagsBytes[3]=capabilityFlagsLower2[0];
 		
-		String scrambled=new String(f8)+new String(f12);
-		System.out.println("scrambled="+scrambled);
-		//client -> server
-		byte pass_sha1[]=EncryptUtils.scramble411("root", scrambled, "");
-		
-		
-		for(byte b:pass_sha1){
-			System.out.print(HexTranslate.paser(b)+" ");
-		}
-		System.out.println();
-		String username="root";
-		String dbname="demo";
-		String auth="mysql_native_password";
-		int packetLen=4+4+4+1+23+username.getBytes().length+1+1+pass_sha1.length+dbname.getBytes().length+1+auth.getBytes().length;
+		capabilityFlags=HexTranslate.bytesToInt(capabilityFlagsBytes, 0);
+		System.out.println(HexTranslate.paser(capabilityFlagsBytes));
+	}
+	 
+	//client -> server (username and password)
+	public static void HandshakeResponse41(OutputStream os) throws NoSuchAlgorithmException, IOException{
+		byte pass_sha1[]=Security.scramble411(password,scrambled, "");//加密后的密码，也就是要传输给server端的字节数据
+		int packetLen=4+4+4+1+23+username.getBytes().length+1+1+pass_sha1.length;
 		ByteBuffer sendServer=ByteBuffer.allocate(packetLen);
 		sendServer.put((byte)(packetLen-4));
 		sendServer.put((byte)0x00);
 		sendServer.put((byte)0x00);
 		sendServer.put((byte)0x01);
 		
-		sendServer.put((byte)0x05);
+		//这四个字符是如何生成的？
+		/*sendServer.put((byte)0x05);
 		sendServer.put((byte)0xa6);
 		sendServer.put((byte)0x03);
-		sendServer.put((byte)0x00);
+		sendServer.put((byte)0x00);*/
+		//sendServer.putInt(0x01868300);//CLIENT_IGNORE_SPACE|CLIENT_MULTI_RESULTS|CLIENT_PS_MULTI_RESULTS|CLIENT_PROTOCOL_41|CLIENT_SECURE_CONNECTION |CLIENT_SESSION_TRACK|CLIENT_DEPRECATE_EOF )
+		sendServer.putInt(0x05a60300);
 		
 		sendServer.put((byte)0x00);
 		sendServer.put((byte)0x00);
@@ -111,32 +170,29 @@ public class Connection {
 		
 		sendServer.put(pass_sha1);
 		
-		sendServer.put(dbname.getBytes());
-		sendServer.put((byte)0);
-		sendServer.put(auth.getBytes());
-		
-		
-		
-		
 		os.write(sendServer.array());
-		
+		os.flush();
+		System.out.println("\n[HandshakeResponse41数据包]");
 		for(byte bbbb:sendServer.array()){
 			System.out.print(HexTranslate.paser(bbbb)+"["+bbbb+"] ");
 		}
 		System.out.println();
-		os.flush();
 		
-		
-		ByteBuffer bb1=ByteBuffer.allocate(80);
+	}
+	
+	//As the client provided the right password and the flags are fine, the server responds with a OK_Packet. That closes auth-phase and switches to the command-phase:
+	public static void OK(InputStream is) throws InterruptedException, IOException{
+		ByteBuffer bb1=ByteBuffer.allocate(13);
 		TimeUnit.MILLISECONDS.sleep(100);
 		is.read(bb1.array());
+		
+		System.out.println("\n[result 数据包]");
 		for(byte res:bb1.array()){
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
 		}
-		System.out.println();
-		System.out.println(new String(bb1.array()));
-		
-    }
+		System.out.println("\n"+new String(bb1.array()));
+	}
+	
 }
 
 /**
