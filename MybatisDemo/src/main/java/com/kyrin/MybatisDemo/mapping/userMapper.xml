@@ -4,13 +4,13 @@
 	<select id="getUser" parameterType="int" resultType="com.kyrin.MybatisDemo.domain.User">
 		SELECT * FROM users WHERE id=#{id}
 	</select>
-	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.kyrin.MybatisDemo.domain.User">
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="User">
 		INSERT INTO users(username,email,password) VALUES(#{username},#{email},#{password}) 
 	</insert>
 	<delete id="deleteUser" parameterType="int">
 		DELETE FROM users WHERE id=#{id} 
 	</delete>
-	<update id="updateUser" parameterType="com.kyrin.MybatisDemo.domain.User">
+	<update id="updateUser" parameterType="User">
 		UPDATE users SET email=#{email},username=#{username} WHERE id=#{id}
 	</update>
 </mapper>

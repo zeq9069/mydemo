@@ -80,7 +80,5 @@ public class Bootstrap {
 		User user=new User("Jack", "jack@qq.com", "123");
 		user.setId(1);
 		System.out.println("The number of rows affected by the update : "+updateUser(user));
-		
-		
 	}
 }
