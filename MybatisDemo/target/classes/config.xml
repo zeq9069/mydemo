@@ -1,29 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	
+
+	<!-- configurationn中元素的顺序： (properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,plugins?,environments?,databaseIdProvider?,mappers?) -->
+	<properties resource="config.properties">
+	</properties>
+
+
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="autoMappingUnknownColumnBehavior" value="WARNING" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25" />
+		<setting name="defaultFetchSize" value="100" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+	</settings>
+
 	<!-- mybatis别名定义 -->
-    <typeAliases> 
-        <typeAlias alias="User" type="com.kyrin.MybatisDemo.domain.User"/> 
-    </typeAliases> 
-    
+	<typeAliases>
+		<typeAlias alias="User" type="com.kyrin.MybatisDemo.domain.User" />
+	</typeAliases>
+<!-- 
+	内置alias
+_byte	byte
+_long	long
+_short	short
+_int	int
+_integer	int
+_double	double
+_float	float
+_boolean	boolean
+string	String
+byte	Byte
+long	Long
+short	Short
+int	Integer
+integer	Integer
+double	Double
+float	Float
+boolean	Boolean
+date	Date
+decimal	BigDecimal
+bigdecimal	BigDecimal
+object	Object
+map	Map
+hashmap	HashMap
+list	List
+arraylist	ArrayList
+collection	Collection
+iterator	Iterator 
+-->
+
 	<environments default="default">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://localhost:3306/mybatis-dev" />
-				<property name="username" value="root" />
-				<property name="password" value="root" />
+				<property name="driver" value="${dev.driver}" />
+				<property name="url" value="${dev.url}" />
+				<property name="username" value="${dev.username}" />
+				<property name="password" value="${dev.password}" />
 			</dataSource>
 		</environment>
 		<environment id="default">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://localhost:3306/mybatis" />
-				<property name="username" value="root" />
-				<property name="password" value="root" />
+				<property name="driver" value="${default.driver}" />
+				<property name="url" value="${default.url}" />
+				<property name="username" value="${default.username}" />
+				<property name="password" value="${default.password}" />
 			</dataSource>
 		</environment>
 	</environments>
