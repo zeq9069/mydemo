@@ -48,8 +48,8 @@ public class LRUCache implements Cache{
 	}
 
 	public void put(Object key, Object value) {
-		cycleKeyList(key);
 		cache.put(key, value);
+		cycleKeyList(key);
 	}
 
 	public Object removeObject(Object key) {
@@ -68,7 +68,7 @@ public class LRUCache implements Cache{
 	private void cycleKeyList(Object key){
 		keyMap.put(key,key);
 		if(eldestKey!=null){
-			keyMap.remove(key);
+			cache.removeObject(key);
 			eldestKey=null;
 		}
 	}
