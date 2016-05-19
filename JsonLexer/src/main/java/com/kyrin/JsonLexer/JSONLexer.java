@@ -45,7 +45,7 @@ public class JSONLexer extends Lexer{
 				case '"':consume();return new Token(DQUOTES,"\"");
 				case ':':consume();return new Token(SEMICOLON,":");
 				case ',':consume();return new Token(COMMA,",");
-				case '}':consume();return new Token(RLRACK, "{");
+				case '}':consume();return new Token(RLRACK, "}");
 				case '[':consume();return new Token(LBRACKETS, "[");
 				case ']':consume();return new Token(RBRACKETS, "]");
 				case '\'':consume();return new Token(SINGLEQUOTES, "'");
@@ -88,5 +88,4 @@ public class JSONLexer extends Lexer{
 	public boolean isLETTER(){
 		return c>='a' && c<='z' || c>='A' && c<='Z' || c>='0' && c<='9';
 	}
-	
 }
