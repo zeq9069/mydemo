@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import com.kyrincloud.RPCDemo.codec.MyCodec;
 import com.kyrincloud.RPCDemo.message.Request;
@@ -22,17 +23,25 @@ public class RPCClient {
 	private static InputStream is;
 	private static OutputStream os;
 	private static String host="127.0.0.1";
-	private static int port=9999;
+	private static int port=8888;
+	
+	static{
+		try {
+			ss=new Socket(host,port);
+			os=ss.getOutputStream();
+			is=ss.getInputStream();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static Object invokeResult(Request request) throws IOException{
-		ss=new Socket(host,port);
-		os=ss.getOutputStream();
-		is=ss.getInputStream();
 		sendRequest(os,request);
 		Object re=null;
 		re= getResult(is);
-		is.close();
-		os.close();
 		return re;
 	}
 	

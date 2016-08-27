@@ -77,8 +77,9 @@ public class DefaultRPCProtocol implements RPCProtocol{
 		byte[] h = new byte[2];
 		is.read(h);
 		if (h[0] !=  1) {
-			throw new IllegalArgumentException(
-					"The message package protocol is error");
+			return null;
+			//throw new IllegalArgumentException(
+			//		"The message package protocol is error");
 		}
 		if (h[1] != 1 && h[1] != 0) {
 			throw new IllegalArgumentException(

@@ -67,6 +67,9 @@ public class MacConnection {
 		
 		//4. OK packate
 		OK(is);
+		
+		//5,commad
+		dropDB(os, is);
     }
 	
 	
@@ -149,6 +152,90 @@ public class MacConnection {
 			System.out.print(HexTranslate.paser(res)+"["+res+"] ");
 		}
 	}
+	
+	public static void dropDB(OutputStream os,InputStream is) throws IOException, InterruptedException{
+		ByteBuffer bb=ByteBuffer.allocate(18);
+//		bb.put((byte)0x05);
+//		bb.put((byte)0x00);
+//		bb.put((byte)0x00);
+//		bb.put((byte)0x00);
+//		bb.put((byte)0x06);
+//		bb.put((byte)0x74);
+//		bb.put((byte)0x65);
+//		bb.put((byte)0x73);
+//		bb.put((byte)0x74);
+		
+		
+/*		bb.put((byte)0x21);
+		bb.put((byte)0x00);
+		bb.put((byte)0x00);
+		bb.put((byte)0x00);
+		bb.put((byte)0x03);
+		bb.put((byte)0x73);
+		bb.put((byte)0x65);
+		bb.put((byte)0x6c);
+		bb.put((byte)0x65);
+		bb.put((byte)0x63);
+		bb.put((byte)0x74);
+		
+		bb.put((byte)0x20);
+		bb.put((byte)0x40);
+		bb.put((byte)0x76);
+		bb.put((byte)0x65);
+		bb.put((byte)0x72);
+		bb.put((byte)0x73);
+		bb.put((byte)0x69);
+		bb.put((byte)0x6f);
+		bb.put((byte)0x6e);
+		bb.put((byte)0x5f);
+		bb.put((byte)0x63);
+		bb.put((byte)0x6f);
+		bb.put((byte)0x6d);
+		bb.put((byte)0x6d);
+		bb.put((byte)0x65);
+		bb.put((byte)0x6e);
+		bb.put((byte)0x74);
+		bb.put((byte)0x20);
+		bb.put((byte)0x6c);
+		bb.put((byte)0x69);
+		bb.put((byte)0x6d);
+		bb.put((byte)0x69);
+		bb.put((byte)0x74);
+		bb.put((byte)0x20);
+		bb.put((byte)0x31);
+		*/
+		bb.put((byte)0x0e);
+		bb.put((byte)0x00);
+		bb.put((byte)0x00);
+		bb.put((byte)0x00);
+		bb.put((byte)0x03);
+		bb.put((byte)0x73);
+		bb.put((byte)0x65);
+		bb.put((byte)0x6c);
+		bb.put((byte)0x65);
+		bb.put((byte)0x63);
+		bb.put((byte)0x74);
+		bb.put((byte)0x20);
+		bb.put((byte)0x55);
+		bb.put((byte)0x53);
+		bb.put((byte)0x45);
+		bb.put((byte)0x52);
+		bb.put((byte)0x28);
+		bb.put((byte)0x29);
+	
+		os.write(bb.array());
+		os.flush();
+		TimeUnit.SECONDS.sleep(1);
+		System.out.println();
+		ByteBuffer ww=ByteBuffer.allocate(100);
+		is.read(ww.array());
+		System.out.println("drop test result:");
+		System.out.println(new String(ww.array()));
+		for(byte by:ww.array()){
+			System.out.print(HexTranslate.paser(by)+"["+by+"] ");
+		}
+		
+	}
 }
 
 /**
@@ -214,5 +301,11 @@ lenenc-str     key
 lenenc-str     value
    if-more data in 'length of all key-values', more keys and value pairs
   }
+  
+  4.server -> client
+  
+  OK packate
+  
+  07[7] 00[0] 00[0] 02[2] 00[0] 00[0] 00[0] 02[2] 00[0] 00[0] 00[0] 
   
 **/

@@ -58,7 +58,7 @@ public class RPCServer {
 		try {
 			System.out.println("\n[create by Kyrin  kyrincloud@qq.com]\n");
 			System.out.println("----------服务启动----------------");
-			start(9999);
+			start(8888);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,18 +67,16 @@ public class RPCServer {
 	
 	public static void start(int port) throws IOException{
 		server = new ServerSocket(port);
-		while(true){
-			Socket ss=server.accept();
-			InputStream is=ss.getInputStream();
-			OutputStream os=ss.getOutputStream();
+		Socket ss=server.accept();
+		InputStream is=ss.getInputStream();
+		OutputStream os=ss.getOutputStream();
+		while(is.read()>-1){
 			Object requestObj=RPCProtocolFactory.getProtocol(Request.PROTOCOL).decode(is);
 			if(requestObj instanceof Request){
 				Request request=(Request)requestObj;
 				Object result= handleRequest(request);	//获取client发送的数据包，并执行本地服务返回结果
 				sendResponse(result, os);			//把结果发送到client
 			} 
-			is.close();
-			os.close();
 		}
 	}
 	
