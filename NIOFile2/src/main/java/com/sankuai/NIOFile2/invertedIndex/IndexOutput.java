@@ -3,7 +3,6 @@ package com.sankuai.NIOFile2.invertedIndex;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,6 +38,7 @@ public class IndexOutput {
 			}
 			Files.write(path, indexBuffer.array(), StandardOpenOption.APPEND);
 			isCreate = false;
+			indexBuffer.clear();
 		}else{
 				FileChannel channel = FileChannel.open(path,EnumSet.of(StandardOpenOption.READ,StandardOpenOption.WRITE));
 				ByteBuffer head = ByteBuffer.allocate(8);
@@ -68,6 +68,9 @@ public class IndexOutput {
 					indexBuffer.putInt(id);
 				}
 				Files.write(path, indexBuffer.array(), StandardOpenOption.APPEND);
+				channel.close();
+				head.clear();
+				countBuffer.clear();
 		}
 	}
 	

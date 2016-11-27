@@ -41,7 +41,11 @@ public class FSFactory {
 		try {
 			TreeSet<Path> paths = new TreeSet<Path>(new Comparator<Path>() {
 				public int compare(Path o1, Path o2) {
-					return o1.getFileName().compareTo(o2.getFileName());
+					String o1_name = o1.toFile().getName();
+					String o2_name = o2.toFile().getName();
+					String o1_order = o1_name.substring(1,o1_name.length()-4);
+					String o2_order = o2_name.substring(1,o2_name.length()-4);
+					return Integer.parseInt(o1_order) - Integer.parseInt(o2_order);
 				}
 			});
 			Stream<Path> p = Files.list(parent);

@@ -19,8 +19,6 @@ public class Test {
 		
 		FSFactory fs = new FSFactory("/Users/zhangerqiang/Desktop/temp");
 
-		//write(fs);
-		
 		System.out.println(System.currentTimeMillis());
 		IndexSearch search = new IndexSearch(fs);
 		List<Term> terms1 = search.search("数据库");
@@ -41,7 +39,7 @@ public class Test {
 	
 	//打印字节
 	public static void read() throws IOException{
-		Path path = Paths.get("/Users/kyrin/Desktop/temp", "_0.idx");
+		Path path = Paths.get("/Users/zhangerqiang/Desktop/temp", "_0.idx");
 		byte[] all = Files.readAllBytes(path);
 		for(byte b :all){
 			System.out.println(b);

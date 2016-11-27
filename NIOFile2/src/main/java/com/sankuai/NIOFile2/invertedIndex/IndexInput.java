@@ -30,7 +30,7 @@ public class IndexInput {
 		}
 		
 		int idxCount = head.getInt();//获取索引的数量
-		
+
 		if(idxCount == 0){
 			return null;
 		}
@@ -45,7 +45,12 @@ public class IndexInput {
 			if(id!=null){
 				ids.addAll(id);
 			}
+			idxHead.clear();
+			body.clear();
 		}
+		
+		head.clear();
+		
 		return ids;
 	}
 	
@@ -62,6 +67,16 @@ public class IndexInput {
 			}
 		}
 		return ids;
+	}
+	
+	public void close(){
+		if(channel!=null){
+			try {
+				channel.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

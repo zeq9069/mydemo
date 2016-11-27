@@ -29,9 +29,11 @@ public class IndexSearch {
 		for(Path path : idxFiles){
 			IndexInput idxInput = new IndexInput(Files.newByteChannel(path,StandardOpenOption.READ));
 			List<Integer> ids = idxInput.search(word);
+			idxInput.close();
 			String name = path.toFile().getName();
 			TermInput termInput = new TermInput(Files.newByteChannel(path.getParent().resolve(name.substring(0,name.length()-4)+".doc"),StandardOpenOption.READ));
 			List<Term> ts = termInput.search(ids);
+			termInput.close();
 			terms.addAll(ts);
 		}
 		return terms;

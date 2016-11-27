@@ -44,13 +44,25 @@ public class TermInput {
 				ByteBuffer text = ByteBuffer.allocate(termLen);
 				channel.read(text);
 				text.flip();
-				System.out.println(new String(text.array()));
 				terms.add(new Term(new String(text.array()), termId));
+				text.clear();
 			}else{
 				channel.position(channel.position()+termLen);
 			}
+			len.clear();
 		}
+		header.clear();
 		return terms;
+	}
+	
+	public void close(){
+		if(channel != null){
+			try {
+				channel.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

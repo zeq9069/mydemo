@@ -35,6 +35,7 @@ public class TermOutput {
 			termBuffer.put(term.getText().getBytes());
 			Files.write(path, termBuffer.array(), StandardOpenOption.APPEND);
 			isCreate=false;
+			termBuffer.clear();
 		}else{
 			FileChannel channel = FileChannel.open(path, EnumSet.of(StandardOpenOption.READ,StandardOpenOption.WRITE));
 			ByteBuffer head = ByteBuffer.allocate(8);
@@ -57,6 +58,10 @@ public class TermOutput {
 			termBuffer.putInt(term.getId());
 			termBuffer.put(term.getText().getBytes());
 			Files.write(path, termBuffer.array(), StandardOpenOption.APPEND);
+			
+			channel.close();
+			head.clear();
+			countByte.clear();
 		}
 	}
 	
