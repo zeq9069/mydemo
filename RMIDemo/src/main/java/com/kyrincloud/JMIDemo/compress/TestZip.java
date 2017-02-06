@@ -1,4 +1,4 @@
-package com.sankuai.meituan.canyin.risk.virbius;
+package com.kyrincloud.JMIDemo.compress;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,6 +9,12 @@ import java.util.zip.GZIPOutputStream;
 
 import com.google.common.base.Stopwatch;
 
+/**
+ * gzip 解/压缩算法
+ * 
+ * @author kyrin
+ *
+ */
 public class TestZip {
 	
     private TestZip() {
