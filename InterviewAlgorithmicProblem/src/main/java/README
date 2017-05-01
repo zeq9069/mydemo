@@ -1,0 +1,15 @@
+面试中遇到的一些算法题目：
+
+com.kyrincloud.interview.algorithmic ： 存放一些算法实现的实现，（比如：最大堆排序，二分查找，冒泡排序，快速排序，归并排序）
+
+com.kyrincloud.interview.threads     ： 存放面试过程中遇到的一些线程相关的笔试题目，一般伴随着锁（ReetrantLock,CountDownLatch,Semaphore，CycleBarrier,lockSupper,AbstractQueueSychronized等）
+										的实现（比如：奇数偶数顺序打印，生产者-消费者实现）
+com.kyrincloud.interview.other		 : 存放一些其他类型的面试题（switch优化，火车售票，string float 转换 float）
+
+com.kyrincloud.interview.test		 : 此包存放一些平时联系的一些类，无实际意义
+
+题目：100亿URL找出出现次数最多的URL
+解析：对于这种没法一次性将全部数据加载到内存的，需要采用分而治之的思想去处理，那如分割文件才能将相同的URL都分到一个文件中呢？
+	那就通过hashcode去分割，某一范围的hashcode的url分到同一个文件，最终生成N份文件，这样对每个小文件进行map奇数统计，然后再比较N份文件map之后的最大的URL即可，
+	每份小文件如果数据量很多可以采用“最大堆排序”，不是很多可以采用快速排序
+	
