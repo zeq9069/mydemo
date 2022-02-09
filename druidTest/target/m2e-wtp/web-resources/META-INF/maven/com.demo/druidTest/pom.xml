@@ -11,7 +11,7 @@
 	<properties>
 		<spring.version>4.2.3.RELEASE</spring.version>
 		<cglib.version>3.2.0</cglib.version>
-		<hibernate.version>5.0.3.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<mysql.version>5.1.37</mysql.version>
 		<druid.version>1.0.16</druid.version>
 	</properties>
