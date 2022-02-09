@@ -22,7 +22,7 @@
 		<java.version>1.8</java.version>
 		<shiro-version>1.2.4</shiro-version>
 		<postgresql.version>9.4-1201-jdbc41</postgresql.version><!--9.4-1205-jdbc41  以上的高版本存在 bug，在自定义数组类型转换的时候 -->
-		<shiro.version>1.2.4</shiro.version>
+		<shiro.version>1.7.1</shiro.version>
 	</properties>
 
 
